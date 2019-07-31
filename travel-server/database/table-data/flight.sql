@@ -70,3 +70,34 @@ London Southend - Amsterdam - Flybe (operated by Stobart Air) - BE6034
 
 2018/10/21 - 19:20 - 19:35
 Amsterdam - Bristol - EasyJet - EZY616
+
+2019/06/22 - 09:25 - 11:50
+London Stansted - Porto - RyanAir - FR8343
+
+2019/06/25 - 21:20 - 23:20
+Porto - Bristol - EasyJet - U26148
+
+2019/07/21 - 08:40 - 12:30
+Exeter - Naples - RyanAir - FR3546
+
+2019/07/26 - 21:35 - 23:45
+Palermo - London Stansted - RyanAir - FR3919
+
+
+
+_________ PLANNED: _________
+
+2019/08/09 - 16:15 - 18:35
+Bristol - Amsterdam - EasyJet - U26167
+
+2019/08/11 - 21:30 - 21:45
+Groningen - London Southend - Flybe - BE6035
+
+2019/08/18 - 17:15 - 00:55
+London Luton - Kutaisi - WizzAir - W96424
+
+2019/09/09 - 04:10 - 08:40
+  04:10 - 07:00
+  Baku - Riga - AirBaltic - BT733
+  21:10 - 22:15
+  Riga - London Gatwick - AirBaltic - BT651
