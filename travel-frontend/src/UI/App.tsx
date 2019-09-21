@@ -1,13 +1,15 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import Slider from 'react-slick';
+import emitter from '../store/emit';
 
-const settings = {
-  dots: true,
-  infinite: false,
-  arrows: false,
-  swipeToSlide: true
-};
+// models
+import Flight from '../models/flight';
+import Airport from '../models/airport';
+
+// UI content
+import FlightContent from './flight-content';
+import AirportContent from './airport-content';
+import StatsContent from './main-screen';
 
 const FloatingBottomDrawer = css`
   position: absolute;
@@ -18,6 +20,7 @@ const FloatingBottomDrawer = css`
 
 const Drawer = styled.div`
   ${FloatingBottomDrawer}
+
   height: 33%;
   z-index: 2;
   background-color: #003f5c;
@@ -25,6 +28,8 @@ const Drawer = styled.div`
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50);
   border-radius: 6px;
   padding: 15px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 
   .slick-dots {
     margin-bottom: 20px;
@@ -35,50 +40,51 @@ const Drawer = styled.div`
   }
 `;
 
-const Title = styled.h1`
-  text-align: center;
-  margin: 0;
-  font-size: 30px;
-`
+interface ComponentState {
+  selected: null | Airport | Flight;
+}
 
-const Card = styled.div`
-  text-align: center;
-  margin: 0
-`;
+class App extends React.Component<{}, ComponentState> {
 
-const CardMainInfo = styled.p`
-  font-size: 50px;
-  color: #ffa600;
-  margin: 0;
-`
+  public state: ComponentState = {
+    selected: null
+  }
 
-const CardText = styled.p`
-  font-size: 22px;
-  color: lightgray;
-  margin: 0;
-`;
+  public componentDidMount(): void {
+    emitter.on('setFlightSelected', this.handleFlightSelected);
+    emitter.on('setFlightDeselected', this.handleFlightDeselected);
+  }
 
-function App() {
-  return (
-    <Drawer>
-      <Title>My Flight Stats</Title>
-      <Slider {...settings}>
-        <Card>
-          <CardMainInfo>18</CardMainInfo>
-          <CardText>Unique airports visited</CardText>
-        </Card>
-        <Card>
-          <CardMainInfo>12.000 KM</CardMainInfo>
-          <CardText>Travelled on planes</CardText>
-        </Card>
+  public componentWillUnmount(): void {
+    emitter.removeListener('setFlightSelected', this.handleFlightSelected);
+    emitter.removeListener('setFlightDeselected', this.handleFlightDeselected);
+  }
 
-        <Card>
-          <CardMainInfo>Amsterdam Schiphol</CardMainInfo>
-          <CardText>Most visited Airport</CardText>
-        </Card>
-      </Slider>
-    </Drawer>
-  );
+  private handleFlightSelected = (flight: Flight): void => {
+    this.setState({selected: flight})
+  }
+
+  private handleFlightDeselected = (): void => {
+    this.setState({selected: null})
+  }
+
+  public render(): any {
+    return (
+      <Drawer>
+        {Flight.isFlight(this.state.selected) &&
+          <FlightContent flight={this.state.selected as Flight}/>
+        }
+
+        {Airport.isAirport(this.state.selected) &&
+          <AirportContent/>
+        }
+
+        {this.state.selected === null && 
+          <StatsContent/>
+        }
+      </Drawer>
+    );
+  }
 }
 
 export default App;

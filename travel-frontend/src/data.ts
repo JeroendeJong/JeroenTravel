@@ -20,16 +20,9 @@ function dataSetup(map: mapboxgl.Map) {
       "line-cap": "round"
     },
     paint: {
-      "line-color": [
-        "case", ["boolean", ["feature-state", "hover"],  false ],
-        'green',
-        '#003f5c'
-      ],
-      "line-width": [
-        "case", ["boolean", ["feature-state", "hover"],  false ],
-        8,
-        4
-      ]
+      "line-color": 'green',
+      "line-opacity": 0.3,
+      "line-width": 1
     }
   });
 }

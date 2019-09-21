@@ -1,8 +1,4 @@
-
-interface Flight {
-
-}
-
+import Flight from "../models/flight";
 
 interface StoreType {
   state: {
@@ -10,34 +6,21 @@ interface StoreType {
   }
 }
 
-const Store: StoreType = {
-
+const StorageObject: StoreType = {
   state: {
     selected: null
   }
-
 }
 
-
-
-
-
-const handleStoreUpdate = (type: string, payload: any) => {
-
-
-
+export const handleStoreUpdate = (type: string, payload: any): any => {
   switch (type) {
-
-
-
     case 'setFlightSelected': {
-      interface A { flight: null | Flight };
+      type A = Flight | null;
       const data = payload as A;
-      Store.state.selected = data.flight;
+      StorageObject.state.selected = data;
+      return StorageObject;
     }
-
   }
-
-
-
 }
+
+export default StorageObject;
