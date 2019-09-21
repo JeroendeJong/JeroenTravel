@@ -4,6 +4,7 @@ import dataSetup from './data';
 import App from './UI/App';
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 
 
 mapboxgl.accessToken = 'pk.eyJ1IjoieTBneiIsImEiOiJjaW9scWxsNzIwMDMxdzVtNm56MHhweGdjIn0.XrmaYtqwrszezXe9y-gBuw';
@@ -23,6 +24,16 @@ map.on('style.load', function () {
   dataSetup(map);
 });
 
+const theme = {
+  color: {
+    highlight: '#ffa600',
+    secondaryBase: '#003f5c',
+    primaryBase: '#dd9000'
+  },
+}
+
 ReactDOM.render((
-  <App/>
+  <ThemeProvider theme={theme}>
+    <App/>
+  </ThemeProvider>
 ), document.getElementById('root'));

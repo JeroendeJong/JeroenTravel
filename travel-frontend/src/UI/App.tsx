@@ -9,19 +9,27 @@ import Airport from '../models/airport';
 // UI content
 import FlightContent from './flight-content';
 import AirportContent from './airport-content';
-import StatsContent from './main-screen';
+import MainScreen from './main-screen';
 
 const FloatingBottomDrawer = css`
   position: absolute;
   left: 10px;
   right: 10px;
   bottom: 10px;
-`
+
+  @media only screen and (min-width: 700px) {
+    top: 10px;
+    width: 350px;
+  }
+
+  @media only screen and (max-width: 700px) {
+    height: 33%;
+  }
+`;
 
 const Drawer = styled.div`
   ${FloatingBottomDrawer}
 
-  height: 33%;
   z-index: 2;
   background-color: #003f5c;
   color: white;
@@ -30,14 +38,6 @@ const Drawer = styled.div`
   padding: 15px;
   padding-bottom: 10px;
   padding-top: 10px;
-
-  .slick-dots {
-    margin-bottom: 20px;
-  }
-
-  .slick-dots li.slick-active button:before {
-    color: white !important
-  }
 `;
 
 interface ComponentState {
@@ -71,16 +71,16 @@ class App extends React.Component<{}, ComponentState> {
   public render(): any {
     return (
       <Drawer>
+        {this.state.selected === null && 
+          <MainScreen/>
+        }
+
         {Flight.isFlight(this.state.selected) &&
           <FlightContent flight={this.state.selected as Flight}/>
         }
 
         {Airport.isAirport(this.state.selected) &&
           <AirportContent/>
-        }
-
-        {this.state.selected === null && 
-          <StatsContent/>
         }
       </Drawer>
     );
