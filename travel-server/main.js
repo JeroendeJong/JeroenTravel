@@ -3,7 +3,9 @@ require('dotenv').config();
 
 const express = require('express');
 const FlightsListController = require('./src/controllers/flight-list');
+const AirportsListController = require('./src/controllers/airport-list');
 const FlightsStatisticsController = require('./src/controllers/flight-stats');
+
 
 
 const PORT = 8080;
@@ -27,10 +29,10 @@ app.get('/flights/list', async (req, res) => {
   res.send(JSON.stringify(data));
 })
 
-app.get('/flights/details/:id', (req, res) => {
-  // 
-  // TODO: get specific details of 1 flight
-  // 
+app.get('/airports/list/', async (req, res) => {
+  const data = await AirportsListController();
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(data));
 });
 
 
