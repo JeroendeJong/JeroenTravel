@@ -1,4 +1,3 @@
-const flights = require('../store/flights-store');
 const {arcify} = require('../utils');
 const { Client } = require('pg');
 
@@ -17,7 +16,8 @@ const sql = `
     (select st_asGeoJson(geom) from airport where id = airport_arrival_link_id) as arrival_geom,
     
     (select name from flight_operator where id = operator_link_id) as operator_name,
-    code
+    code,
+    'flight' as type
   from flight
 `;
 
