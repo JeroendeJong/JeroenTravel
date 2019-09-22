@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 
 const sql = `
-select type, name, municipality, iata_code, home_link, ST_asGeoJSON(geom) as geom from (
+select id, type as airport_type, name, municipality, iata_code, home_link, ST_asGeoJSON(geom) as geom, 'airport' as type from (
 	select airport_departure_link_id as airport_link_id from flight
 	union
 	select airport_arrival_link_id as airport_link_id from flight
@@ -22,7 +22,7 @@ const get = async () => {
 
     return {
       type: 'Feature', 
-      id: row.iata_code,
+      id: row.id,
       properties: row,
       geometry
     };

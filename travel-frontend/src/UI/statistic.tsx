@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Icon from '../evil-icon';
+
 export interface BaseStatistic<T> {
   id: string,
   name: string,
@@ -37,27 +39,22 @@ const CardText = styled.p`
   font-size: 14px;
   color: lightgray;
   margin: 0;
+  margin-right: 20px;
 `;
 
-const CardMoreContentText = styled.p`
-  font-size: 14px;
-  color: lightgray;
-  margin: 0;
+const CardMoreContent = styled(Card)`
+  justify-content: start;
+  border-bottom: 0px;
+`;
+
+const CardMoreContentText = styled(CardText)`
   margin-left: 20px;
-`
+`;
 
-const CardMoreContentInfo = styled.div`
+const CardMoreContentInfo = styled(CardMainInfo)`
   font-size: 14px;
-  color: #ffa600;
-  margin: 0;
-
-  text-align: end;
-
-
-  /* NOTE ONLY do this when dropdown is being used. */
-  flex-grow: 2;
-  margin-right: 5px;
-`
+  flex-grow: 0;
+`;
 
 interface Props {
   data: BaseStatistic<Count | RangeKeyValuePair>
@@ -84,10 +81,10 @@ class Statistic extends React.Component<Props, State>  {
 
     return data.slice(1, 5).map((val, idx) => {
       return (
-        <Card>
+        <CardMoreContent key={val.value}>
           <CardMoreContentText>{idx + 2}.</CardMoreContentText>
           <CardMoreContentInfo>{val.value}</CardMoreContentInfo>
-        </Card>
+        </CardMoreContent>
       )
     })
   }
@@ -99,6 +96,12 @@ class Statistic extends React.Component<Props, State>  {
       return (
         <>
           <Card onClick={this.handleDropdown}>
+            {this.state.dropdownActive &&
+              <Icon id={'ei-chevron-up-icon'}/>
+            }
+            {!this.state.dropdownActive &&
+              <Icon id={'ei-chevron-down-icon'}/>
+            }
             <CardText>{data.name}</CardText>
             <CardMainInfo>{data.data[0].value}</CardMainInfo>
           </Card>

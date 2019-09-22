@@ -2,9 +2,10 @@
 class Airport {
   data: any;
 
-  static isAirport(potentialFlight: any): boolean {
-    // TO be implemented 
-
+  static isAirport(potentialAirport: any): boolean {
+    if (!potentialAirport) return false;
+    if (typeof potentialAirport !== 'object') return false;
+    if (potentialAirport.type === 'airport') return true;
     return false;
   }
 
