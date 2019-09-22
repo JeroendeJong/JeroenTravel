@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import emitter from '../store/emit';
+import emitter, { setFlightData, setAirportData } from '../store/emit';
 
 // models
 import Flight from '../models/flight';
@@ -10,6 +10,8 @@ import Airport from '../models/airport';
 import FlightContent from './flight-content';
 import AirportContent from './airport-content';
 import MainScreen from './main-screen';
+import map from '../map';
+import { MOBILE_BREAKPOINT } from '../mobile';
 
 const FloatingBottomDrawer = css`
   position: absolute;
@@ -17,12 +19,12 @@ const FloatingBottomDrawer = css`
   right: 10px;
   bottom: 10px;
 
-  @media only screen and (min-width: 700px) {
+  @media only screen and (min-width: ${MOBILE_BREAKPOINT}px) {
     top: 10px;
     width: 350px;
   }
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     height: 33%;
   }
 `;
@@ -36,8 +38,6 @@ const Drawer = styled.div`
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50);
   border-radius: 6px;
   padding: 15px;
-  padding-bottom: 10px;
-  padding-top: 10px;
 `;
 
 interface ComponentState {
@@ -51,21 +51,30 @@ class App extends React.Component<{}, ComponentState> {
   }
 
   public componentDidMount(): void {
-    emitter.on('setFlightSelected', this.handleFlightSelected);
-    emitter.on('setFlightDeselected', this.handleFlightDeselected);
+    emitter.on('setGeometrySelected', this.handleFlightSelected);
+
+    fetch('http://localhost:8080/flights/list')
+      .then(resp => resp.json())
+      .then(json => {
+        setFlightData(json);
+        map.setFlightLayer(json);
+      });
+
+    fetch('http://localhost:8080/airports/list')
+      .then(resp => resp.json())
+      .then(json => {
+        setAirportData(json);
+        map.setAirportLayer(json);
+        console.log(json);
+      });
   }
 
   public componentWillUnmount(): void {
-    emitter.removeListener('setFlightSelected', this.handleFlightSelected);
-    emitter.removeListener('setFlightDeselected', this.handleFlightDeselected);
+    emitter.removeListener('setGeometrySelected', this.handleFlightSelected);
   }
 
-  private handleFlightSelected = (flight: Flight): void => {
-    this.setState({selected: flight})
-  }
-
-  private handleFlightDeselected = (): void => {
-    this.setState({selected: null})
+  private handleFlightSelected = (flightOrAirport: Flight | Airport | null): void => {
+    this.setState({selected: flightOrAirport})
   }
 
   public render(): any {
