@@ -1,6 +1,7 @@
 
 class Airport {
   data: any;
+  type: string;
 
   static isAirport(potentialAirport: any): boolean {
     if (!potentialAirport) return false;
@@ -11,6 +12,7 @@ class Airport {
 
   constructor(feature: any) {
     this.data = feature;
+    this.type = feature.type;
   }
 
 }

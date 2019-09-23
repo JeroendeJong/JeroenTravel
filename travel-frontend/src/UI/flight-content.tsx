@@ -49,7 +49,6 @@ const HorizontalSeperationLine = styled.p`
 `;
 
 const FlightContent: React.SFC<ComponentProps> = ({flight}: ComponentProps) => {
-  console.log(flight);
   return (
     <ContentContainer> 
       <FlightAirportNames>

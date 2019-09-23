@@ -1,7 +1,7 @@
 
 class Flight {
   data: any;
-  type: any;
+  type: string;
 
   static isFlight(potentialFlight: any): boolean {
     if (!potentialFlight) return false;

@@ -4,21 +4,19 @@ import { getCurrentStoreSnapshot } from './store/store';
 import { isMobile } from './mobile';
 import styled from 'styled-components';
 import { setGeometrySelected } from './store/emit';
+import Airport from './models/airport';
 
 
 const ActionStyle = styled.div`
-
   :hover {
     cursor: pointer;
   }
-
-`
+`;
 
 const withAirportAction = (WrappedComponent: any) => {
   return class extends React.Component<any> {
     private handleClick = () => {
       const store = getCurrentStoreSnapshot();
-
 
       const json: any = store.data && store.data.airports;
       if (json) {
@@ -29,12 +27,15 @@ const withAirportAction = (WrappedComponent: any) => {
           const airportFeature = clickedAirport[0];
 
           if (isMobile()) {
-            map!.map!.easeTo({center: airportFeature.geometry.coordinates, offset: [0, -100]});
+            map!.map!.easeTo({center: airportFeature.geometry.coordinates, offset: [0, -100], zoom: 8});
           } else {
             map!.map!.easeTo({center: airportFeature.geometry.coordinates, offset: [150, 0]});
           }
+          
+          const cls = new Airport(airportFeature.properties);
+          setGeometrySelected(cls);
 
-          setGeometrySelected(airportFeature.properties)
+          map.setGeometryExclusivityFilter(cls);
         }
       }
     }
