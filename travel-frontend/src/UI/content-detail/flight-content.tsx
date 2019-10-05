@@ -1,6 +1,7 @@
 import React from 'react';
-import Flight from '../models/flight';
+import Flight from '../../models/flight';
 import styled from 'styled-components';
+import { BottomAnchor, HorizontalSeperationLine, OtherDetails, OtherDetailItem } from './common';
 
 
 interface ComponentProps {
@@ -20,32 +21,7 @@ const FlightAirportNames = styled.p`
 
 const FlightAirportName = styled.span`
   font-size: 30px;
-  color: #ffa600;
-`;
-
-const FlightOtherDetails = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  margin-left: 10px;
-  margin-right: 10px;
-`;
-
-const BottomAnchor = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  margin-bottom: 10px;
-`;
-
-const FlightOtherDetailItem = styled.span`
-  color: lightgray;
-`;
-
-const HorizontalSeperationLine = styled.p`
-  width: 100%;
-  height: 1px;
-  background-color: gray;
+  color: ${p => p.theme.color.primary};
 `;
 
 const FlightContent: React.SFC<ComponentProps> = ({flight}: ComponentProps) => {
@@ -60,20 +36,17 @@ const FlightContent: React.SFC<ComponentProps> = ({flight}: ComponentProps) => {
         </FlightAirportName>
       </FlightAirportNames>
 
-
-
       <BottomAnchor>
         <HorizontalSeperationLine/>
-        <FlightOtherDetails>
-          <FlightOtherDetailItem>
+        <OtherDetails>
+          <OtherDetailItem>
             {flight.data.code}
-          </FlightOtherDetailItem>
-          <FlightOtherDetailItem>
+          </OtherDetailItem>
+          <OtherDetailItem>
             {flight.data.operator_name}
-          </FlightOtherDetailItem>
-        </FlightOtherDetails>
+          </OtherDetailItem>
+        </OtherDetails>
       </BottomAnchor>
-
 
     </ContentContainer>
   )

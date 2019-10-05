@@ -3,11 +3,7 @@ import { getCurrentStoreSnapshot } from "../store/store";
 import styled from 'styled-components';
 import withFlightAction from '../with-flight-action';
 
-const TableContainer = styled.table`
-  width: 100%;
-`;
-
-const FlightContainer = styled.tr`
+const FlightContainer = styled.div`
   align-items: center;
 
   padding: 10px;
@@ -15,16 +11,19 @@ const FlightContainer = styled.tr`
   margin-right: 5px;
   margin-bottom: 10px;
   margin-top: 5px;
+
+  display: flex;
+  justify-content: space-between;
 `;
 
-const AirportCode = styled.th`
+const AirportCode = styled.span`
   font-size: 20px;
-  color: white;
+  color: ${p => p.theme.color.white};
 `;
 
-const OperatorCode = styled.th`
+const OperatorCode = styled.span`
   font-size: 14px;
-  color: ${p => p.theme.color.primaryBase};
+  color: ${p => p.theme.color.primary};
 
   :hover {
     cursor: pointer;
@@ -43,17 +42,19 @@ const FlightsList = (props: any) => {
     const data = flight.properties;
     return (
       <FlightContainer key={flight.id}>
-        <AirportCode>{data.departure_iata_code}</AirportCode>
+        <div style={{display: 'grid'}}>
+          <AirportCode>{data.departure_iata_code}</AirportCode>
+          <AirportCode>{data.arrival_iata_code}</AirportCode>
+        </div>
         <ClickableCode id={flight.id}>{data.code}</ClickableCode>
-        <AirportCode>{data.arrival_iata_code}</AirportCode>
       </FlightContainer>
     )
   });
 
   return (
-    <TableContainer>
-      <tbody>{rows}</tbody>
-    </TableContainer>
+    <div>
+      {rows}
+    </div>
   )
 
 }

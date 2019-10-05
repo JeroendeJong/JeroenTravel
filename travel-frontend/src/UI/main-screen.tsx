@@ -4,6 +4,8 @@ import Statistic, { BaseStatistic } from './statistic';
 import { PrimaryButton } from './buttons';
 import FlightsList from './flights-list';
 import AirportList from './airports-list';
+import { opacify } from 'polished';
+import {getStatisticsURL} from '../constants';
 
 const ScrollableView = styled.div`
   overflow-y: scroll;
@@ -29,13 +31,21 @@ const FullWidthContainer = styled.div`
 
   margin-bottom: 5px;
 
-  border-bottom: 1px solid gray;
+  border-bottom: ${p => opacify(0.9, p.theme.color.primary)}
   padding-bottom: 10px;
 `;
 
 const TopLevelNavigationButton = styled(PrimaryButton)`
   width: 45%;
   min-width: 80px;
+
+
+  ${(p: any) => {
+    if (p.active) return `
+      background-color: ${p.theme.color.highlight};
+    `;
+    return '';
+  }}
 `;
 
 interface State {
@@ -59,7 +69,7 @@ class MainScreen extends React.Component<any, State> {
   }
 
   public async componentDidMount() {
-    const stats = await fetch('http://localhost:8080/flights/stats')
+    const stats = await fetch(getStatisticsURL())
       .then(resp => resp.json())
 
     this.setState({stats});
@@ -81,9 +91,21 @@ class MainScreen extends React.Component<any, State> {
     return (
       <>
         <FullWidthContainer>
-          <TopLevelNavigationButton text={'Statistics'} onClick={this.handleStatsClick}/>
-          <TopLevelNavigationButton text={'Flights'} onClick={this.handleFlightListClick}/>
-          <TopLevelNavigationButton text={'Airports'} onClick={this.handleAirportListClick}/>
+          <TopLevelNavigationButton 
+            text={'Statistics'} 
+            active={this.state.screenType === ScreenTypes.Stats} 
+            onClick={this.handleStatsClick}
+          />
+          <TopLevelNavigationButton 
+            text={'Flights'} 
+            active={this.state.screenType === ScreenTypes.FlightList} 
+            onClick={this.handleFlightListClick}
+          />
+          <TopLevelNavigationButton 
+            text={'Airports'} 
+            active={this.state.screenType === ScreenTypes.AirportList} 
+            onClick={this.handleAirportListClick}
+          />
         </FullWidthContainer>
           {this.state.screenType === ScreenTypes.Stats &&
             <ScrollableView 

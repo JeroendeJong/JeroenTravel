@@ -6,9 +6,9 @@ import withAirportAction from '../with-airport-action';
 const Container = styled.div`
   margin: 10px;
   margin-left: 20px;
-
-  ;hover {
-    color: ${p => p.theme.color.primaryBase};
+  color: ${p => p.theme.color.white};
+  :hover {
+    color: ${p => p.theme.color.primary};
   }
 `;
 

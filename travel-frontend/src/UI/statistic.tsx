@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Icon from '../evil-icon';
+import { rgba } from 'polished';
 
 export interface BaseStatistic<T> {
   id: string,
@@ -19,12 +20,12 @@ const Card = styled.div`
   align-items: center;
   margin: 15px;
 
-  border-bottom: 1px solid #32657c;
+  border-bottom: 1px solid ${p => rgba(p.theme.color.primary, 0.2)}
 `;
 
 const CardMainInfo = styled.p`
   font-size: 20px;
-  color: #ffa600;
+  color: ${p => p.theme.color.primary};
   margin: 0;
 
   text-align: end;
@@ -37,7 +38,7 @@ const CardMainInfo = styled.p`
 
 const CardText = styled.p`
   font-size: 14px;
-  color: lightgray;
+  color: ${p => p.theme.color.black};
   margin: 0;
   margin-right: 20px;
 `;
@@ -95,12 +96,12 @@ class Statistic extends React.Component<Props, State>  {
     if (typeof data.data === 'object') {
       return (
         <>
-          <Card onClick={this.handleDropdown}>
+          <Card>
             {this.state.dropdownActive &&
-              <Icon id={'ei-chevron-up-icon'}/>
+              <Icon id={'ei-chevron-up-icon'} onClick={this.handleDropdown}/>
             }
             {!this.state.dropdownActive &&
-              <Icon id={'ei-chevron-down-icon'}/>
+              <Icon id={'ei-chevron-down-icon'} onClick={this.handleDropdown}/>
             }
             <CardText>{data.name}</CardText>
             <CardMainInfo>{data.data[0].value}</CardMainInfo>
