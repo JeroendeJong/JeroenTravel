@@ -9,15 +9,30 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieTBneiIsImEiOiJjaW9scWxsNzIwMDMxdzVtNm56MHhwe
 class Map {
   public map: mapboxgl.Map | null = null;
   private selected: { type: string; id: any; } | null = null;
+  private dataQueue: {flights?: any, airports?: any} = {};
+  private loaded: boolean = false;
 
   public create() {
     const map = new mapboxgl.Map({
-      container: 'map', // container id
-      style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
-      center: [-74.50, 40], // starting position [lng, lat]
-      zoom: 9, // starting zoom
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v10',
+      center: [1.44, 45.77],
+      zoom: 3.5,
       hash: true
     });
+
+    map.on('styledata', () => {
+      this.loaded = true;
+      if (this.dataQueue) {
+        const flightSource = this.map!.getSource(FLIGHTS_DATA_SOURCE_ID);
+        const flightData = this.dataQueue.flights;
+        if (flightData && !flightSource) this.setFlightLayer(flightData);
+
+        const airportSource = this.map!.getSource(AIRPORTS_DATA_SOURCE_ID);
+        const airportData = this.dataQueue.airports;
+        if (airportData && !airportSource) this.setAirportLayer(airportData);
+      }
+    })
 
     this.map = map;
     (window as any).map = map;
@@ -51,8 +66,6 @@ class Map {
 
   private handleAirportExclusivity(airport: Airport) {
     const id = airport!.data.id;
-    // this.map!.setFeatureState({id, source: AIRPORTS_DATA_SOURCE_ID}, {selected: true});
-    console.log(id);
     this.map!.setFilter(AIRPORTS_DATA_ID, ['==', ['get', 'id'], id]);
     this.map!.setFilter(AIRPORTS_DATA_ID + '2', ['==', ['get', 'id'], id]);
     
@@ -84,6 +97,11 @@ class Map {
   }
 
   public setFlightLayer(data: any) {
+    if (!this.loaded) {
+      this.dataQueue.flights = data;
+      return;
+    }
+
     this.map!.addSource(FLIGHTS_DATA_SOURCE_ID, {
       type: 'geojson',
       data: data as any
@@ -106,6 +124,11 @@ class Map {
   }
 
   public setAirportLayer(data: any) {
+    if (!this.loaded) {
+      this.dataQueue.airports = data;
+      return;
+    }
+
     this.map!.addSource(AIRPORTS_DATA_SOURCE_ID, {
       type: 'geojson',
       data: data as any
