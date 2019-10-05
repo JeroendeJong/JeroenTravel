@@ -14,6 +14,8 @@ import map from '../map';
 import { MOBILE_BREAKPOINT } from '../mobile';
 import { rgba } from 'polished';
 
+import {getFlightListURL, getAirportListURL} from '../constants';
+
 const FloatingBottomDrawer = css`
   position: absolute;
   left: 10px;
@@ -58,20 +60,19 @@ class App extends React.Component<{}, ComponentState> {
 
   public componentDidMount(): void {
     emitter.on('setGeometrySelected', this.handleFlightSelected);
-
-    fetch('http://localhost:8080/flights/list')
+    console.log(getFlightListURL());
+    fetch(getFlightListURL())
       .then(resp => resp.json())
       .then(json => {
         setFlightData(json);
         map.setFlightLayer(json);
       });
 
-    fetch('http://localhost:8080/airports/list')
+    fetch(getAirportListURL())
       .then(resp => resp.json())
       .then(json => {
         setAirportData(json);
         map.setAirportLayer(json);
-        console.log(json);
       });
   }
 

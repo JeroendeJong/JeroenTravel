@@ -1,10 +1,27 @@
 import React from 'react';
+import styled from 'styled-components';
+
+
+
+const ClickableSVG = styled.svg`
+  flex: none;
+
+  :hover {
+    cursor: pointer
+  }
+`;
+
 
 const Icon = (props: any) => {
   return (
-    <svg className={`${props.className} icon`} width="0" height="0">
+    <ClickableSVG 
+      onClick={props.onClick} 
+      className={`${props.className} icon`} 
+      width="0" 
+      height="0"
+    >
       <use xlinkHref={`#${props.id}`}/>
-    </svg>
+    </ClickableSVG>
   );
 }
 

@@ -7,8 +7,13 @@ const handleClick = (e: any) => {
   const mapboxMap = e.target;
   const features = mapboxMap.queryRenderedFeatures(e.point);
   
-  if (!features) return;
-  if (features && features.length === 0) return;
+  const reset = () => {
+    setGeometrySelected(null);
+    map.setGeometryExclusivityFilter(null);
+  }
+
+  if (!features) return reset();
+  if (features && features.length === 0) return reset();
 
   const feature = features[0];
 
@@ -22,10 +27,7 @@ const handleClick = (e: any) => {
     setGeometrySelected(airport);
     map.setGeometryExclusivityFilter(airport);
   }
-  else {
-    setGeometrySelected(null);
-    map.setGeometryExclusivityFilter(null);
-  }
+  else return reset();
 };
 
 function interactionsSetup(map: mapboxgl.Map) {
