@@ -1,52 +1,19 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import emitter, { setFlightData, setAirportData } from '../store/emit';
+import emitter, { setFlightData, setAirportData } from '../../store/emit';
 
 // models
-import Flight from '../models/flight';
-import Airport from '../models/airport';
+import Flight from '../../models/flight';
+import Airport from '../../models/airport';
 
 // UI content
 import FlightContent from './content-detail/flight-content';
 import AirportContent from './content-detail/airport-content';
 import MainScreen from './main-screen';
-import map from '../map';
-import { MOBILE_BREAKPOINT } from '../mobile';
-import { rgba } from 'polished';
+import map from '../../map';
 
-import {getFlightListURL, getAirportListURL} from '../constants';
+import {getFlightListURL, getAirportListURL} from '../../constants';
+import Drawer from '../common/drawer';
 
-const FloatingBottomDrawer = css`
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-
-  @media only screen and (min-width: ${MOBILE_BREAKPOINT}px) {
-    top: 10px;
-    width: 350px;
-  }
-
-  @media only screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    height: 33%;
-  }
-`;
-
-const Drawer = styled.div`
-  ${FloatingBottomDrawer}
-
-  z-index: 2;
-  background-color: ${p => p.theme.color.secondary};
-  color: ${p => p.theme.color.white};
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50);
-  border-radius: 6px;
-  padding: 15px;
-
-  @supports (backdrop-filter: blur(10px)) {
-    backdrop-filter: blur(8px);
-    background-color: ${p => rgba(p.theme.color.secondary,0.9)};
-  }
-`;
 
 interface ComponentState {
   selected: null | Airport | Flight;
@@ -60,7 +27,7 @@ class App extends React.Component<{}, ComponentState> {
 
   public componentDidMount(): void {
     emitter.on('setGeometrySelected', this.handleFlightSelected);
-    console.log(getFlightListURL());
+
     fetch(getFlightListURL())
       .then(resp => resp.json())
       .then(json => {

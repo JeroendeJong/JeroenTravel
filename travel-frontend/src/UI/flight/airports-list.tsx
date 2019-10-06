@@ -1,7 +1,7 @@
 import React from 'react';
-import { getCurrentStoreSnapshot } from "../store/store";
+import { getCurrentStoreSnapshot } from "../../store/store";
 import styled from 'styled-components';
-import withAirportAction from '../with-airport-action';
+import withAirportAction from '../../with-airport-action';
 
 const Container = styled.div`
   margin: 10px;

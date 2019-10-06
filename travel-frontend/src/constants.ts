@@ -17,3 +17,17 @@ export const getStatisticsURL = () => {
   if (isDEV) return 'http://localhost:8080/flights/stats';
   return '/cache/stats.json';
 }
+
+export const getTravelTrip = (id: number) => {
+  if (isDEV) return `http://localhost:8080/travel/trip/${id}`;
+  return `/cache/trip/${id}.json`;
+}
+
+export const getTravelTrips = () => {
+  if (isDEV) return `http://localhost:8080/travel/trips`;
+  return `/cache/trips.json`;
+}
+
+export const getImageUrL = (path: string) => {
+  return `https://storage.googleapis.com/www.jeroentravel.com${path}`
+}

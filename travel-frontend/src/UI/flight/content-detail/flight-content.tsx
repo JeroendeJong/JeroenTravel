@@ -1,5 +1,5 @@
 import React from 'react';
-import Flight from '../../models/flight';
+import Flight from '../../../models/flight';
 import styled from 'styled-components';
 import { BottomAnchor, HorizontalSeperationLine, OtherDetails, OtherDetailItem } from './common';
 

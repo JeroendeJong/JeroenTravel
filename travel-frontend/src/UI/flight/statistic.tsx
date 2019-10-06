@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Icon from '../evil-icon';
+import Icon from '../../evil-icon';
 import { rgba } from 'polished';
 
 export interface BaseStatistic<T> {

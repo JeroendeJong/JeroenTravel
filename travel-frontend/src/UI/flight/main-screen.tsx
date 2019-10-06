@@ -5,24 +5,8 @@ import { PrimaryButton } from './buttons';
 import FlightsList from './flights-list';
 import AirportList from './airports-list';
 import { opacify } from 'polished';
-import {getStatisticsURL} from '../constants';
-
-const ScrollableView = styled.div`
-  overflow-y: scroll;
-  height: calc(100% - 35px);
-  border-radius: 6px;
-
-  margin-left: -15px;
-  margin-right: -15px;
-
-  ${p => {
-    if ((p as any)['data-scroll-shadow']) {
-      return `
-        box-shadow: inset 0px 4px 21px -9px rgba(0,0,0,1);
-      `;
-    }
-  }}
-`;
+import {getStatisticsURL} from '../../constants';
+import ScrollableView from '../common/scroll-view';
 
 const FullWidthContainer = styled.div` 
   width: 100%; 
@@ -30,6 +14,7 @@ const FullWidthContainer = styled.div`
   justify-content: space-around;
 
   margin-bottom: 5px;
+  margin-top: 15px;
 
   border-bottom: ${p => opacify(0.9, p.theme.color.primary)}
   padding-bottom: 10px;
@@ -47,6 +32,10 @@ const TopLevelNavigationButton = styled(PrimaryButton)`
     return '';
   }}
 `;
+
+const OffsetScrollableView = styled(ScrollableView)`
+  height: calc(100% - 65px);
+`
 
 interface State {
   stats: BaseStatistic<{}>[],
@@ -108,7 +97,7 @@ class MainScreen extends React.Component<any, State> {
           />
         </FullWidthContainer>
           {this.state.screenType === ScreenTypes.Stats &&
-            <ScrollableView 
+            <OffsetScrollableView 
               data-scroll-shadow={this.state.scrollShadow} 
               onScroll={this.handleScrollChange}
             >
@@ -117,25 +106,25 @@ class MainScreen extends React.Component<any, State> {
                   return <Statistic data={s} key={s.id}/>
                 })
               }
-            </ScrollableView>
+            </OffsetScrollableView>
           }
 
         {this.state.screenType === ScreenTypes.FlightList &&
-          <ScrollableView 
+          <OffsetScrollableView 
             data-scroll-shadow={this.state.scrollShadow} 
             onScroll={this.handleScrollChange}
           >
             <FlightsList/>
-          </ScrollableView>
+          </OffsetScrollableView>
         }
 
         {this.state.screenType === ScreenTypes.AirportList &&
-          <ScrollableView 
+          <OffsetScrollableView 
             data-scroll-shadow={this.state.scrollShadow} 
             onScroll={this.handleScrollChange}
           >
             <AirportList/>
-          </ScrollableView>
+          </OffsetScrollableView>
         }
       </>
     )

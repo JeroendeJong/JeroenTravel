@@ -1,6 +1,6 @@
 import mapboxgl from 'mapbox-gl';
 import interactionsSetup from './interactions';
-import { FLIGHTS_DATA_SOURCE_ID, AIRPORTS_DATA_SOURCE_ID, FLIGHTS_DATA_ID, AIRPORTS_DATA_ID } from './data';
+import { FLIGHTS_DATA_SOURCE_ID, AIRPORTS_DATA_SOURCE_ID, FLIGHTS_DATA_ID, AIRPORTS_DATA_ID, TRAVEL_DATA_SOURCE_ID, TRAVEL_DATA_ID } from './data';
 import Airport from '../models/airport';
 import Flight from '../models/flight';
 
@@ -9,7 +9,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieTBneiIsImEiOiJjaW9scWxsNzIwMDMxdzVtNm56MHhwe
 class Map {
   public map: mapboxgl.Map | null = null;
   private selected: { type: string; id: any; } | null = null;
-  private dataQueue: {flights?: any, airports?: any} = {};
+  private dataQueue: {flights?: any, airports?: any, travel?: any} = {};
   private loaded: boolean = false;
 
   public create() {
@@ -155,6 +155,47 @@ class Map {
       layout: {
         'text-field': ['get', 'name'],
         'text-size': 10,
+      }
+    });
+  }
+
+  public setTravelLayer(data: any) {
+    if (!this.loaded) {
+      this.dataQueue.travel = data;
+      return;
+    }
+
+    this.map!.addSource(TRAVEL_DATA_SOURCE_ID, {
+      type: 'geojson',
+      data: data as any
+    });
+
+    this.map!.addLayer({
+      id: TRAVEL_DATA_ID + '__point',
+      type: "circle",
+      source: TRAVEL_DATA_SOURCE_ID,
+      paint: {
+        'circle-radius': {
+          'base': 2,
+          'stops': [[12, 3], [22, 180]]
+        },
+        'circle-color': '#e55e5e',
+        'circle-opacity': 1,
+      }
+    });
+
+    this.map!.addLayer({
+      id: TRAVEL_DATA_ID + '__line',
+      type: "line",
+      source: TRAVEL_DATA_SOURCE_ID,
+      layout: {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      paint: {
+        "line-color": 'green',
+        "line-opacity": 0.3,
+        "line-width": 1
       }
     });
   }
