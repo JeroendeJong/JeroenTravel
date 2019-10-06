@@ -31,6 +31,27 @@ CREATE TABLE flight (
 );
 
 CREATE TABLE flight_operator (
-    id SERIAL PRIMARY KEY,
-    name text
+  id SERIAL PRIMARY KEY,
+  name text
+);
+
+CREATE TABLE trips (
+  id SERIAL PRIMARY KEY,
+  name text,
+  description text,
+  country_codes text,
+  header_image_url text,
+  active boolean
+);
+
+CREATE TABLE trip_segment (
+  id SERIAL PRIMARY KEY,
+  trip_id integer REFERENCES trips(id),
+  geom geometry,
+  type text,
+  name text,
+  description text,
+  arrival_time timestamp with time zone,
+  departure_time timestamp with time zone,
+  header_image_url text
 );
