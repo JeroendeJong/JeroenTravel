@@ -34,6 +34,10 @@ class App extends React.Component<{}, ComponentState> {
     // emitter.removeListener('setGeometrySelected', this.handleTripSelected);
   }
 
+  private handleDetailClose = () => {
+    this.setState({selected: null});
+  }
+
   private handleTripSelected = (trip: TripOverview): void => {
     this.setState({selected: trip});
   }
@@ -46,7 +50,7 @@ class App extends React.Component<{}, ComponentState> {
         }
 
         {this.state.selected && 
-          <TripDetailPage trip={this.state.selected}/>
+          <TripDetailPage trip={this.state.selected} onClose={this.handleDetailClose}/>
         }
 
       </Drawer>
