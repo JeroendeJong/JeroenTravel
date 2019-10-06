@@ -3,9 +3,11 @@ require('dotenv').config();
 
 const express = require('express');
 const FlightsListController = require('./src/controllers/flight-list');
-const AirportsListController = require('./src/controllers/airport-list');
+const AirportsListController = require('./src/controllers/flight-airport-list');
 const FlightsStatisticsController = require('./src/controllers/flight-stats');
 
+const TravelTripDetailController = require('./src/controllers/travel-trip-detail');
+const TravelTripsController = require('./src/controllers/travel-trips');
 
 
 const PORT = 8080;
@@ -35,12 +37,24 @@ app.get('/airports/list/', async (req, res) => {
   res.send(JSON.stringify(data));
 });
 
-
-
 app.get('/flights/stats', async (req, res) => {
   const stats = await FlightsStatisticsController();
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(stats));
+});
+
+app.get('/travel/trip/:id', async (req, res) => {
+  const {id} = req.params;
+  const tripData = await TravelTripDetailController(id);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(tripData));
+});
+
+
+app.get('/travel/trips', async (req, res) => {
+  const tripData = await TravelTripsController();
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(tripData));
 });
 
 app.listen(PORT);
