@@ -70,7 +70,7 @@ const BottomLine = styled.div`
 
 const BlinkAnim = keyframes`
   from { opacity: 1.0; }
-  to { opacity: 0.2; }
+  to { opacity: 0.4; }
 `
 const RedIcon = styled(Icon)`
   color: red;

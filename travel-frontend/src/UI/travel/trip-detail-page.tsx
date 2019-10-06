@@ -4,6 +4,7 @@ import { getTravelTrip, getImageUrL } from '../../constants';
 import map from '../../map';
 import styled from 'styled-components';
 import ScrollableView from '../common/scroll-view';
+import TravelImage from './image-view';
 
 interface ComponentProps {
   trip: TripOverview;
@@ -13,7 +14,7 @@ interface ComponentState {
   details: any
 }
 
-const TripHeaderImage = styled.img`
+const TripHeaderImage = styled(TravelImage)`
   width: 100%;
   border-radius: 6px;
   height: 200px;
