@@ -39,8 +39,6 @@ class App extends React.Component<{}, ComponentState> {
   }
 
   public render(): any {
-    console.log(this.state.trips);
-
     return (
       <Drawer>
         {this.state.selected === null && 

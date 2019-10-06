@@ -11,6 +11,7 @@ export interface TripOverview {
   country_codes: string;
   header_image_url: string;
   active: boolean;
+  extent: {coordinates: number[]};
 }
 
 

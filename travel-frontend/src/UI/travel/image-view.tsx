@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Icon from '../../evil-icon';
 
-
 interface ComponentProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
@@ -10,7 +9,7 @@ const SpinAnim = keyframes`
   100% {
     transform: rotate(360deg);
   }
-`
+`;
 
 const RotatingIcon = styled(Icon)`
   animation: ${SpinAnim} linear 1s infinite;
@@ -31,7 +30,6 @@ class TravelImage extends React.Component<ComponentProps, any> {
   }
 
   private handleImageLoad = () => {
-    console.log('loadf');
     this.setState({loaded: true});
   }
 

@@ -199,6 +199,12 @@ class Map {
       }
     });
   }
+
+  public clearTravelLayer() {
+    this.map!.removeLayer(TRAVEL_DATA_ID + '__point');
+    this.map!.removeLayer(TRAVEL_DATA_ID + '__line');
+    this.map!.removeSource(TRAVEL_DATA_SOURCE_ID);
+  }
 }
 
 export default new Map();
