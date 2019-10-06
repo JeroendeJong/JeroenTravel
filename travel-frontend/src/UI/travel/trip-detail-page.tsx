@@ -131,13 +131,12 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
           <Icon id="ei-close-o-icon"/>
         </CloseIconContainer>
         <ScrollableView>
-          <TripHeaderImage src={getImageUrL(trip.header_image_url)}/>
+          <TripHeaderImage src={getImageUrL(trip.header_image_url)} alt="Travel Trip Header image"/>
           <MaincontentContainer>
             <TripName>{trip.name}</TripName>
             <TripBody>
               {trip.description}
             </TripBody>
-
             {details.features && details.features.length > 0 && 
               <>
                 <TripTimelineHeaderText>Travel diary</TripTimelineHeaderText>
@@ -146,10 +145,10 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
                     (segment: any) => {
                       const item = segment.properties as TripDetail;
                       return (
-                        <>
+                        <React.Fragment key={item.id}>
                           <TimelineHeader title={item.name}/>
                           <TimelineBody body={item.short_description}/>
-                        </>
+                        </React.Fragment>
                       )
                     })
                   }

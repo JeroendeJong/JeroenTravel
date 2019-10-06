@@ -19,7 +19,7 @@ const TripListScreen = (props: ComponentProps) => {
   }
 
   const triplist = props.trips.map(trip => {
-    if (trip.active) return;
+    if (trip.active) return null;
     return <TripOverviewItem tripOverview={trip} onClick={props.onClick} key={trip.id}/>
   });
 

@@ -21,15 +21,16 @@ const FlightTheme = {
   }
 };
 
-const TravelTheme = {
-  color: {
-    white: '#E6E6E6',
-    black: 'black',
-    highlight: darken(0.1, '#297373'),
-    secondary: '#202030',
-    primary: '#297373'
-  }
-};
+// Maybe later ?
+// const TravelTheme = {
+//   color: {
+//     white: '#E6E6E6',
+//     black: 'black',
+//     highlight: darken(0.1, '#297373'),
+//     secondary: '#202030',
+//     primary: '#297373'
+//   }
+// };
 
 map.create();
   

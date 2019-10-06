@@ -1,10 +1,8 @@
 import React from 'react';
-import emitter from '../../store/emit';
 
 import { getTravelTrips } from '../../constants';
 import Drawer from '../common/drawer';
-import ScrollableView from '../common/scroll-view';
-import TripOverviewItem, { TripOverview } from './trip-overview-item';
+import { TripOverview } from './trip-overview-item';
 import TripDetailPage from './trip-detail-page';
 import TripListScreen from './main-trip-list';
 

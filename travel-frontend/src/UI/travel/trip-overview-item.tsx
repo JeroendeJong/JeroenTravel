@@ -1,7 +1,6 @@
 import React from 'react';
 import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
-import { BooleanLiteral } from '@babel/types';
 import Icon from '../../evil-icon';
 
 export interface TripOverview {
