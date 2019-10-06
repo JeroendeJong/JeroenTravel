@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 
 const sql = `
-  select id, type, name, ST_asGeojson(geom) as geom, description, arrival_time, departure_time, header_image_url
+  select id, type, name, ST_asGeojson(geom) as geom, short_description, long_description, arrival_time, departure_time, header_image_url
   from trip_segment where trip_id = $1
 `;
 

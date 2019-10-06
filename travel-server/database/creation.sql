@@ -41,7 +41,8 @@ CREATE TABLE trips (
   description text,
   country_codes text,
   header_image_url text,
-  active boolean
+  active boolean,
+  extent geometry
 );
 
 CREATE TABLE trip_segment (
@@ -50,8 +51,9 @@ CREATE TABLE trip_segment (
   geom geometry,
   type text,
   name text,
-  description text,
+  long_description text,
   arrival_time timestamp with time zone,
   departure_time timestamp with time zone,
-  header_image_url text
+  header_image_url text,
+  short_description text
 );
