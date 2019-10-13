@@ -18,7 +18,7 @@ class Map {
       style: 'mapbox://styles/mapbox/light-v10',
       center: [1.44, 45.77],
       zoom: 3.5,
-      hash: true
+      hash: false
     });
 
     map.on('styledata', () => {

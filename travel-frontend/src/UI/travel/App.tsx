@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { getTravelTrips } from '../../constants';
 import Drawer from '../common/drawer';
 import { TripOverview } from './trip-overview-item';
@@ -12,6 +11,7 @@ interface ComponentState {
 }
 
 class App extends React.Component<{}, ComponentState> {
+  private targetRef: any = React.createRef();
 
   public state: ComponentState = {
     selected: null,
@@ -19,17 +19,11 @@ class App extends React.Component<{}, ComponentState> {
   }
 
   public componentDidMount(): void {
-    // emitter.on('setGeometrySelected', this.handleTripSelected);
-
     fetch(getTravelTrips())
       .then(resp => resp.json())
       .then(json => {
         this.setState({trips: json})
       });
-  }
-
-  public componentWillUnmount(): void {
-    // emitter.removeListener('setGeometrySelected', this.handleTripSelected);
   }
 
   private handleDetailClose = () => {
@@ -42,7 +36,7 @@ class App extends React.Component<{}, ComponentState> {
 
   public render(): any {
     return (
-      <Drawer>
+      <Drawer ref={this.targetRef}>
         {this.state.selected === null && 
           <TripListScreen trips={this.state.trips} onClick={this.handleTripSelected}/>
         }

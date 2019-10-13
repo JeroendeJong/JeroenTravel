@@ -76,6 +76,12 @@ const CloseIconContainer = styled.div`
   }
 `;
 
+const ScrollableTripContent = styled(ScrollableView)`
+  position: relative;
+  margin-top: -8px;
+  z-index: -1;
+`
+
 class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
 
   public state = {
@@ -130,7 +136,7 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
         <CloseIconContainer onClick={this.props.onClose}>
           <Icon id="ei-close-o-icon"/>
         </CloseIconContainer>
-        <ScrollableView>
+        <ScrollableTripContent>
           <TripHeaderImage src={getImageUrL(trip.header_image_url)} alt="Travel Trip Header image"/>
           <MaincontentContainer>
             <TripName>{trip.name}</TripName>
@@ -156,8 +162,8 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
               </>
             }
           </MaincontentContainer>
-          </ScrollableView>
-        </>
+        </ScrollableTripContent>
+      </>
     )
 
   }

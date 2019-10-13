@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 
 const ScrollableView = styled.div`
   overflow-y: scroll;
@@ -14,4 +15,18 @@ const ScrollableView = styled.div`
   }}
 `;
 
-export default ScrollableView;
+class Scroll extends React.Component<any> {
+  private ref: React.Ref<HTMLDivElement> = React.createRef();
+
+  public render() {
+    return(
+      <ScrollableView {...this.props} ref={this.ref} data-scroll-enabled={true}>
+        {this.props.children}
+      </ScrollableView>
+    )
+  }
+
+}
+
+
+export default Scroll;

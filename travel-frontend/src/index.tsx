@@ -7,6 +7,7 @@ import map from './map';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import TravelApp from './UI/travel/App';
 import FlightApp from './UI/flight/App';
+import AppContainer from './app-container';
 
 // eslint-disable-next-line
 const _ = require('evil-icons/assets/evil-icons');
@@ -35,13 +36,15 @@ const FlightTheme = {
 map.create();
   
 ReactDOM.render((
-  <Router>
-    <ThemeProvider theme={FlightTheme}>
-      <Route exact path="/" component={FlightApp} />
-    </ThemeProvider>
+  <AppContainer>
+     <Router>
+      <ThemeProvider theme={FlightTheme}>
+        <Route exact path="/" component={FlightApp} />
+      </ThemeProvider>
 
-    <ThemeProvider theme={FlightTheme}>
-      <Route path="/travel" component={TravelApp} />
-    </ThemeProvider>
-  </Router>
+      <ThemeProvider theme={FlightTheme}>
+        <Route path="/travel" component={TravelApp} />
+      </ThemeProvider>
+    </Router>
+  </AppContainer>
 ), document.getElementById('root'));

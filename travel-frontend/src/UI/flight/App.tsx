@@ -1,6 +1,5 @@
 import React from 'react';
 import emitter, { setFlightData, setAirportData } from '../../store/emit';
-
 // models
 import Flight from '../../models/flight';
 import Airport from '../../models/airport';
@@ -13,7 +12,6 @@ import map from '../../map';
 
 import {getFlightListURL, getAirportListURL} from '../../constants';
 import Drawer from '../common/drawer';
-
 
 interface ComponentState {
   selected: null | Airport | Flight;

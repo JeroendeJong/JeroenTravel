@@ -35,7 +35,7 @@ const TopLevelNavigationButton = styled(PrimaryButton)`
 
 const OffsetScrollableView = styled(ScrollableView)`
   height: calc(100% - 65px);
-`
+`;
 
 interface State {
   stats: BaseStatistic<{}>[],
