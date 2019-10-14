@@ -1,9 +1,9 @@
 {
   "short_name": "Jeroen Travel",
-  "name": "Jeroen Travel Flight Map",
+  "name": "Jeroen Travel Map",
   "icons": [],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "hsl(185, 9%, 81%)"
 }

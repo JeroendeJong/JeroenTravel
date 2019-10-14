@@ -7,6 +7,8 @@ const Container = styled.div`
 
   margin-bottom: 10px;
   margin-top: 10px;
+
+  cursor: pointer;
 `;
 
 const HeaderPoint = styled.div`
@@ -24,7 +26,7 @@ const HeaderTitle = styled.span`
 
 const TimelineHeader = (props: any) => {
   return (
-    <Container>
+    <Container data-id={props.id}  onClick={props.onClick}>
       <HeaderPoint/>
       <HeaderTitle>
         {props.title}

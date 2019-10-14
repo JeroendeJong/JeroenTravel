@@ -65,7 +65,7 @@ class MainScreen extends React.Component<any, State> {
   }
 
   public handleScrollChange = (e: any) => {
-    if (e.target.scrollTop > 2) {
+    if (e.currentTarget.scrollTop > 2) {
       this.setState({scrollShadow: true});
     } else {
       this.setState({scrollShadow: false});

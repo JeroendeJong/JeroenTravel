@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { setGeometrySelected } from './store/emit';
 import mapboxgl from 'mapbox-gl';
 import Flight from './models/flight';
+import { coordinatesToBounds, centreOnBounds } from './map/utils';
 
 const ActionStyle = styled.div`
   :hover {
@@ -27,26 +28,9 @@ const withFlightAction = (WrappedComponent: any) => {
           const flightFeature = clickedFlight[0];
 
           const extentCoords = flightFeature.properties.extent.coordinates[0];
+          const bounds = coordinatesToBounds(extentCoords);
+          centreOnBounds(bounds);
 
-          const bounds = extentCoords.reduce(function(bounds: any, coord: any) {
-            return bounds.extend(coord);
-          }, new mapboxgl.LngLatBounds(extentCoords[0], extentCoords[0]));
-          
-          if (isMobile()) {
-            map.map!.fitBounds(bounds, {padding: {
-              bottom: 350, 
-              top: 20, 
-              right: 20, 
-              left: 20
-            }});
-          } else {
-            map.map!.fitBounds(bounds, {padding: {
-              bottom: 60, 
-              top: 60, 
-              right: 60, 
-              left: 430
-            }});
-          }
           const cls = new Flight(flightFeature.properties);
           setGeometrySelected(cls);
           map.setGeometryExclusivityFilter(cls);

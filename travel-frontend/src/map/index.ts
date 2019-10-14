@@ -1,8 +1,10 @@
 import mapboxgl from 'mapbox-gl';
 import interactionsSetup from './interactions';
 import { FLIGHTS_DATA_SOURCE_ID, AIRPORTS_DATA_SOURCE_ID, FLIGHTS_DATA_ID, AIRPORTS_DATA_ID, TRAVEL_DATA_SOURCE_ID, TRAVEL_DATA_ID } from './data';
+import {airportLocationLayer, flightPathLayer, airportTextNameLayer, travelPointSegment, travelLineSegment} from './layers';
 import Airport from '../models/airport';
 import Flight from '../models/flight';
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoieTBneiIsImEiOiJjaW9scWxsNzIwMDMxdzVtNm56MHhweGdjIn0.XrmaYtqwrszezXe9y-gBuw';
 
@@ -107,20 +109,12 @@ class Map {
       data: data as any
     });
 
-    this.map!.addLayer({
-      id: FLIGHTS_DATA_ID,
-      type: "line",
-      source: FLIGHTS_DATA_SOURCE_ID,
-      layout: {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      paint: {
-        "line-color": 'green',
-        "line-opacity": 0.3,
-        "line-width": 1
-      }
-    });
+    this.map!.addLayer(flightPathLayer);
+  }
+
+  public clearFlightLayer() {
+    this.map!.removeLayer(FLIGHTS_DATA_ID);
+    this.map!.removeSource(FLIGHTS_DATA_SOURCE_ID);
   }
 
   public setAirportLayer(data: any) {
@@ -134,29 +128,14 @@ class Map {
       data: data as any
     });
 
-    this.map!.addLayer({
-      id: AIRPORTS_DATA_ID,
-      type: "circle",
-      source: AIRPORTS_DATA_SOURCE_ID,
-      paint: {
-        'circle-radius': {
-          'base': 2,
-          'stops': [[12, 3], [22, 180]]
-        },
-        'circle-color': '#e55e5e',
-        'circle-opacity': 1,
-      }
-    });
+    this.map!.addLayer(airportLocationLayer);
+    this.map!.addLayer(airportTextNameLayer);
+  }
 
-    this.map!.addLayer({
-      id: AIRPORTS_DATA_ID + '2',
-      type: "symbol",
-      source: AIRPORTS_DATA_SOURCE_ID,
-      layout: {
-        'text-field': ['get', 'name'],
-        'text-size': 10,
-      }
-    });
+  public clearAirportLayer() {
+    this.map!.removeLayer(AIRPORTS_DATA_ID);
+    this.map!.removeLayer(AIRPORTS_DATA_ID + '2');
+    this.map!.removeSource(AIRPORTS_DATA_SOURCE_ID);
   }
 
   public setTravelLayer(data: any) {
@@ -170,40 +149,31 @@ class Map {
       data: data as any
     });
 
-    this.map!.addLayer({
-      id: TRAVEL_DATA_ID + '__point',
-      type: "circle",
-      source: TRAVEL_DATA_SOURCE_ID,
-      paint: {
-        'circle-radius': {
-          'base': 2,
-          'stops': [[12, 3], [22, 180]]
-        },
-        'circle-color': '#e55e5e',
-        'circle-opacity': 1,
-      }
-    });
-
-    this.map!.addLayer({
-      id: TRAVEL_DATA_ID + '__line',
-      type: "line",
-      source: TRAVEL_DATA_SOURCE_ID,
-      layout: {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      paint: {
-        "line-color": 'green',
-        "line-opacity": 0.3,
-        "line-width": 1
-      }
-    });
+    this.map!.addLayer(travelPointSegment);
+    this.map!.addLayer(travelLineSegment);
   }
 
   public clearTravelLayer() {
     this.map!.removeLayer(TRAVEL_DATA_ID + '__point');
     this.map!.removeLayer(TRAVEL_DATA_ID + '__line');
     this.map!.removeSource(TRAVEL_DATA_SOURCE_ID);
+  }
+
+  public clearAll() {
+    console.log(this.loaded);
+    if (this.loaded) {
+      try {
+        this.clearAirportLayer();
+        this.clearFlightLayer();
+        this.clearTravelLayer();
+      } catch {
+        console.log('fail');
+      }
+
+    } else {
+      return new Error('Nothing to clear');
+    }
+
   }
 }
 

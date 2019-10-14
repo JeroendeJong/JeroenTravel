@@ -2,14 +2,13 @@ import React from 'react';
 import { TripOverview } from './trip-overview-item';
 import { getTravelTrip, getImageUrL } from '../../constants';
 import map from '../../map';
+import {coordinatesToBounds, centreOnBounds} from '../../map/utils';
 import styled from 'styled-components';
-import ScrollableView from '../common/scroll-view';
 import TravelImage from './image-view';
 import TimelineHeader from './timeline/header';
 import TimelineBody from './timeline/body';
 import Icon from '../../evil-icon';
-import mapboxgl from 'mapbox-gl';
-import { isMobile } from '../../mobile';
+import { TopLeftActionIconContainer, ScrollableTripContent, TripHeaderImage } from './common';
 
 export interface TripDetail {
   id: string;
@@ -21,22 +20,6 @@ export interface TripDetail {
   deparutre_time: any;
   header_image_url: any;
 }
-
-interface ComponentProps {
-  trip: TripOverview;
-  onClose: () => void;
-}
-
-interface ComponentState {
-  details: any;
-}
-
-const TripHeaderImage = styled(TravelImage)`
-  width: 100%;
-  border-radius: 6px;
-  height: 200px;
-  object-fit: cover;
-`;
 
 const MaincontentContainer = styled.div`
   padding: 15px;
@@ -63,24 +46,17 @@ const TimelineContainer = styled.div`
   margin-left: 10px;
 `;
 
-const CloseIconContainer = styled.div`
-  position: absolute;
-  margin-top: 5px;
-  margin-left: 5px;
 
-  mix-blend-mode: difference;
 
-  svg {
-    width: 30px;
-    height: 30px;
-  }
-`;
+interface ComponentProps {
+  trip: TripOverview;
+  onClose: () => void;
+  onClick: (segmentId: number) => void;
+}
 
-const ScrollableTripContent = styled(ScrollableView)`
-  position: relative;
-  margin-top: -8px;
-  z-index: -1;
-`
+interface ComponentState {
+  details: any;
+}
 
 class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
 
@@ -97,30 +73,9 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
         this.setState({details: json})
 
         if (!trip.extent) return;
-
         const coords: any = trip.extent.coordinates[0];
-
-        //NOTE: put this somewhere else. it'll do for now i guess. 
-        const bounds = coords.reduce((bounds: any, coord: number[]) => {
-          return bounds.extend(coord);
-        }, new mapboxgl.LngLatBounds(coords[0], coords[0]));
-           
-        if (isMobile()) {
-          map.map!.fitBounds(bounds, {padding: {
-            bottom: 350, 
-            top: 20, 
-            right: 20, 
-            left: 20
-          }});
-        } else {
-          map.map!.fitBounds(bounds, {padding: {
-            bottom: 60, 
-            top: 60, 
-            right: 60, 
-            left: 430
-          }});
-        }
-        
+        const bounds = coordinatesToBounds(coords);
+        centreOnBounds(bounds);
       });
   }
 
@@ -128,14 +83,20 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
     map.clearTravelLayer();
   }
 
+  private handleSegmentDetailClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const numb = el.getAttribute('data-id');
+    if (numb && numb.length > 0) this.props.onClick(parseInt(numb, 10));
+  }
+
   public render(): JSX.Element {
     const details: any = this.state.details;
     const {trip} = this.props;
     return (
       <>
-        <CloseIconContainer onClick={this.props.onClose}>
+        <TopLeftActionIconContainer onClick={this.props.onClose}>
           <Icon id="ei-close-o-icon"/>
-        </CloseIconContainer>
+        </TopLeftActionIconContainer>
         <ScrollableTripContent>
           <TripHeaderImage src={getImageUrL(trip.header_image_url)} alt="Travel Trip Header image"/>
           <MaincontentContainer>
@@ -152,7 +113,7 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
                       const item = segment.properties as TripDetail;
                       return (
                         <React.Fragment key={item.id}>
-                          <TimelineHeader title={item.name}/>
+                          <TimelineHeader id={item.id} title={item.name} onClick={this.handleSegmentDetailClick}/>
                           <TimelineBody body={item.short_description}/>
                         </React.Fragment>
                       )
