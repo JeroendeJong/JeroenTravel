@@ -60,6 +60,7 @@ const CloseBackIcon = styled(Icon)`
 
 const DrawerContentTop = styled.div`
   display: flex;
+  align-items: center;
   height: 60px;
   width: 100%;
   box-shadow: 0px 4px 15px -10px rgba(0,0,0,1);

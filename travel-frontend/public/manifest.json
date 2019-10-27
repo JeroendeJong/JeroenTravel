@@ -1,7 +1,18 @@
 {
   "short_name": "Jeroen Travel",
   "name": "Jeroen Travel Map",
-  "icons": [],
+  "icons": [
+    {
+      "src": "/assets/icons-192.jpg",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

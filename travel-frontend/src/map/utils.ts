@@ -16,7 +16,7 @@ export const centreOnBounds = (bounds: mapboxgl.LngLatBounds) => {
       bottom: 60, 
       top: 60, 
       right: 60, 
-      left: 430
+      left: 800
     }});
   }
 }

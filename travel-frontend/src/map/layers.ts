@@ -61,7 +61,7 @@ export const travelPointSegment: mapboxgl.Layer = {
       'base': 2,
       'stops': [[12, 3], [22, 180]]
     },
-    'circle-color': '#e55e5e',  // FF5A5F
+    'circle-color': '#e55e5e',
     'circle-opacity': 1,
   }
 }

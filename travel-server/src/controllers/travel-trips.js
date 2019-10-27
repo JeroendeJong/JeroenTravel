@@ -8,6 +8,7 @@ const sql = `
     trips.country_codes,
     trips.header_image_url,
     trips.active,
+    st_asgeojson(trips.extent) as extent,
     min(segment.arrival_time) start_date, 
     max(segment.departure_time) end_date
   from trips
@@ -25,7 +26,7 @@ const get = async () => {
     .catch(e => console.error(e.stack))
 
   const rowData = data.rows.map(row => {
-    return {...row }; //extent: JSON.parse(row.extent)}
+    return {...row, extent: JSON.parse(row.extent)}
   });
 
   return rowData;
