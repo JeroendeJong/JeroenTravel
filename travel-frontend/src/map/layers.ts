@@ -9,7 +9,13 @@ export const flightPathLayer: mapboxgl.Layer = {
     "line-cap": "round"
   },
   paint: {
-    "line-color": 'green',
+    "line-color": [ 
+      'match', 
+      ['get', 'status'],
+      'completed', 'green',
+      'pending', 'gray',
+      /* other */ '#ccc'
+    ],
     "line-opacity": 0.3,
     "line-width": 1
   }
@@ -33,6 +39,9 @@ export const airportTextNameLayer: mapboxgl.Layer = {
   id: AIRPORTS_DATA_ID + '2',
   type: "symbol",
   source: AIRPORTS_DATA_SOURCE_ID,
+  paint: {
+    'text-color': 'white'
+  },
   layout: {
     'text-field': ['get', 'name'],
     'text-size': 10,
@@ -70,7 +79,14 @@ export const travelLineSegment: mapboxgl.Layer = {
     "line-cap": "round"
   },
   paint: {
-    "line-color": '#e55e5e',
+    "line-color": [
+      'match',
+      ['get', 'type'],
+      'bus', '#e55e5e',
+      'taxi', 'green',
+      'walk', 'pink',
+      /* other */ '#ccc'
+    ],
     "line-opacity": 0.9,
     "line-width": 3
   }

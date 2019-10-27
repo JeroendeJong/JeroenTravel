@@ -23,8 +23,6 @@ const FlightTheme = {
   }
 };
 
-
-// Maybe later ?
 const TravelTheme = {
   color: {
     white: '#0D0A0B',

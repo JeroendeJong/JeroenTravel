@@ -17,7 +17,7 @@ class Map {
   public create() {
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/light-v10',
+      style: 'mapbox://styles/mapbox/dark-v10',
       center: [1.44, 45.77],
       zoom: 3.5,
       hash: false
@@ -138,15 +138,15 @@ class Map {
     this.map!.removeSource(AIRPORTS_DATA_SOURCE_ID);
   }
 
-  public setTravelLayer(data: any) {
+  public setTravelLayer(url: string) {
     if (!this.loaded) {
-      this.dataQueue.travel = data;
+      this.dataQueue.travel = url;
       return;
     }
 
     this.map!.addSource(TRAVEL_DATA_SOURCE_ID, {
       type: 'geojson',
-      data: data as any
+      data: url
     });
 
     this.map!.addLayer(travelPointSegment);
@@ -160,7 +160,6 @@ class Map {
   }
 
   public clearAll() {
-    console.log(this.loaded);
     if (this.loaded) {
       try {
         this.clearAirportLayer();
@@ -173,7 +172,6 @@ class Map {
     } else {
       return new Error('Nothing to clear');
     }
-
   }
 }
 

@@ -24,6 +24,7 @@ class App extends React.Component<{}, ComponentState> {
   }
 
   public componentDidMount(): void {
+    map.clearAll();
     emitter.on('setGeometrySelected', this.handleFlightSelected);
 
     fetch(getFlightListURL())

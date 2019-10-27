@@ -23,11 +23,16 @@ export const getTravelTrip = (id: number) => {
   return `/cache/trip/${id}.json`;
 }
 
+export const getTravelTripGeometry = (id: number) => {
+  if (isDEV) return `http://localhost:8080/travel/trip/geometry/${id}`;
+  return `/cache/trip-geometry/${id}.json`;
+}
+
 export const getTravelTrips = () => {
   if (isDEV) return `http://localhost:8080/travel/trips`;
   return `/cache/trips.json`;
 }
 
-export const getImageUrL = (path: string) => {
+export const getImageUrl = (path: string) => {
   return `https://storage.googleapis.com/www.jeroentravel.com${path}`
 }

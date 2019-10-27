@@ -19,7 +19,7 @@ const HeaderPoint = styled.div`
 `;
 
 const HeaderTitle = styled.span`
-  padding-left: 10px;
+  padding-left: 20px;
   text-transform: capitalize;
   color: ${p => p.theme.color.primary};
 `;
