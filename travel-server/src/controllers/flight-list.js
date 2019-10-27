@@ -18,7 +18,7 @@ select
 	flight.datetime_departure,
   flight.datetime_arrival,
   flight.code,
-	
+	flight.status,
 	st_asgeojson(st_envelope(ST_union(dep_airport.geom, arr_airport.geom))) as extent,
 	'flight' as type
 from flight
