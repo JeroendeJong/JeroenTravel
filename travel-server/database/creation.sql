@@ -48,12 +48,29 @@ CREATE TABLE trips (
 CREATE TABLE trip_segment (
   id SERIAL PRIMARY KEY,
   trip_id integer REFERENCES trips(id),
-  geom geometry,
   type text,
   name text,
   long_description text,
   arrival_time timestamp with time zone,
   departure_time timestamp with time zone,
   header_image_url text,
-  short_description text
+  short_description text,
+  accommodation_id integer REFERENCES accommodation(id)
+);
+
+CREATE TABLE trip_segment_geometry (
+  id SERIAL PRIMARY KEY,
+  geom geometry,
+  type text,
+  trip_segment_id integer REFERENCES trip_segment(id)
+);
+
+CREATE TABLE accommodation (
+  id SERIAL PRIMARY KEY,
+  name text,
+  adress text,
+  geom geometry,
+  review text,
+  booking_link text,
+  place text
 );
