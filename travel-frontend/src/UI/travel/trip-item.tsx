@@ -2,6 +2,7 @@ import React from 'react';
 import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
 import Icon from '../../evil-icon';
+import moment from 'moment';
 
 export interface TripOverview {
   id: string;
@@ -11,8 +12,9 @@ export interface TripOverview {
   header_image_url: string;
   active: boolean;
   extent: {coordinates: number[]};
+  start_date: string;
+  end_date: string;
 }
-
 
 interface ComponentProps {
   tripOverview: TripOverview;
@@ -53,7 +55,7 @@ const TripDescription = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  line-height: 14px;  // 
+  line-height: 14px;
   max-height: 28px;   // <--- line-height * 2
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -92,6 +94,15 @@ const TripOverviewItem = (props: ComponentProps) => {
     if (props.onClick) props.onClick(trip);
   }
 
+  const start = moment(trip.start_date);
+  const end = moment(trip.end_date);
+  const diff = end.diff(start);
+  const momentDuration = moment.duration(diff);
+  const prettyDuration = Math.ceil(momentDuration.asDays());
+
+  // is trip in DB but has no content?
+  if (isNaN(prettyDuration)) return null;
+
   return (
     <TripContainer onClick={onTripClick} data-id={trip.id}>
       <TripName>{trip.name}</TripName>
@@ -104,8 +115,9 @@ const TripOverviewItem = (props: ComponentProps) => {
           </BlinkActiveTrip>
         }
         {!props.active &&
-          <span>3 weeks</span>
+          <div>{prettyDuration} day trip</div>
         }
+
         <span>{CountryCodesToEmoji(trip.country_codes)}</span>
       </BottomLine>
     </TripContainer>

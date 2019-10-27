@@ -1,7 +1,7 @@
 import React from 'react';
 import { getTravelTrips } from '../../constants';
 import Drawer from '../common/drawer';
-import { TripOverview } from './trip-overview-item';
+import { TripOverview } from './trip-item';
 import TripDetailPage from './trip-detail-page';
 import TripListScreen from './main-trip-list';
 import map from '../../map';
@@ -40,6 +40,22 @@ class App extends React.Component<any, ComponentState> {
     }
   }
 
+  private handleContentCloseCall = (callId: any) => {
+    console.log(callId, 'close');
+    if (callId === 'TripDetailPage') {
+      this.setState({ selected: null });
+    } else if (callId === 'TripSegmentDetailPage') {
+      this.setState({selected: null, selectedSegmentId: null});
+    }
+  }
+
+  private handleContentBackCall = (callId: any) => {
+    console.log(callId, 'back');
+    if (callId === 'TripSegmentDetailPage') {
+      this.setState({selectedSegmentId: null});
+    }
+  }
+
   private handleDetailClose = () => this.setState({selected: null, selectedSegmentId: null});
   private handleTripSelected = (trip: TripOverview): void => this.setState({selected: trip});
   private handleSegmentSelect = (segmentId: number) => this.setState({selectedSegmentId: segmentId});
@@ -47,7 +63,11 @@ class App extends React.Component<any, ComponentState> {
 
   public render(): any {
     return (
-      <Drawer ref={this.targetRef}>
+      <Drawer 
+        ref={this.targetRef} 
+        onCloseContentId={this.handleContentCloseCall} 
+        onBackContentId={this.handleContentBackCall}
+      >
         {this.state.selected === null && 
           <TripListScreen 
             trips={this.state.trips} 
@@ -56,19 +76,18 @@ class App extends React.Component<any, ComponentState> {
         }
 
         {this.state.selected && !this.state.selectedSegmentId &&
-          <TripDetailPage 
-            trip={this.state.selected} 
-            onClose={this.handleDetailClose} 
-            onClick={this.handleSegmentSelect}
-          />
+          <>
+            <TripDetailPage 
+              trip={this.state.selected} 
+              onClick={this.handleSegmentSelect}
+            />
+          </>
         }
 
         {this.state.selected && this.state.selectedSegmentId &&
           <TripSegmentDetailPage 
             id={this.state.selectedSegmentId} 
             trip={this.state.selected} 
-            onClose={this.handleDetailClose} 
-            onBack={this.handleSegmentBack}
           />
         }
 

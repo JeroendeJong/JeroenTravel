@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import Icon from '../../evil-icon';
+import Icon from '../../../evil-icon';
 
 interface ComponentProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
@@ -39,7 +39,7 @@ class TravelImage extends React.Component<ComponentProps, any> {
 
     return (
       <>
-        <img style={imageVisibleStyle} {...this.props} onLoad={this.handleImageLoad} />
+        <img alt='' {...this.props} style={imageVisibleStyle} onLoad={this.handleImageLoad} />
         <FallBackStyle style={fallbackstyle} className={this.props.className}>
           <RotatingIcon id={'ei-spinner-3-icon'}/>
         </FallBackStyle>

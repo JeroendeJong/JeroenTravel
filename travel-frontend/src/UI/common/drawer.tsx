@@ -3,22 +3,29 @@ import styled, { css } from 'styled-components';
 import { MOBILE_BREAKPOINT, MobileOnly } from '../../mobile';
 import { rgba } from 'polished';
 import DrawerStore from './drawer-store';
-import { thisExpression } from '@babel/types';
+import Icon from '../../evil-icon';
 
 const FloatingBottomDrawer = css`
   position: fixed;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 
   @media only screen and (min-width: ${MOBILE_BREAKPOINT}px) {
-    top: 10px;
-    width: 380px;
+    min-width: 400px;
+    max-width: 700px;
+    width: 50%;
+    top: 0px;
+    border-radius: 0px;
   }
 
   @media only screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     transition: height 0.2s;
-    ${(p: any): any => `height: calc(33% + ${p['data-expanded']}%);`}
+    ${(p: any): any => { 
+      const isActive = p['data-active'];
+      if (isActive) return  `height: 66%;`
+      else return 'height: 33%;'
+    }}
     max-height: 66%;
     min-height: 33%;
   }
@@ -31,7 +38,6 @@ const Drawer = styled.div`
   background-color: ${p => p.theme.color.secondary};
   color: ${p => p.theme.color.white};
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50);
-  border-radius: 6px;
 
   @supports (backdrop-filter: blur(10px)) {
     backdrop-filter: blur(8px);
@@ -39,48 +45,133 @@ const Drawer = styled.div`
   }
 `;
 
-const UserHintPill = styled.div`
-  width: 20%;
-  height: 4px;
-  background-color: lightgray;
-  margin: auto;
-  border-radius: 100px;
-  margin-top: 4px;
+const DrawerResizeIconMobile = styled(MobileOnly)`
+  svg {
+    width: 40px;
+    height: 30px;
+  }
 `;
 
+const CloseBackIcon = styled(Icon)`
+  float: left;
+  width: 40px;
+  height: 30px;
+`;
+
+const DrawerContentTop = styled.div`
+  display: flex;
+  height: 60px;
+  width: 100%;
+  box-shadow: 0px 4px 15px -10px rgba(0,0,0,1);
+`;
+
+const LeftButtonGroup = styled.div`
+  float: left;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const RightButtonGroup = styled.div`
+  float: right;
+  display: flex;
+`;
+
+const FillerTopContent = styled.div`width: 100%;`;
+
 interface State {
-  expanded: number;
+  active: boolean;
+  closeable: boolean;
+  backable: boolean;
+  topContent: null | JSX.Element;
 }
 
-class DrawerInstance extends React.Component<any, State>  {
+interface Props {
+  onCloseContentId?: any;
+  onBackContentId?: any;
+  children: any;
+}
+
+class DrawerInstance extends React.Component<Props, State>  {
 
   public state: State = {
-    expanded: 33
+    active: true,
+    closeable: false,
+    backable: false,
+    topContent: null
   }
+
+  private lastBackCallId: string[] = [];
+  private lastCloseCallID: string[] = [];
   
-  constructor(props: any) {
-    super(props);
+  private handleTopContentRequest = (el: JSX.Element) => {
+    this.setState({topContent: el});
   }
 
-  private handleDrawerActive = (active: boolean) => {
-    if (active) this.setState({expanded: 33});
-    else this.setState({expanded: 0});
+  private handleDrawerActiveToggle = (e: React.MouseEvent<any>) => {
+    this.setState(oldState => ({active: !oldState.active}));
   }
 
-  private handleClick = () => {
-    this.setState({expanded: 33});
+  private handleDrawerActive = (active: boolean) => this.setState({active});
+  private handleDrawerCloseable = (callId: string) => {
+    this.lastCloseCallID.push(callId);
+    if (this.lastCloseCallID.length > 0) {
+      this.setState({closeable: true});
+    }
+  }
+  private handleDrawerBackable = (callId: string) => {
+    this.lastBackCallId.push(callId);
+    if (this.lastBackCallId.length > 0) {
+      this.setState({backable: true});
+    }
+  }
+
+  private handleClose = () => {
+    const valToUndo = this.lastCloseCallID.pop();
+    if (this.lastCloseCallID.length === 0) this.setState({closeable: false});
+    this.props.onCloseContentId(valToUndo);
+  }
+
+  private handleBack = () => {
+    const valToUndo = this.lastBackCallId.pop();
+    if (this.lastBackCallId.length === 0) this.setState({backable: false});
+    this.props.onBackContentId(valToUndo);
   }
 
   public componentDidMount() {
     DrawerStore.on('DRAWER_ACTIVE', this.handleDrawerActive);
+    DrawerStore.on('CONTENT_CLOSEABLE', this.handleDrawerCloseable);
+    DrawerStore.on('CONTENT_BACKABLE', this.handleDrawerBackable);
+    DrawerStore.on('DRAWER_TOP_CONTENT', this.handleTopContentRequest);
   }
 
   public render() {
+    const drawerActiveIconID = this.state.active
+      ? "ei-arrow-down-icon"
+      : "ei-arrow-up-icon";
+
+
+
     return (
-      <Drawer data-expanded={this.state.expanded} onClick={this.handleClick}>
-        <MobileOnly>
-          <UserHintPill/>
-        </MobileOnly>
+      <Drawer data-active={this.state.active}>
+        <DrawerContentTop>
+          <LeftButtonGroup>
+            {this.state.closeable && 
+              <CloseBackIcon id="ei-close-o-icon" onClick={this.handleClose}/>
+            }
+            {this.state.backable && 
+              <CloseBackIcon id="ei-arrow-left-icon" onClick={this.handleBack}/>
+            }
+          </LeftButtonGroup>
+
+          {
+            this.state.topContent || <FillerTopContent/>
+          }
+          <RightButtonGroup>
+            <DrawerResizeIconMobile>
+              <Icon id={drawerActiveIconID} onClick={this.handleDrawerActiveToggle}/>
+            </DrawerResizeIconMobile>
+          </RightButtonGroup>
+        </DrawerContentTop>
         {this.props.children}
       </Drawer>
     );

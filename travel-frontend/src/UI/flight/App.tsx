@@ -1,10 +1,7 @@
 import React from 'react';
 import emitter, { setFlightData, setAirportData } from '../../store/emit';
-// models
 import Flight from '../../models/flight';
 import Airport from '../../models/airport';
-
-// UI content
 import FlightContent from './content-detail/flight-content';
 import AirportContent from './content-detail/airport-content';
 import MainScreen from './main-screen';

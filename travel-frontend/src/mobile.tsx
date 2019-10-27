@@ -14,7 +14,7 @@ export const isMobile = () => {
 
 export const MobileOnly = (props: any) => {
   return (
-    <MobileOnlyDiv>
+    <MobileOnlyDiv {...props}>
       {props.children}
     </MobileOnlyDiv>
   );
