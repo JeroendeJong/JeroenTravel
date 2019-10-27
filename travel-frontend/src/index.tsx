@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import {darken} from 'polished'
+import {lighten, darken} from 'polished'
 import 'evil-icons/assets/evil-icons.css';
 import map from './map';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -23,16 +23,17 @@ const FlightTheme = {
   }
 };
 
+
 // Maybe later ?
-// const TravelTheme = {
-//   color: {
-//     white: '#E6E6E6',
-//     black: 'black',
-//     highlight: darken(0.1, '#297373'),
-//     secondary: '#202030',
-//     primary: '#297373'
-//   }
-// };
+const TravelTheme = {
+  color: {
+    white: '#0D0A0B',
+    black: '#0D0A0B',
+    highlight: lighten(0.4, '#454955'),
+    secondary: 'white',
+    primary: '#0D0A0B'
+  }
+};
 
 map.create();
   
@@ -40,7 +41,7 @@ ReactDOM.render((
   <Router>
     <AppContainer>
 
-      <ThemeProvider theme={FlightTheme}>
+      <ThemeProvider theme={TravelTheme}>
         <Route path={TRAVEL_ROUTE} component={TravelApp} />
       </ThemeProvider>
 

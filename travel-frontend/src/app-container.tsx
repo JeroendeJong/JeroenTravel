@@ -35,7 +35,6 @@ class AppContainer extends React.Component<any, any> {
   public componentDidMount() {
     const {location} = this.props.history;
     const currentPath = location.pathname;
-    console.log(location, currentPath);
     if (currentPath === FLIGHT_ROUTE) {
       setTimeout(() => {
         toast.info('Interested in my travel? Click here 🧳', {

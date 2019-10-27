@@ -1,10 +1,8 @@
 import React from 'react';
 import map from './map';
 import { getCurrentStoreSnapshot } from './store/store';
-import { isMobile } from './mobile';
 import styled from 'styled-components';
 import { setGeometrySelected } from './store/emit';
-import mapboxgl from 'mapbox-gl';
 import Flight from './models/flight';
 import { coordinatesToBounds, centreOnBounds } from './map/utils';
 
