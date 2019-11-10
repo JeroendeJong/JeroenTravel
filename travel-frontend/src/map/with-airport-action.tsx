@@ -1,10 +1,10 @@
 import React from 'react';
-import map from './map';
-import { getCurrentStoreSnapshot } from './store/store';
-import { isMobile } from './mobile';
+import map from '.';
+import { getCurrentStoreSnapshot } from '../store/store';
+import { isMobile } from '../mobile';
 import styled from 'styled-components';
-import { setGeometrySelected } from './store/emit';
-import Airport from './models/airport';
+import { setGeometrySelected } from '../store/emit';
+import Airport from '../models/airport';
 
 
 const ActionStyle = styled.div`

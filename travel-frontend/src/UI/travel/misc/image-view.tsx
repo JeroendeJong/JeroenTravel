@@ -21,6 +21,7 @@ const RotatingIcon = styled(Icon)`
 const FallBackStyle = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 class TravelImage extends React.Component<ComponentProps, any> {

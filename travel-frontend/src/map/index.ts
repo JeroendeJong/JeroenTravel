@@ -154,9 +154,13 @@ class Map {
   }
 
   public clearTravelLayer() {
-    this.map!.removeLayer(TRAVEL_DATA_ID + '__point');
-    this.map!.removeLayer(TRAVEL_DATA_ID + '__line');
-    this.map!.removeSource(TRAVEL_DATA_SOURCE_ID);
+    try {
+      this.map!.removeLayer(TRAVEL_DATA_ID + '__point');
+      this.map!.removeLayer(TRAVEL_DATA_ID + '__line');
+      this.map!.removeSource(TRAVEL_DATA_SOURCE_ID);
+    } catch {
+      console.log('Layers don\'t exist. Most likely due to lack of connectivity.');
+    }
   }
 
   public clearAll() {
@@ -168,7 +172,6 @@ class Map {
       } catch {
         console.log('fail');
       }
-
     } else {
       return new Error('Nothing to clear');
     }

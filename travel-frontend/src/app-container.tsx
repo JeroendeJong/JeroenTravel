@@ -3,7 +3,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withRouter } from "react-router-dom";
 import {FLIGHT_ROUTE, TRAVEL_ROUTE} from './routes';
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import { appIsInStandaloneMode } from "./UI/utils";
 
 const StyledToastContainer = styled(ToastContainer)`
   font-family: 'Karla', sans-serif !important;
@@ -29,6 +30,13 @@ const StyledToastContainer = styled(ToastContainer)`
   }
 `;
 
+const GlobalStandaloneStyle = createGlobalStyle`
+  body {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+`;
 
 class AppContainer extends React.Component<any, any> {
 
@@ -53,6 +61,9 @@ class AppContainer extends React.Component<any, any> {
   public render(): JSX.Element {
     return (
       <div>
+        {appIsInStandaloneMode() &&
+          <GlobalStandaloneStyle/>
+        }
         <StyledToastContainer/>
         {this.props.children}
       </div>

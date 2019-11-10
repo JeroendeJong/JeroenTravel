@@ -1,10 +1,10 @@
 import React from 'react';
-import map from './map';
-import { getCurrentStoreSnapshot } from './store/store';
+import map from '.';
+import { getCurrentStoreSnapshot } from '../store/store';
 import styled from 'styled-components';
-import { setGeometrySelected } from './store/emit';
-import Flight from './models/flight';
-import { coordinatesToBounds, centreOnBounds } from './map/utils';
+import { setGeometrySelected } from '../store/emit';
+import Flight from '../models/flight';
+import { coordinatesToBounds, centreOnBounds } from './utils';
 
 const ActionStyle = styled.div`
   :hover {

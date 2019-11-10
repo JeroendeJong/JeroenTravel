@@ -54,8 +54,8 @@ const DrawerResizeIconMobile = styled(MobileOnly)`
 
 const CloseBackIcon = styled(Icon)`
   float: left;
-  width: 40px;
-  height: 30px;
+  width: 40px !important;
+  height: 30px !important;
 `;
 
 const DrawerContentTop = styled.div`

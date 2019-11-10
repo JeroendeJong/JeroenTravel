@@ -3,6 +3,7 @@ import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
 import Icon from '../../evil-icon';
 import moment from 'moment';
+import { StyledHover } from '../styled-utils';
 
 export interface TripOverview {
   id: string;
@@ -36,9 +37,9 @@ const TripContainer = styled.div`
   padding: 5px;
   border-radius: 2px;
 
-  :hover {
-    background-color: ${p => p.theme.color.highlight};
-  }
+  ${StyledHover`
+    background-color: ${(p: any) => p.theme.color.highlight};
+  `}
 `
 
 const TripName = styled.div`

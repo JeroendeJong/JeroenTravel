@@ -9,3 +9,11 @@ export const isOutOfViewport = (elem: HTMLElement) => {
 	out.all = out.top && out.left && out.bottom && out.right;
 	return out;
 };
+
+export const appIsInStandaloneMode = () => {
+  if ((window.navigator as any).standalone) return true
+  if (window.matchMedia('(display-mode: standalone)').matches) return true;
+  if (document.referrer.includes('android-app://')) return true;
+
+  return false;
+}

@@ -27,7 +27,8 @@ CREATE TABLE flight (
   datetime_departure timestamp without time zone,
   datetime_arrival timestamp without time zone,
   operator_link_id integer REFERENCES flight_operator(id),
-  code text
+  code text,
+  status text
 );
 
 CREATE TABLE flight_operator (

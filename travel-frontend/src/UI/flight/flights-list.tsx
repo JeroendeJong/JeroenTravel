@@ -1,7 +1,7 @@
 import React from 'react';
 import { getCurrentStoreSnapshot } from "../../store/store";
 import styled from 'styled-components';
-import withFlightAction from '../../with-flight-action';
+import withFlightAction from '../../map/with-flight-action';
 
 const FlightContainer = styled.div`
   align-items: center;

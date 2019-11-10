@@ -6,6 +6,7 @@ import { getTravelTrip } from '../../constants';
 import { TripDetail } from './trip-detail-page';
 import drawerStore from '../common/drawer-store';
 import { TripOverview } from './trip-item';
+import Icon from '../../evil-icon';
 
 const LongDescription = styled.div`
   margin: 20px;
@@ -30,8 +31,17 @@ const BottomNavigationBar = styled.div`
   height: 100px;
   width: 100%;
 
+  display: flex;
+  justify-content: space-between;
+
   background-color: green;
 `;
+
+const SegmentNavigationButton = styled(Icon)`
+  height: 50px;
+  width: 50px;
+`;
+
 
 interface Props {
   id: number;
@@ -79,7 +89,12 @@ const TripSegmentDetailPage = (props: Props) => {
         <LongDescription dangerouslySetInnerHTML={{ __html: text }}/>
       </ScrollableTripContent>
       <BottomNavigationBar>
-      hi
+      
+        <SegmentNavigationButton id={'ei-chevron-left-icon'}/>
+
+        <SegmentNavigationButton id={'ei-chevron-right-icon'}/>
+
+
       </BottomNavigationBar>
     </>
   );
