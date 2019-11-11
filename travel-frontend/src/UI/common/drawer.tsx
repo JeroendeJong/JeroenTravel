@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { MOBILE_BREAKPOINT, MobileOnly } from '../../mobile';
 import { rgba } from 'polished';
 import DrawerStore from './drawer-store';
-import Icon from '../../evil-icon';
+import Icon from './evil-icon';
 
 const FloatingBottomDrawer = css`
   position: fixed;

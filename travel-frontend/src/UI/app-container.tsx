@@ -2,9 +2,9 @@ import React from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withRouter } from "react-router-dom";
-import {FLIGHT_ROUTE, TRAVEL_ROUTE} from './routes';
+import {FLIGHT_ROUTE, TRAVEL_ROUTE} from '../routes';
 import styled, { createGlobalStyle } from "styled-components";
-import { appIsInStandaloneMode } from "./UI/utils";
+import { appIsInStandaloneMode } from "./utils";
 
 const StyledToastContainer = styled(ToastContainer)`
   font-family: 'Karla', sans-serif !important;
@@ -64,6 +64,8 @@ class AppContainer extends React.Component<any, any> {
         {appIsInStandaloneMode() &&
           <GlobalStandaloneStyle/>
         }
+
+        
         <StyledToastContainer/>
         {this.props.children}
       </div>

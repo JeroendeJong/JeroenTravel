@@ -4,13 +4,10 @@ import { getTravelTrip, getImageUrl, getTravelTripGeometry } from '../../constan
 import map from '../../map';
 import {coordinatesToBounds, centreOnBounds} from '../../map/utils';
 import styled from 'styled-components';
-import TimelineHeader from './timeline/header';
-import TimelineBody from './timeline/body';
 import { ScrollableTripContent, TripHeaderImage } from './misc/common';
-import TripSegmentImagePreviews from './trip-segment-image-previews';
 import drawerStore from '../common/drawer-store';
 import {isOutOfViewport} from '../utils';
-import { lighten } from 'polished';
+import VerticalTripTimeline from './timeline';
 
 export interface TripDetail {
   id: string;
@@ -38,15 +35,6 @@ const SmallTripName = styled(TripName)` font-size: 20px; `
 const TripBody = styled.div`
   font-size: 14px;
   text-align: center;
-`;
-
-const TimelineContainer = styled.div`
-  margin-left: 10px;
-`;
-
-const TimelineShortDescription = styled.p`
-  font-size: 14px;
-  color: ${p => lighten(0.2, p.theme.color.primary)}
 `;
 
 const LineSpacer = styled.div`
@@ -132,22 +120,7 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
             </TripBody>
             <LineSpacer/>
             {details && details.length > 0 && 
-              <>
-                <TimelineContainer>
-                  {details.map((item: TripDetail) => {
-                      return (
-                        <div key={item.id}>
-                          <TimelineHeader id={item.id} title={item.name} onClick={this.handleSegmentDetailClick}/>
-                          <TimelineBody>
-                            <TripSegmentImagePreviews imageUrls={item.header_image_url}/>
-                            <TimelineShortDescription>{item.short_description}</TimelineShortDescription>
-                          </TimelineBody>
-                        </div>
-                      )
-                    })
-                  }
-                </TimelineContainer>
-              </>
+              <VerticalTripTimeline tripItems={details} onClick={this.handleSegmentDetailClick}/>
             }
           </MaincontentContainer>
         </ScrollableTripContent>

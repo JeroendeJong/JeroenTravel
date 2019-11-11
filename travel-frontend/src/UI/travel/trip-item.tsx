@@ -1,7 +1,7 @@
 import React from 'react';
 import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
-import Icon from '../../evil-icon';
+import Icon from '../common/evil-icon';
 import moment from 'moment';
 import { StyledHover } from '../styled-utils';
 

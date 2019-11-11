@@ -9,6 +9,15 @@ const Container = styled.div`
   font-size: 12px;
   font-weight: lighter;
   color: black;
+
+  width: 99%;
+  margin-top: 35px;
+
+  box-shadow: 4px 4px 15px 0px rgba(0,0,0,0.2);
+  /* width: 80%; */
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
 `;
 
 const TimelineBody = (props: any) => {

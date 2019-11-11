@@ -6,7 +6,7 @@ import { getTravelTrip } from '../../constants';
 import { TripDetail } from './trip-detail-page';
 import drawerStore from '../common/drawer-store';
 import { TripOverview } from './trip-item';
-import Icon from '../../evil-icon';
+import Icon from '../common/evil-icon';
 
 const LongDescription = styled.div`
   margin: 20px;

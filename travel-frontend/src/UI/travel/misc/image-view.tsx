@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import Icon from '../../../evil-icon';
+import Icon from '../../common/evil-icon';
 
 interface ComponentProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
