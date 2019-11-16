@@ -38,7 +38,7 @@ const CardMainInfo = styled.p`
 
 const CardText = styled.p`
   font-size: 14px;
-  color: ${p => p.theme.color.black};
+  color: ${p => p.theme.color.text};
   margin: 0;
   margin-right: 20px;
 `;

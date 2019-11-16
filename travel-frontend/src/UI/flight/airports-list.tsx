@@ -6,7 +6,7 @@ import withAirportAction from '../../map/with-airport-action';
 const Container = styled.div`
   margin: 10px;
   margin-left: 20px;
-  color: ${p => p.theme.color.white};
+  color: ${p => p.theme.color.text};
   :hover {
     color: ${p => p.theme.color.primary};
   }

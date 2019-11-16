@@ -48,7 +48,7 @@ const TripName = styled.div`
 `;
 
 const TripDescription = styled.div`
-  color: ${p => p.theme.color.white};
+  color: ${p => p.theme.color.text};
   font-size: 12px;
 
   margin-left: 2px;

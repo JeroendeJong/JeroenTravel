@@ -65,7 +65,6 @@ class AppContainer extends React.Component<any, any> {
           <GlobalStandaloneStyle/>
         }
 
-        
         <StyledToastContainer/>
         {this.props.children}
       </div>
