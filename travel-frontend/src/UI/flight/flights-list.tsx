@@ -18,7 +18,7 @@ const FlightContainer = styled.div`
 
 const AirportCode = styled.span`
   font-size: 20px;
-  color: ${p => p.theme.color.white};
+  color: ${p => p.theme.color.text};
 `;
 
 const OperatorCode = styled.span`

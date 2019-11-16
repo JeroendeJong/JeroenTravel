@@ -6,7 +6,7 @@ import TripDetailPage from './trip-detail-page';
 import TripListScreen from './main-trip-list';
 import map from '../../map';
 import { TRAVEL_ROUTE } from '../../routes';
-import TripSegmentDetailPage from './segment-detail-page';
+import TripSegmentDetailPage from './trip-segment-detail-page';
 
 interface ComponentState {
   selected: null | TripOverview;

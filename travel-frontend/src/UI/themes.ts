@@ -2,8 +2,7 @@ import { darken, lighten } from "polished";
 
 export const FlightTheme = {
   color: {
-    white: '#E6E6E6',
-    black: '#E6E6E6',
+    text: 'green',
     highlight: darken(0.1, '#297373'),
     secondary: '#202030',
     primary: '#297373'
@@ -12,20 +11,18 @@ export const FlightTheme = {
 
 export const TravelLight = {
   color: {
-    white: '#0D0A0B',
-    black: '#0D0A0B',
+    text: '#3C3C3C',
     highlight: lighten(0.4, '#454955'),
     secondary: 'white',
-    primary: '#0D0A0B'
+    primary: '#465775'
   }
 };
 
 export const TravelDark = {
   color: {
-    white: 'white',
-    black: 'white',
+    text: 'white',
     highlight: lighten(0.4, '#011219'),
     secondary: '#2c2927',
-    primary: 'white'
+    primary: '#012622'
   }
 }

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const PrimaryButtonText = styled.p`
   font-size: 16px;
-  color: ${p => p.theme.color.black};
+  color: ${p => p.theme.color.text};
   margin: 0px;
   padding: 5px;
 `;

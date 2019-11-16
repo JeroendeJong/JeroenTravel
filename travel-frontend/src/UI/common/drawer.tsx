@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { MOBILE_BREAKPOINT, MobileOnly } from '../../mobile';
 import { rgba } from 'polished';
 import DrawerStore from './drawer-store';
-import Icon from '../../evil-icon';
+import Icon from './evil-icon';
 
 const FloatingBottomDrawer = css`
   position: fixed;
@@ -36,7 +36,7 @@ const Drawer = styled.div`
 
   z-index: 2;
   background-color: ${p => p.theme.color.secondary};
-  color: ${p => p.theme.color.white};
+  color: ${p => p.theme.color.text};
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50);
 
   @supports (backdrop-filter: blur(10px)) {

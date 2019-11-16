@@ -2,7 +2,6 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import styled from 'styled-components';
 
-
 const Handle = styled.div`
   width: 20px;
   height: 20px;
@@ -15,7 +14,7 @@ const Line = styled.div`
   background-color: red;
 `;
 
-const TripTimelineOverviewLine = () => {
+const TripViewingProgress = () => {
   return (
     <>
       {/* <Draggable
@@ -36,4 +35,4 @@ const TripTimelineOverviewLine = () => {
   );
 }
 
-export default TripTimelineOverviewLine;
+export default TripViewingProgress;

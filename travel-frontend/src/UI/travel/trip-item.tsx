@@ -1,7 +1,7 @@
 import React from 'react';
 import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
-import Icon from '../../evil-icon';
+import Icon from '../common/evil-icon';
 import moment from 'moment';
 import { StyledHover } from '../styled-utils';
 
@@ -48,7 +48,7 @@ const TripName = styled.div`
 `;
 
 const TripDescription = styled.div`
-  color: ${p => p.theme.color.white};
+  color: ${p => p.theme.color.text};
   font-size: 12px;
 
   margin-left: 2px;

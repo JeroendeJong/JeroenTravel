@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Icon from '../../evil-icon';
+import Icon from '../common/evil-icon';
 import { rgba } from 'polished';
 
 export interface BaseStatistic<T> {
@@ -38,7 +38,7 @@ const CardMainInfo = styled.p`
 
 const CardText = styled.p`
   font-size: 14px;
-  color: ${p => p.theme.color.black};
+  color: ${p => p.theme.color.text};
   margin: 0;
   margin-right: 20px;
 `;

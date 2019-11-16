@@ -4,13 +4,13 @@ import { getTravelTrip, getImageUrl, getTravelTripGeometry } from '../../constan
 import map from '../../map';
 import {coordinatesToBounds, centreOnBounds} from '../../map/utils';
 import styled from 'styled-components';
-import TimelineHeader from './timeline/header';
-import TimelineBody from './timeline/body';
 import { ScrollableTripContent, TripHeaderImage } from './misc/common';
-import TripSegmentImagePreviews from './trip-segment-image-previews';
 import drawerStore from '../common/drawer-store';
-import {isOutOfViewport} from '../utils';
-import { lighten } from 'polished';
+import VerticalTripTimeline from './timeline';
+import { darken, lighten } from 'polished';
+import Icon from '../common/evil-icon';
+import {ContextOptionButtons} from './misc/common'
+import ShareComponent from './misc/share-options';
 
 export interface TripDetail {
   id: string;
@@ -24,35 +24,23 @@ export interface TripDetail {
 }
 
 const MaincontentContainer = styled.div`
+  height: 100%;
   padding: 15px;
 `;
 
-const TripName = styled.div`
+const TripTitle = styled.div`
   text-align: center;
   font-size: 40px;
   width: 100%;
+
+  color: ${(p: any) => darken(0.5, p.theme.color.text)};
 `;
 
-const SmallTripName = styled(TripName)` font-size: 20px; `
+const SmallTripName = styled(TripTitle)` font-size: 20px; `
 
 const TripBody = styled.div`
   font-size: 14px;
   text-align: center;
-`;
-
-const TimelineContainer = styled.div`
-  margin-left: 10px;
-`;
-
-const TimelineShortDescription = styled.p`
-  font-size: 14px;
-  color: ${p => lighten(0.2, p.theme.color.primary)}
-`;
-
-const LineSpacer = styled.div`
-  height: 30px;
-  border-bottom: 1px solid ${p => p.theme.color.primary};
-  opacity: 0.2;
 `;
 
 interface ComponentProps {
@@ -86,8 +74,7 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
         centreOnBounds(bounds);
       });
 
-
-      map.setTravelLayer(getTravelTripGeometry(tripId));
+    map.setTravelLayer(getTravelTripGeometry(tripId));
   }
 
   public componentWillUnmount(): void {
@@ -101,20 +88,15 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
     if (numb && numb.length > 0) this.props.onClick(parseInt(numb, 10));
   }
 
-  private test = () => {
-    // Ddoessnt work great yet. certainly mobile. please use this instead: 
-    // https://stackoverflow.com/questions/34332575/detect-when-div-scrolls-out-of-view
-    const el = document.getElementById('testmmos');
-    if (el) {
-      const isout = isOutOfViewport(el);
-      if (isout.any === true) {
-        const {trip} = this.props;
-        drawerStore.setTopContent(
-          <SmallTripName>{trip.name}</SmallTripName>
-        );
-      } else {
-        drawerStore.setTopContent(null);
-      }
+  private handleTitleOutOfViewScroll = (e: React.MouseEvent<any>) => {
+    const scrolllContainerValue = e.currentTarget.scrollTop;
+    if (scrolllContainerValue > 300) {
+      const {trip} = this.props;
+      drawerStore.setTopContent(
+        <SmallTripName>{trip.name}</SmallTripName>
+      );
+    } else {
+      drawerStore.setTopContent(null);
     }
   }
 
@@ -123,32 +105,31 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
     const {trip} = this.props;
     return (
       <>
-        <ScrollableTripContent onScroll={this.test}>
+        <ScrollableTripContent onScroll={this.handleTitleOutOfViewScroll}>
           <TripHeaderImage src={getImageUrl(trip.header_image_url)} alt="Travel Trip Header image"/>
           <MaincontentContainer>
-            <TripName id="testmmos">{trip.name}</TripName>
+            <TripTitle>{trip.name}</TripTitle>
             <TripBody>
               {trip.description}
             </TripBody>
-            <LineSpacer/>
+
+            <div>
+              <ContextOptionButtons>
+                <Icon id="ei-camera-icon"/>
+                <p>TLDR mode</p>
+              </ContextOptionButtons>
+
+              <ShareComponent title={trip.name} url={'www.jeroentravel.com'}/>
+            </div>
+
+            <div>
+              <Icon id="ei-camera-icon"/>
+            </div>
+
             {details && details.length > 0 && 
-              <>
-                <TimelineContainer>
-                  {details.map((item: TripDetail) => {
-                      return (
-                        <div key={item.id}>
-                          <TimelineHeader id={item.id} title={item.name} onClick={this.handleSegmentDetailClick}/>
-                          <TimelineBody>
-                            <TripSegmentImagePreviews imageUrls={item.header_image_url}/>
-                            <TimelineShortDescription>{item.short_description}</TimelineShortDescription>
-                          </TimelineBody>
-                        </div>
-                      )
-                    })
-                  }
-                </TimelineContainer>
-              </>
+              <VerticalTripTimeline tripItems={details} onClick={this.handleSegmentDetailClick}/>
             }
+            
           </MaincontentContainer>
         </ScrollableTripContent>
       </>

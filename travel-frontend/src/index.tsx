@@ -3,8 +3,8 @@ import React from 'react';
 import map from './map';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import AppContainer from './app-container';
-import AppContent from './app-content';
+import AppContainer from './UI/app-container';
+import AppContent from './UI/app-content';
 
 import 'evil-icons/assets/evil-icons.css';
 // eslint-disable-next-line
