@@ -126,7 +126,7 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
             {details && details.length > 0 && 
               <>
                 {!tldrMode &&
-                  <VerticalTimeline tripItems={details} onClick={this.handleSegmentDetailClick}/>
+                  <VerticalTimeline active={trip.active} tripItems={details} onClick={this.handleSegmentDetailClick}/>
                 }
                 {tldrMode &&
                   <VerticalTLDRTimeline/>

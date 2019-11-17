@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { TripDetail } from '../trip-details';
 import moment from 'moment';
 import TimelineDay from './day';
+import ActiveTripPromotion from '../active-trip-promotion';
+
 
 const TimelineContainer = styled.div`
   margin-left: 10px;
@@ -11,6 +13,7 @@ const TimelineContainer = styled.div`
 interface ComponentProps {
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   tripItems: TripDetail[];
+  active: boolean;
 }
 
 const VerticalTimeline = (props: ComponentProps) => {
@@ -27,7 +30,9 @@ const VerticalTimeline = (props: ComponentProps) => {
 
   return (
     <TimelineContainer>
-
+      {props.active &&
+        <ActiveTripPromotion/>
+      }
       {dateArray.map((item: any) => (
         <TimelineDay
           onClick={props.onClick}
