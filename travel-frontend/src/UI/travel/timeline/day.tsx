@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TripDetail } from '../trip-detail-page';
+import { TripDetail } from '../trip-details';
 import TimelineBody from './body';
-import { lighten, darken } from 'polished';
+import { lighten } from 'polished';
 
 const TimeLineDayBanner = styled.div`
   height: 20px;
@@ -43,8 +43,9 @@ const TimelineShortDescription = styled.p`
 `;
 
 interface Props {
-  stories: TripDetail[]
-  dateText: String
+  stories: TripDetail[];
+  dateText: String;
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const TimelineDay = (props: Props) => {
@@ -57,7 +58,7 @@ const TimelineDay = (props: Props) => {
 
       <SegmentContainer>
         {props.stories.map(segment => (
-          <TimelineBody key={segment.id}>
+          <TimelineBody key={segment.id} id={segment.id} onClick={props.onClick}>
             <SegmentTitle>{segment.name}</SegmentTitle>
             <TimelineShortDescription>{segment.short_description}</TimelineShortDescription>
           </TimelineBody>

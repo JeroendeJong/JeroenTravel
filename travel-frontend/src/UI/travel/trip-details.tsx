@@ -1,16 +1,17 @@
 import React from 'react';
-import { TripOverview } from './trip-item';
+import { TripOverview } from './trips-item';
 import { getTravelTrip, getImageUrl, getTravelTripGeometry } from '../../constants';
 import map from '../../map';
 import {coordinatesToBounds, centreOnBounds} from '../../map/utils';
 import styled from 'styled-components';
 import { ScrollableTripContent, TripHeaderImage } from './misc/common';
 import drawerStore from '../common/drawer-store';
-import VerticalTripTimeline from './timeline';
-import { darken, lighten } from 'polished';
+import VerticalTimeline from './timeline/vertical-timeline';
+import { darken } from 'polished';
 import Icon from '../common/evil-icon';
 import {ContextOptionButtons} from './misc/common'
-import ShareComponent from './misc/share-options';
+import ShareOptionsComponent from './misc/share-options';
+import VerticalTLDRTimeline from './timeline/vertical-tldr-timeline';
 
 export interface TripDetail {
   id: string;
@@ -28,7 +29,7 @@ const MaincontentContainer = styled.div`
   padding: 15px;
 `;
 
-const TripTitle = styled.div`
+const TripHeader = styled.div`
   text-align: center;
   font-size: 40px;
   width: 100%;
@@ -36,11 +37,15 @@ const TripTitle = styled.div`
   color: ${(p: any) => darken(0.5, p.theme.color.text)};
 `;
 
-const SmallTripName = styled(TripTitle)` font-size: 20px; `
 
 const TripBody = styled.div`
   font-size: 14px;
   text-align: center;
+`;
+
+const ContextButtons = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 interface ComponentProps {
@@ -50,12 +55,14 @@ interface ComponentProps {
 
 interface ComponentState {
   details: TripDetail[];
+  tldrMode: boolean;
 }
 
 class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
 
   public state = {
-    details: []
+    details: [],
+    tldrMode: false
   }
 
   public componentDidMount(): void {
@@ -79,57 +86,53 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
 
   public componentWillUnmount(): void {
     map.clearTravelLayer();
-    drawerStore.setTopContent(null);
   }
 
   private handleSegmentDetailClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    console.log(e);
     const el = e.currentTarget;
-    const numb = el.getAttribute('data-id');
-    if (numb && numb.length > 0) this.props.onClick(parseInt(numb, 10));
+    const idString = el.getAttribute('data-id');
+    console.log(idString);
+    if (idString && idString.length > 0) this.props.onClick(parseInt(idString, 10));
   }
 
-  private handleTitleOutOfViewScroll = (e: React.MouseEvent<any>) => {
-    const scrolllContainerValue = e.currentTarget.scrollTop;
-    if (scrolllContainerValue > 300) {
-      const {trip} = this.props;
-      drawerStore.setTopContent(
-        <SmallTripName>{trip.name}</SmallTripName>
-      );
-    } else {
-      drawerStore.setTopContent(null);
-    }
+  private handleTLDRMode = () =>{
+    this.setState(oldState => ({tldrMode: !oldState.tldrMode}));
   }
 
   public render(): JSX.Element {
     const details: any = this.state.details;
     const {trip} = this.props;
+    const {tldrMode} = this.state
     return (
       <>
-        <ScrollableTripContent onScroll={this.handleTitleOutOfViewScroll}>
+        <ScrollableTripContent title={trip.name} pixelOffset={300}>
           <TripHeaderImage src={getImageUrl(trip.header_image_url)} alt="Travel Trip Header image"/>
           <MaincontentContainer>
-            <TripTitle>{trip.name}</TripTitle>
+            <TripHeader>{trip.name}</TripHeader>
             <TripBody>
               {trip.description}
             </TripBody>
 
-            <div>
-              <ContextOptionButtons>
+            <ContextButtons>
+              <ShareOptionsComponent title={trip.name} url={'www.jeroentravel.com'}/>
+
+              <ContextOptionButtons onClick={this.handleTLDRMode}>
                 <Icon id="ei-camera-icon"/>
                 <p>TLDR mode</p>
               </ContextOptionButtons>
-
-              <ShareComponent title={trip.name} url={'www.jeroentravel.com'}/>
-            </div>
-
-            <div>
-              <Icon id="ei-camera-icon"/>
-            </div>
+            </ContextButtons>
 
             {details && details.length > 0 && 
-              <VerticalTripTimeline tripItems={details} onClick={this.handleSegmentDetailClick}/>
+              <>
+                {!tldrMode &&
+                  <VerticalTimeline tripItems={details} onClick={this.handleSegmentDetailClick}/>
+                }
+                {tldrMode &&
+                  <VerticalTLDRTimeline/>
+                }
+              </>
             }
-            
           </MaincontentContainer>
         </ScrollableTripContent>
       </>

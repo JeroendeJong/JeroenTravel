@@ -1,5 +1,5 @@
 import React from 'react';
-import TripOverviewItem, { TripOverview } from './trip-item';
+import TripOverviewItem, { TripOverview } from './trips-item';
 import ScrollableView from '../common/scroll-view';
 
 interface ComponentProps {

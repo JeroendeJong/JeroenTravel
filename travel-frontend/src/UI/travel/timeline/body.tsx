@@ -47,7 +47,7 @@ const MainContent = styled.div``;
 
 const TimelineBody = (props: any) => {
   return (
-    <Container>
+    <Container data-id={props.id} onClick={props.onClick}>
       <MainContent>
         {props.children}  
       </MainContent>

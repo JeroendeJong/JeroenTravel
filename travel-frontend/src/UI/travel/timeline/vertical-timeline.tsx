@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TripDetail } from '../trip-detail-page';
+import { TripDetail } from '../trip-details';
 import moment from 'moment';
 import TimelineDay from './day';
 
@@ -13,7 +13,7 @@ interface ComponentProps {
   tripItems: TripDetail[];
 }
 
-const VerticalTripTimelineContainer = (props: ComponentProps) => {
+const VerticalTimeline = (props: ComponentProps) => {
   const dateStringToContentMap = props.tripItems.reduce((agg: any, val: TripDetail) => {
     const date = moment(val.arrival_time).format('YYYY/MM/DD');
     if (!agg[date]) agg[date] = []
@@ -27,8 +27,10 @@ const VerticalTripTimelineContainer = (props: ComponentProps) => {
 
   return (
     <TimelineContainer>
+
       {dateArray.map((item: any) => (
         <TimelineDay
+          onClick={props.onClick}
           key={item.date}
           dateText={moment(item.date).format('DD/MM/YYYY')} 
           stories={item.segments}
@@ -38,4 +40,4 @@ const VerticalTripTimelineContainer = (props: ComponentProps) => {
   )
 }
 
-export default VerticalTripTimelineContainer;
+export default VerticalTimeline;

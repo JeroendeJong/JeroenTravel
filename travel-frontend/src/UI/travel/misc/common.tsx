@@ -3,6 +3,7 @@ import ScrollableView from '../../common/scroll-view';
 import TravelImage from "./image-view";
 import { lighten } from "polished";
 import { StyledHover } from "../../styled-utils";
+import withHeaderTitleScrollContext from "../title-header-scroll";
 
 export const TopLeftActionIconContainer = styled.div`
   position: absolute;
@@ -17,10 +18,12 @@ export const TopLeftActionIconContainer = styled.div`
   }
 `;
 
-export const ScrollableTripContent = styled(ScrollableView)`
-  position: relative;
-  z-index: -1;
-`; 
+export const ScrollableTripContent = withHeaderTitleScrollContext(
+  styled(ScrollableView)`
+    position: relative;
+    z-index: -1;
+  `
+);
 
 export const TripHeaderImage = styled(TravelImage)`
   width: 100%;

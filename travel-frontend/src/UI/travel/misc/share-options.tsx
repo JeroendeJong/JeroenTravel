@@ -10,8 +10,7 @@ interface Props {
   title?: string;
 }
 
-const ShareComponent = (props: Props) => {
-
+const ShareOptionsComponent = (props: Props) => {
   // navigator.share see: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
   if ((navigator as any).share) {
     const handleNavigatorShare = () => (navigator as any).share(props);
@@ -49,4 +48,4 @@ const ShareComponent = (props: Props) => {
   );
 }
 
-export default ShareComponent;
+export default ShareOptionsComponent;

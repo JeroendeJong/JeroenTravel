@@ -1,12 +1,12 @@
 import React from 'react';
 import { getTravelTrips } from '../../constants';
 import Drawer from '../common/drawer';
-import { TripOverview } from './trip-item';
-import TripDetailPage from './trip-detail-page';
-import TripListScreen from './main-trip-list';
+import { TripOverview } from './trips-item';
+import TripDetailPage from './trip-details';
+import TripListScreen from './trips-list';
 import map from '../../map';
 import { TRAVEL_ROUTE } from '../../routes';
-import TripSegmentDetailPage from './trip-segment-detail-page';
+import TripSegmentDetailPage from './trip-segment';
 
 interface ComponentState {
   selected: null | TripOverview;

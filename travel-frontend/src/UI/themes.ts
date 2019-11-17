@@ -2,7 +2,7 @@ import { darken, lighten } from "polished";
 
 export const FlightTheme = {
   color: {
-    text: 'green',
+    text: 'white',
     highlight: darken(0.1, '#297373'),
     secondary: '#202030',
     primary: '#297373'
