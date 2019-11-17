@@ -1,12 +1,12 @@
 import React from 'react';
-import { getTravelTrips } from '../../constants';
 import Drawer from '../common/drawer';
 import { TripOverview } from './trips-item';
-import TripDetailPage from './trip-details';
-import TripListScreen from './trips-list';
-import map from '../../map';
-import { TRAVEL_ROUTE } from '../../routes';
-import TripSegmentDetailPage from './trip-segment';
+import TripDetailPage from './main-screens/trip-details';
+import TripListScreen from './main-screens/trips-list';
+import { TRAVEL_ROUTE, TRAVEL_TRIP_SEGMENT_ROUTE, TRAVEL_TRIP_ROUTE } from '../../routes';
+import TripSegmentDetailPage from './main-screens/trip-segment';
+import { Route, withRouter } from 'react-router';
+import { RouterPathChangeRequest } from './models/router-path-change-request';
 
 interface ComponentState {
   selected: null | TripOverview;
@@ -21,23 +21,6 @@ class App extends React.Component<any, ComponentState> {
     selected: null,
     trips: [],
     selectedSegmentId: null
-  }
-
-  public componentDidMount(): void {
-    fetch(getTravelTrips())
-      .then(resp => resp.json())
-      .then(json => {
-        this.setState({trips: json})
-      });
-  }
-
-  componentDidUpdate(prevProps: any) {
-    const previousWasNotTravel = prevProps.location.pathname !== TRAVEL_ROUTE;
-    const newPropsIsTravel = this.props.location.pathname === TRAVEL_ROUTE;
-
-    if (previousWasNotTravel && newPropsIsTravel) {
-      map.clearAll();
-    }
   }
 
   private handleContentCloseCall = (callId: any) => {
@@ -56,10 +39,18 @@ class App extends React.Component<any, ComponentState> {
     }
   }
 
-  private handleDetailClose = () => this.setState({selected: null, selectedSegmentId: null});
-  private handleTripSelected = (trip: TripOverview): void => this.setState({selected: trip});
-  private handleSegmentSelect = (segmentId: number) => this.setState({selectedSegmentId: segmentId});
-  private handleSegmentBack = () => this.setState({selectedSegmentId: null})
+  private handlePathChange = (payload: RouterPathChangeRequest) => {
+    let path = ''
+    if (payload.tripId) {
+      path += `/trip/${payload.tripId}`;
+    }
+
+    if (payload.segmentId) {
+      path += `/segment/${payload.segmentId}`;
+    }
+
+    this.props.history.push(path);
+  }
 
   public render(): any {
     return (
@@ -68,32 +59,30 @@ class App extends React.Component<any, ComponentState> {
         onCloseContentId={this.handleContentCloseCall} 
         onBackContentId={this.handleContentBackCall}
       >
-        {this.state.selected === null && 
+        <Route exact path={TRAVEL_ROUTE}>
           <TripListScreen 
-            trips={this.state.trips} 
-            onClick={this.handleTripSelected}
+            onClick={this.handlePathChange}
           />
-        }
+        </Route>
 
-        {this.state.selected && !this.state.selectedSegmentId &&
-          <>
-            <TripDetailPage 
-              trip={this.state.selected} 
-              onClick={this.handleSegmentSelect}
-            />
-          </>
-        }
+        <Route exact path={TRAVEL_TRIP_ROUTE}>
+          <TripDetailPage 
+            onClick={this.handlePathChange}
+          />
+        </Route>
 
-        {this.state.selected && this.state.selectedSegmentId &&
+        <Route exact path={TRAVEL_TRIP_SEGMENT_ROUTE}>
           <TripSegmentDetailPage 
-            id={this.state.selectedSegmentId} 
-            trip={this.state.selected} 
+            id={this.state.selectedSegmentId!} 
+            trip={this.state.selected!} 
           />
-        }
+        </Route>
 
       </Drawer>
     );
   }
 }
 
-export default App;
+
+
+export default withRouter(App);

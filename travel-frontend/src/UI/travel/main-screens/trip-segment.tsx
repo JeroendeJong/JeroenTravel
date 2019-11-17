@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollableTripContent } from "./misc/common";
+import { ScrollableTripContent } from "../misc/common";
 import styled from 'styled-components';
-import Markdown from 'react-markdown';
-import { getTravelTrip, getImageUrl } from '../../constants';
+import Markdown from '../misc/travel-markdown';
+import { getTravelTrip, getImageUrl } from '../../../constants';
 import { TripDetail } from './trip-details';
-import drawerStore from '../common/drawer-store';
-import { TripOverview } from './trips-item';
-import Icon from '../common/evil-icon';
-import TravelImage from './misc/image-view';
-import { darken } from 'polished';
-
-const LongDescription = styled.div`
-  margin: 20px;
-  font-weight: lighter;
-  font-size: 14px;
-  line-height: 1.4;
-`;
+import drawerStore from '../../common/drawer-store';
+import { TripOverview } from '../trips-item';
+// import Icon from '../../common/evil-icon';
+import withTripsData from '../with-trips-data';
+import { withRouter } from 'react-router';
 
 const TEST_TEXT = `
 ![Image 1, what a great image innit mate.!](${getImageUrl('/assets/IMG_0334.jpg')}  "sup browksies")
@@ -39,43 +32,26 @@ Aenean venenatis ex in nisi semper, ut ultricies lectus scelerisque. Donec accum
 ![Image 1, what a great image innit mate.!](${getImageUrl('/assets/IMG_0511.jpg')})
 `;
 
-const BottomNavigationBar = styled.div`
-  position: absolute;
-  bottom: 0;
-  height: 100px;
-  width: 100%;
+// const BottomNavigationBar = styled.div`
+//   position: absolute;
+//   bottom: 0;
+//   height: 100px;
+//   width: 100%;
 
-  display: flex;
-  justify-content: space-between;
+//   display: flex;
+//   justify-content: space-between;
 
-  background-color: green;
-`;
+//   background-color: green;
+// `;
 
-const SegmentNavigationButton = styled(Icon)`
-  height: 50px;
-  width: 50px;
-`;
+// const SegmentNavigationButton = styled(Icon)`
+//   height: 50px;
+//   width: 50px;
+// `;
 
 const SegmentTitle = styled.div`
   font-size: 30px;
   text-align: center;
-`;
-
-const MarkdownImage = styled(TravelImage)`
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-`;
-
-const MarkdownImageDescription = styled.p`
-  margin: 0;
-  font-size: 12px;
-`
-
-const MarkdownParagph = styled.p`
-  margin-left: 10px;
-  margin-right: 10px;
-  color: ${p => darken(0.2, p.theme.color.text)};
 `;
 
 interface Props {
@@ -83,24 +59,9 @@ interface Props {
   trip: TripOverview;
 }
 
-const custom = {
-  image: (props: any) => {
-    return (
-      <>
-        <MarkdownImage alt={props.alt} src={props.src}/>
-        <MarkdownImageDescription>{props.title}</MarkdownImageDescription>
-      </>
-    )
-  },
-  text: (props: any) => {
-    console.log(props);
-    return (
-      <MarkdownParagph>{props.children}</MarkdownParagph>
-    )
-  }
-}
-
-const TripSegmentDetailPage = (props: Props) => {
+const TripSegmentDetailPage = (props: any) => {
+  const segmentId = parseInt(props.match.params.segmentID, 10);
+  console.log(segmentId);
   const [data, setData] = useState<TripDetail[] | null>(null);
   const [id] = useState(props.trip.id);
 
@@ -122,26 +83,27 @@ const TripSegmentDetailPage = (props: Props) => {
     drawerStore.emit('CONTENT_BACKABLE', 'TripSegmentDetailPage');
   }, []);
 
+
   if (!data) return null;
 
-  const feature = data.find((f: any) => f.id === props.id);
+  const feature = data.find((f: any) => f.id === segmentId);
   if (!feature) return null;
 
   return (
     <>
       <ScrollableTripContent title={feature.name} pixelOffset={100}>
         <SegmentTitle>{feature.name}</SegmentTitle>
-        <Markdown source={feature.long_description || TEST_TEXT} renderers={custom} />
+        <Markdown source={feature.long_description || TEST_TEXT}/>
       </ScrollableTripContent>
-      <BottomNavigationBar>
-      
+      {/* <BottomNavigationBar>
+        
         <SegmentNavigationButton id={'ei-chevron-left-icon'}/>
 
         <SegmentNavigationButton id={'ei-chevron-right-icon'}/>
 
-      </BottomNavigationBar>
+      </BottomNavigationBar> */}
     </>
   );
 }
 
-export default TripSegmentDetailPage;
+export default withRouter(withTripsData(TripSegmentDetailPage));

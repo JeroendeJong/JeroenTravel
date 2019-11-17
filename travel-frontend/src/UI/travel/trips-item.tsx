@@ -1,9 +1,10 @@
 import React from 'react';
 import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
-import Icon from '../common/evil-icon';
 import moment from 'moment';
 import { StyledHover } from '../styled-utils';
+import { RedIcon } from './misc/common';
+import { RouterPathChangeRequest } from './models/router-path-change-request';
 
 export interface TripOverview {
   id: string;
@@ -19,7 +20,7 @@ export interface TripOverview {
 
 interface ComponentProps {
   tripOverview: TripOverview;
-  onClick?: (trip: TripOverview) => void;
+  onClick?: (change: RouterPathChangeRequest) => void;
   active: boolean;
 }
 
@@ -60,7 +61,6 @@ const TripDescription = styled.div`
   max-height: 28px;   // <--- line-height * 2
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-
 `;
 
 const BottomLine = styled.div`
@@ -75,9 +75,6 @@ const BlinkAnim = keyframes`
   from { opacity: 1.0; }
   to { opacity: 0.4; }
 `
-const RedIcon = styled(Icon)`
-  color: red;
-`;
 
 const BlinkActiveTrip = styled.span`
   color: red;
@@ -92,7 +89,7 @@ const TripOverviewItem = (props: ComponentProps) => {
   const trip = props.tripOverview;
 
   const onTripClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (props.onClick) props.onClick(trip);
+    if (props.onClick) props.onClick({tripId: parseInt(trip.id, 10)});
   }
 
   const start = moment(trip.start_date);

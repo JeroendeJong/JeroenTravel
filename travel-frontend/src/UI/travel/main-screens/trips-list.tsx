@@ -1,10 +1,13 @@
 import React from 'react';
-import TripOverviewItem, { TripOverview } from './trips-item';
-import ScrollableView from '../common/scroll-view';
+import TripOverviewItem, { TripOverview } from '../trips-item';
+import ScrollableView from '../../common/scroll-view';
+import withTripsData from '../with-trips-data';
+import { RouterPathChangeRequest } from '../models/router-path-change-request';
+import { withRouter } from 'react-router';
 
 interface ComponentProps {
   trips: TripOverview[];
-  onClick: (trip: TripOverview) => void;
+  onClick: (trip: RouterPathChangeRequest) => void;
 }
 
 const TripListScreen = (props: ComponentProps) => {
@@ -32,4 +35,4 @@ const TripListScreen = (props: ComponentProps) => {
 }
 
 
-export default TripListScreen;
+export default withRouter(withTripsData(TripListScreen));

@@ -23,6 +23,6 @@ export const TravelDark = {
     text: 'white',
     highlight: lighten(0.4, '#011219'),
     secondary: '#2c2927',
-    primary: '#012622'
+    primary: '#56E39F'
   }
 }

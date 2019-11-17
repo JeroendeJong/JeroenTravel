@@ -4,6 +4,7 @@ import { MOBILE_BREAKPOINT, MobileOnly } from '../../mobile';
 import { rgba } from 'polished';
 import DrawerStore from './drawer-store';
 import Icon from './evil-icon';
+import { withRouter } from 'react-router';
 
 const FloatingBottomDrawer = css`
   position: fixed;
@@ -86,13 +87,13 @@ interface State {
   topContent: null | JSX.Element;
 }
 
-interface Props {
-  onCloseContentId?: any;
-  onBackContentId?: any;
-  children: any;
-}
+// interface Props {
+//   onCloseContentId?: any;
+//   onBackContentId?: any;
+//   children: any;
+// }
 
-class DrawerInstance extends React.Component<Props, State>  {
+class DrawerInstance extends React.Component<any, State>  {
 
   public state: State = {
     active: true,
@@ -127,15 +128,21 @@ class DrawerInstance extends React.Component<Props, State>  {
   }
 
   private handleClose = () => {
-    const valToUndo = this.lastCloseCallID.pop();
-    if (this.lastCloseCallID.length === 0) this.setState({closeable: false});
-    this.props.onCloseContentId(valToUndo);
+    const {history} = this.props;
+    history.push('/')
+    this.setState({closeable: false});
   }
 
   private handleBack = () => {
-    const valToUndo = this.lastBackCallId.pop();
-    if (this.lastBackCallId.length === 0) this.setState({backable: false});
-    this.props.onBackContentId(valToUndo);
+    const {location, history} = this.props;
+    const path = location.pathname.split('/');
+    if (path[3] === 'segment') {
+      history.push(`/${path[1]}/${path[2]}`);
+    } else if (path[1] === 'trip') {
+      history.push(`/`);
+    } else return;
+
+    this.setState({backable: false});
   }
 
   public componentDidMount() {
@@ -149,8 +156,6 @@ class DrawerInstance extends React.Component<Props, State>  {
     const drawerActiveIconID = this.state.active
       ? "ei-arrow-down-icon"
       : "ei-arrow-up-icon";
-
-
 
     return (
       <Drawer data-active={this.state.active}>
@@ -179,4 +184,4 @@ class DrawerInstance extends React.Component<Props, State>  {
   }
 }
 
-export default DrawerInstance;
+export default withRouter(DrawerInstance);

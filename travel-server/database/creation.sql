@@ -56,7 +56,8 @@ CREATE TABLE trip_segment (
   departure_time timestamp with time zone,
   header_image_url text,
   short_description text,
-  accommodation_id integer REFERENCES accommodation(id)
+  accommodation_id integer REFERENCES accommodation(id),
+  posted_time timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE trip_segment_geometry (
@@ -69,7 +70,7 @@ CREATE TABLE trip_segment_geometry (
 CREATE TABLE accommodation (
   id SERIAL PRIMARY KEY,
   name text,
-  adress text,
+  address text,
   geom geometry,
   review text,
   booking_link text,

@@ -1,4 +1,4 @@
-INSERT INTO "public"."accommodation"("id","name","adress","geom","review","booking_link","place")
+INSERT INTO "public"."accommodation"("id","name","address","geom","review","booking_link","place")
 VALUES
 (1,E'StarHostel',E'თამარ მეფის ქუჩა (Tamar Mepe St)',E'POINT(42.2670918 42.7074275)',E'4/10',NULL,E'Kutaisi'),
 (2,E'Jeiran Japariidze''s Guesthoue',E'ჯონდო ხაფთანის ქუჩა (Jondo Khaptani St)',E'POINT(43.04214 42.71906)',E'6/10',NULL,E'Mestia'),

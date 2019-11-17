@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TravelDark, FlightTheme, TravelLight } from './themes';
 import { ThemeProvider } from 'styled-components';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { TRAVEL_ROUTE, FLIGHT_ROUTE } from '../routes';
 
 import TravelApp from './travel/App';
@@ -32,13 +32,15 @@ const AppContent = () => {
 
   return (
     <>
-      <ThemeProvider theme={getTheme(theme === THEME_MODE_DARK, 'travel')}>
-        <Route path={TRAVEL_ROUTE} component={TravelApp}/>
-      </ThemeProvider>
+      <Switch>
+        <ThemeProvider theme={getTheme(theme === THEME_MODE_DARK, 'travel')}>
+          <Route path={TRAVEL_ROUTE} component={TravelApp}/>
+        </ThemeProvider>
 
-      <ThemeProvider theme={getTheme(theme === THEME_MODE_DARK, 'flights')}>
-        <Route exact path={FLIGHT_ROUTE} component={FlightApp}/>
-      </ThemeProvider>
+        <ThemeProvider theme={getTheme(theme === THEME_MODE_DARK, 'flights')}>
+          <Route path={FLIGHT_ROUTE} component={FlightApp}/>
+        </ThemeProvider>
+      </Switch>
     </>
   );
 }

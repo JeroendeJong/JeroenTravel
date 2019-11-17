@@ -36,6 +36,7 @@ const withHeaderTitleScrollContext = (Component: any) => (props: Props) => {
   }
 
   useEffect(() => {
+    drawerStore.setTopContent(null);
     return () => {
       drawerStore.setTopContent(null);
     };

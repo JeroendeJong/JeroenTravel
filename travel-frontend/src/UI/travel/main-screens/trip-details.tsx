@@ -1,27 +1,40 @@
 import React from 'react';
-import { TripOverview } from './trips-item';
-import { getTravelTrip, getImageUrl, getTravelTripGeometry } from '../../constants';
-import map from '../../map';
-import {coordinatesToBounds, centreOnBounds} from '../../map/utils';
+import { TripOverview } from '../trips-item';
+import { getTravelTrip, getImageUrl, getTravelTripGeometry } from '../../../constants';
+import map from '../../../map';
+import {coordinatesToBounds, centreOnBounds} from '../../../map/utils';
 import styled from 'styled-components';
-import { ScrollableTripContent, TripHeaderImage } from './misc/common';
-import drawerStore from '../common/drawer-store';
-import VerticalTimeline from './timeline/vertical-timeline';
+import { ScrollableTripContent, TripHeaderImage } from '../misc/common';
+import drawerStore from '../../common/drawer-store';
+import VerticalTimeline from '../timeline/vertical-timeline';
 import { darken } from 'polished';
-import Icon from '../common/evil-icon';
-import {ContextOptionButtons} from './misc/common'
-import ShareOptionsComponent from './misc/share-options';
-import VerticalTLDRTimeline from './timeline/vertical-tldr-timeline';
+import Icon from '../../common/evil-icon';
+import {ContextOptionButtons} from '../misc/common'
+import ShareOptionsComponent from '../misc/share-options';
+import VerticalTLDRTimeline from '../timeline/vertical-tldr-timeline';
+import { withRouter } from 'react-router';
+import withTripsData from '../with-trips-data';
+import { RouterPathChangeRequest } from '../models/router-path-change-request';
+
+interface Accommodation {
+  name: string;
+  review: string;
+  address: string;
+  place: string;
+}
 
 export interface TripDetail {
   id: string;
-  type: string;
+  location_type: string;
+  location_text: string;
   name: string;
   short_description: string;
   long_description: string;
   arrival_time: any;
   departure_time: any;
   header_image_url: any;
+  posted_time: string;
+  accomodation: Accommodation
 }
 
 const MaincontentContainer = styled.div`
@@ -46,11 +59,12 @@ const TripBody = styled.div`
 const ContextButtons = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 10px;
 `;
 
 interface ComponentProps {
   trip: TripOverview;
-  onClick: (segmentId: number) => void;
+  onClick: (changeRequest: RouterPathChangeRequest) => void;
 }
 
 interface ComponentState {
@@ -58,7 +72,7 @@ interface ComponentState {
   tldrMode: boolean;
 }
 
-class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
+class TripDetailPage extends React.Component<any, ComponentState> {
 
   public state = {
     details: [],
@@ -66,22 +80,22 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
   }
 
   public componentDidMount(): void {
-    const {trip} = this.props;
+    const id = parseInt(this.props.trip.id);
+
     drawerStore.emit('CONTENT_CLOSEABLE', 'TripDetailPage');
 
-    const tripId = parseInt(trip.id, 10);
-    fetch(getTravelTrip(tripId))
+    fetch(getTravelTrip(id))
       .then(resp => resp.json())
       .then(json => {
         this.setState({details: json})
-
-        if (!trip.extent) return;
-        const coords: any = trip.extent.coordinates[0];
-        const bounds = coordinatesToBounds(coords);
-        centreOnBounds(bounds);
       });
 
-    map.setTravelLayer(getTravelTripGeometry(tripId));
+    const trip = this.props.trip;
+    const coords: any = trip.extent.coordinates[0];
+    const bounds = coordinatesToBounds(coords);
+    centreOnBounds(bounds);
+
+    map.setTravelLayer(getTravelTripGeometry(id));
   }
 
   public componentWillUnmount(): void {
@@ -89,20 +103,23 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
   }
 
   private handleSegmentDetailClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log(e);
     const el = e.currentTarget;
     const idString = el.getAttribute('data-id');
-    console.log(idString);
-    if (idString && idString.length > 0) this.props.onClick(parseInt(idString, 10));
+    const data = {
+      tripId: parseInt(this.props.trip.id, 10),
+      segmentId: idString ? parseInt(idString, 10) : undefined
+    }
+    if (idString && idString.length > 0) this.props.onClick(data);
   }
 
   private handleTLDRMode = () =>{
     this.setState(oldState => ({tldrMode: !oldState.tldrMode}));
   }
 
-  public render(): JSX.Element {
+  public render(): JSX.Element | null {
     const details: any = this.state.details;
-    const {trip} = this.props;
+
+    const trip = this.props.trip;
     const {tldrMode} = this.state
     return (
       <>
@@ -140,4 +157,4 @@ class TripDetailPage extends React.Component<ComponentProps, ComponentState> {
   }
 }
 
-export default TripDetailPage;
+export default withRouter(withTripsData(TripDetailPage));

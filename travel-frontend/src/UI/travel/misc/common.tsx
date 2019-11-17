@@ -4,6 +4,7 @@ import TravelImage from "./image-view";
 import { lighten } from "polished";
 import { StyledHover } from "../../styled-utils";
 import withHeaderTitleScrollContext from "../title-header-scroll";
+import Icon from "../../common/evil-icon";
 
 export const TopLeftActionIconContainer = styled.div`
   position: absolute;
@@ -51,4 +52,8 @@ export const ContextOptionButtons = styled.a`
   ${StyledHover`
     cursor: pointer;
   `}
+`;
+
+export const RedIcon = styled(Icon)`
+  color: red;
 `;

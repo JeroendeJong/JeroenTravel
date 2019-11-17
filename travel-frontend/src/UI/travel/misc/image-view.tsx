@@ -18,7 +18,7 @@ const RotatingIcon = styled(Icon)`
   height: 100%;
 `;
 
-const FallBackStyle = styled.div`
+const FallBackStyle = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;

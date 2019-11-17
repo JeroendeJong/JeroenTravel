@@ -9,7 +9,7 @@ const Container = styled.div`
   padding-bottom: 10px;
   padding-left: 10px;
 
-  margin-left: 20px;
+  margin-left: 10px;
 
   font-size: 12px;
   font-weight: lighter;
@@ -40,10 +40,11 @@ const Container = styled.div`
   ${StyledHover`
     cursor: pointer;
   `}
-}
 `;
 
-const MainContent = styled.div``;
+const MainContent = styled.div`
+  width: 100%;
+`;
 
 const TimelineBody = (props: any) => {
   return (

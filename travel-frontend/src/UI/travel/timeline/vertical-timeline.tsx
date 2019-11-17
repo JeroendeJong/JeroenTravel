@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TripDetail } from '../trip-details';
+import { TripDetail } from '../main-screens/trip-details';
 import moment from 'moment';
 import TimelineDay from './day';
 import ActiveTripPromotion from '../active-trip-promotion';
 
 
 const TimelineContainer = styled.div`
-  margin-left: 10px;
 `;
 
 interface ComponentProps {
@@ -18,7 +17,7 @@ interface ComponentProps {
 
 const VerticalTimeline = (props: ComponentProps) => {
   const dateStringToContentMap = props.tripItems.reduce((agg: any, val: TripDetail) => {
-    const date = moment(val.arrival_time).format('YYYY/MM/DD');
+    const date = moment(val.arrival_time).toISOString()
     if (!agg[date]) agg[date] = []
     agg[date].push(val);
     return agg;
