@@ -1,8 +1,7 @@
 import React from 'react';
 import { TripOverview } from '../trips-item';
-import { getTravelTrip, getImageUrl, getTravelTripGeometry } from '../../../constants';
+import { getTravelTrip, getImageUrl, getTravelTripGeometry, getTravelTripLastKnowLocation } from '../../../constants';
 import map from '../../../map';
-import {coordinatesToBounds, centreOnBounds} from '../../../map/utils';
 import styled from 'styled-components';
 import { ScrollableTripContent, TripHeaderImage } from '../misc/common';
 import drawerStore from '../../common/drawer-store';
@@ -15,6 +14,7 @@ import VerticalTLDRTimeline from '../timeline/vertical-tldr-timeline';
 import { withRouter } from 'react-router';
 import withTripsData from '../with-trips-data';
 import { RouterPathChangeRequest } from '../models/router-path-change-request';
+import mapboxgl from 'mapbox-gl';
 
 interface Accommodation {
   name: string;
@@ -78,11 +78,10 @@ class TripDetailPage extends React.Component<any, ComponentState> {
     details: [],
     tldrMode: false
   }
+  _dotElement: any;
 
   public componentDidMount(): void {
     const id = parseInt(this.props.trip.id);
-
-    drawerStore.emit('CONTENT_CLOSEABLE', 'TripDetailPage');
 
     fetch(getTravelTrip(id))
       .then(resp => resp.json())
@@ -90,16 +89,7 @@ class TripDetailPage extends React.Component<any, ComponentState> {
         this.setState({details: json})
       });
 
-    const trip = this.props.trip;
-    const coords: any = trip.extent.coordinates[0];
-    const bounds = coordinatesToBounds(coords);
-    centreOnBounds(bounds);
-
-    map.setTravelLayer(getTravelTripGeometry(id));
-  }
-
-  public componentWillUnmount(): void {
-    map.clearTravelLayer();
+    drawerStore.emit('CONTENT_CLOSEABLE', 'TripDetailPage');
   }
 
   private handleSegmentDetailClick = (e: React.MouseEvent<HTMLDivElement>) => {

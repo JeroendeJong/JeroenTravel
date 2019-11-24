@@ -159,7 +159,7 @@ class DrawerInstance extends React.Component<any, State>  {
 
     return (
       <Drawer data-active={this.state.active}>
-        <DrawerContentTop>
+        <DrawerContentTop id="handle">
           <LeftButtonGroup>
             {this.state.closeable && 
               <CloseBackIcon id="ei-close-o-icon" onClick={this.handleClose}/>

@@ -7,6 +7,9 @@ import { TRAVEL_ROUTE, TRAVEL_TRIP_SEGMENT_ROUTE, TRAVEL_TRIP_ROUTE } from '../.
 import TripSegmentDetailPage from './main-screens/trip-segment';
 import { Route, withRouter } from 'react-router';
 import { RouterPathChangeRequest } from './models/router-path-change-request';
+import UserLocationMarker from './user-location-marker';
+import TripGeometryRenderer from './trip-geometry-renderer';
+import withTripsData from './with-trips-data';
 
 interface ComponentState {
   selected: null | TripOverview;
@@ -53,6 +56,7 @@ class App extends React.Component<any, ComponentState> {
   }
 
   public render(): any {
+    console.log(this.props)
     return (
       <Drawer 
         ref={this.targetRef} 
@@ -65,24 +69,30 @@ class App extends React.Component<any, ComponentState> {
           />
         </Route>
 
-        <Route exact path={TRAVEL_TRIP_ROUTE}>
-          <TripDetailPage 
-            onClick={this.handlePathChange}
-          />
+
+        <Route path={TRAVEL_TRIP_ROUTE}>
+          <UserLocationMarker/>
+          <TripGeometryRenderer/>
+
+          <Route exact path={TRAVEL_TRIP_ROUTE}>
+            <TripDetailPage 
+              onClick={this.handlePathChange}
+            />
+          </Route>
+
+          <Route exact path={TRAVEL_TRIP_SEGMENT_ROUTE}>
+            <TripSegmentDetailPage 
+              id={this.state.selectedSegmentId!} 
+              trip={this.state.selected!} 
+            />
+          </Route>
+
         </Route>
 
-        <Route exact path={TRAVEL_TRIP_SEGMENT_ROUTE}>
-          <TripSegmentDetailPage 
-            id={this.state.selectedSegmentId!} 
-            trip={this.state.selected!} 
-          />
-        </Route>
 
       </Drawer>
     );
   }
 }
 
-
-
-export default withRouter(App);
+export default withRouter(withTripsData(App));

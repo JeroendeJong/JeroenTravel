@@ -3,6 +3,9 @@ import React from 'react';
 import map from './map';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 import AppContainer from './UI/app-container';
 import AppContent from './UI/app-content';
 

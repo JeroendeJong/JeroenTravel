@@ -6,7 +6,6 @@ import { getTravelTrip, getImageUrl } from '../../../constants';
 import { TripDetail } from './trip-details';
 import drawerStore from '../../common/drawer-store';
 import { TripOverview } from '../trips-item';
-// import Icon from '../../common/evil-icon';
 import withTripsData from '../with-trips-data';
 import { withRouter } from 'react-router';
 

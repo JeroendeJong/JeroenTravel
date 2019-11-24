@@ -23,6 +23,8 @@ export const getTravelTrip = (id: number) => {
   return `/cache/trip/${id}.json`;
 }
 
+export const getTravelTripLastKnowLocation = (id: number) => `${getTravelTrip(id)}/lastlocation`
+
 export const getTravelTripGeometry = (id: number) => {
   if (isDEV) return `http://localhost:8080/travel/trip/geometry/${id}`;
   return `/cache/trip-geometry/${id}.json`;
