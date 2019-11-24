@@ -18,9 +18,9 @@ const sql = `
 `;
 
 const client = new Client();
+client.connect();
 const get = async () => {
 
-  client.connect();
   const data = await client
     .query(sql)
     .catch(e => console.error(e.stack))

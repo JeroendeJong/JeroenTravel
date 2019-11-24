@@ -9,7 +9,7 @@ const FlightsStatisticsController = require('./src/controllers/flight-stats');
 const TravelTripDetailController = require('./src/controllers/travel-trip-detail');
 const TravelTripsController = require('./src/controllers/travel-trips');
 const TravelTripGeometryController = require('./src/controllers/travel-trip-geometry');
-
+const TravelTripLastKnowLocationController = require('./src/controllers/travel-trip-last-active-location');
 const PORT = 8080;
 
 const app = express();
@@ -47,6 +47,13 @@ app.get('/travel/trip/:id', async (req, res) => {
   const tripData = await TravelTripDetailController(id);
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(tripData));
+});
+
+app.get('/travel/trip/:id/lastlocation', async (req, res) => {
+  const {id} = req.params;
+  const location = await TravelTripLastKnowLocationController(id);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(location));
 });
 
 app.get('/travel/trip/geometry/:id', async (req, res) => {

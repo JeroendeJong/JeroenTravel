@@ -27,9 +27,10 @@ join airport as arr_airport on (arr_airport.id = flight.airport_arrival_link_id)
 `;
 
 const client = new Client();
+client.connect();
+
 const get = async () => {
 
-  client.connect();
   const data = await client
     .query(sql)
     .catch(e => console.error(e.stack))

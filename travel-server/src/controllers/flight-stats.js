@@ -1,5 +1,4 @@
 const { Client } = require('pg');
-const client = new Client();
 
 const baseDBQuery = async (sql, mutator) => {
   const response = await client
@@ -56,9 +55,10 @@ const mostCommonFlightOperatorSQL = `
   order by count desc;
 `;
 
+const client = new Client();
+client.connect();
 
 const get = async () => {
-  client.connect();
 
   const formattedStats = [
     {

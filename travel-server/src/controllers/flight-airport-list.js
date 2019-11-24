@@ -9,9 +9,10 @@ select id, type as airport_type, name, municipality, iata_code, home_link, ST_as
 `;
 
 const client = new Client();
+client.connect();
+
 const get = async () => {
 
-  client.connect();
   const data = await client
     .query(sql)
     .catch(e => console.error(e.stack))
