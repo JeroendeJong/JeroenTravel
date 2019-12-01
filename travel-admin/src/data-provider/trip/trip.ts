@@ -1,7 +1,6 @@
-import { GetListOptions, GetOneOptions, GetManyOptions, GetManyReferenceOptions, CreateOptions, UpdateOptions, UpdateManyOptions, DeleteOptions, DeleteManyOptions, DataProviderMultiReturn, DataProviderSingleReturn } from "./data-provider-types";
-import { Trip } from "./travel-types";
+import { GetListOptions, GetOneOptions, GetManyOptions, GetManyReferenceOptions, CreateOptions, UpdateOptions, UpdateManyOptions, DeleteOptions, DeleteManyOptions, DataProviderMultiReturn, DataProviderSingleReturn } from "../data-provider-types";
+import { Trip } from "./trip-types";
 import CountryFlags from 'emoji-flags';
-import { promised } from "q";
 
 type ResourceType = 'trip' | 'trip_segment'
 
@@ -11,7 +10,7 @@ type ResourceType = 'trip' | 'trip_segment'
 
 class TravelDataProvider {
 
-  public getList(type: ResourceType, options: GetListOptions): DataProviderMultiReturn {
+  public GET_LIST(type: ResourceType, options: GetListOptions): DataProviderMultiReturn {
     return fetch('http://localhost:8080/travel/trips')
       .then(resp => resp.json())
       .then((json: Trip[]) => {
@@ -24,7 +23,7 @@ class TravelDataProvider {
                 const emojiObject = CountryFlags.countryCode(code);
                 if (emojiObject) return emojiObject.emoji
                 else return code;
-              }).toString()
+              })
             }
 
           }),
@@ -33,8 +32,8 @@ class TravelDataProvider {
       })
   }
 
-  public getOne(type: ResourceType, options: GetOneOptions): any {
-    return fetch(`http://localhost:8080/travel/trips${options.id}`)
+  public GET_ONE(type: ResourceType, options: GetOneOptions): any {
+    return fetch(`http://localhost:8080/travel/trips/${options.id}`)
       .then(resp => resp.json())
       .then((trip: Trip) => {
         return {
@@ -45,27 +44,27 @@ class TravelDataProvider {
               const emojiObject = CountryFlags.countryCode(code);
               if (emojiObject) return emojiObject.emoji
               else return code;
-            }).toString()
+            })
           },
         }
       })
   }
 
-  public getMany(type: ResourceType, options: GetManyOptions) {
+  public GET_MANY(type: ResourceType, options: GetManyOptions) {
     console.log('GET_MANY', type, options);
   }
 
-  public getManyReference(type: ResourceType, options: GetManyReferenceOptions) {
+  public GET_MANY_REFERENCE(type: ResourceType, options: GetManyReferenceOptions) {
     console.log('GET_MANY_REFERENCE', type, options);
   }
 
-  public create(type: ResourceType, options: CreateOptions) {
+  public CREATE(type: ResourceType, options: CreateOptions) {
     const {data}: any = options;
     const inputData = {
       active: data.active || false,
       name: data.name,
       description: data.description,
-      country_codes: data.country_codes.toString(),
+      country_codes: data.country_codes,
       header_image_url: data.header_image_url || ''
     }
 
@@ -85,15 +84,15 @@ class TravelDataProvider {
     })
   }
 
-  public update(type: ResourceType, options: UpdateOptions) {
+  public UPDATE(type: ResourceType, options: UpdateOptions) {
     console.log('UPDATE', type, options);
   }
 
-  public updateMany(type: ResourceType, options: UpdateManyOptions) {
+  public UPDATE_MANY(type: ResourceType, options: UpdateManyOptions) {
     console.log('UPDATE_MANY', type, options);
   }
 
-  public delete(type: ResourceType, options: DeleteOptions) {
+  public DELETE(type: ResourceType, options: DeleteOptions) {
     return fetch(`http://localhost:8080/travel/trips/${options.id}`, {
       method: 'DELETE'
     })
@@ -103,10 +102,10 @@ class TravelDataProvider {
     })
   }
 
-  public deleteMany(type: ResourceType, options: DeleteManyOptions) {
+  public DELETE_MANY(type: ResourceType, options: DeleteManyOptions) {
     console.log('DELETE_MANY', type, options);
     return Promise.all(
-      options.ids.map(id => this.delete(type, {id, previousData: {}}))
+      options.ids.map(id => this.DELETE(type, {id, previousData: {}}))
     ).then(mergedResponses => {
       return {
         data: mergedResponses

@@ -6,13 +6,11 @@ const FlightsListController = require('./src/controllers/flight-list');
 const AirportsListController = require('./src/controllers/flight-airport-list');
 const FlightsStatisticsController = require('./src/controllers/flight-stats');
 
-const TravelTripDetailController = require('./src/controllers/travel-trip-detail');
-
 const TravelTripGeometryController = require('./src/controllers/travel-trip-geometry');
 const TravelTripLastKnowLocationController = require('./src/controllers/travel-trip-last-active-location');
 
 const TravelTripsSetup = require('./src/controllers/travel-trips/routes');
-
+const TravelSegmentSetup = require('./src/controllers/travel-segment/routes');
 
 const PORT = 8080;
 
@@ -43,12 +41,6 @@ app.get('/flights/stats', async (req, res) => {
   res.send(JSON.stringify(stats));
 });
 
-app.get('/travel/trip/:id', async (req, res) => {
-  const {id} = req.params;
-  const tripData = await TravelTripDetailController(id);
-  res.send(JSON.stringify(tripData));
-});
-
 app.get('/travel/trip/:id/lastlocation', async (req, res) => {
   const {id} = req.params;
   const location = await TravelTripLastKnowLocationController(id);
@@ -61,7 +53,9 @@ app.get('/travel/trip/geometry/:id', async (req, res) => {
   res.send(JSON.stringify(tripData));
 });
 
+console.log(app)
 // Setup various endpoints
-TravelTripsSetup(app)
+TravelTripsSetup(app);
+TravelSegmentSetup(app);
 
 app.listen(PORT);

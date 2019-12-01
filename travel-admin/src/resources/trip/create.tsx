@@ -1,17 +1,12 @@
 import React from 'react';
-import { List, Datagrid, Create, AutocompleteArrayInput, SimpleForm, DateField, BooleanInput, EditButton, TextInput, DateInput } from 'react-admin';
+import { Create, AutocompleteArrayInput, SimpleForm, BooleanInput, TextInput, DateInput } from 'react-admin';
 import CountryFlags from 'emoji-flags';
-
-const Title = ({record}: any) => {
-  return <span>{record.name}</span>;
-};
-
+import Title from '../../utils/title';
 
 const flagChoices = CountryFlags.data.map(flag => {
   flag.name = `${flag.emoji} - ${flag.name}`;
   return flag;
 } );
-
 
 const TripCreate = (props: any) => (
   <Create title={<Title />} {...props}>

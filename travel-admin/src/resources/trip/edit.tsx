@@ -1,18 +1,12 @@
 import React from "react";
-import { List, Datagrid, Edit, AutocompleteArrayInput, SimpleForm, DateField, BooleanInput, EditButton, TextInput, DateInput } from 'react-admin';
+import { Edit, AutocompleteArrayInput, SimpleForm, BooleanInput, TextInput, DateInput } from 'react-admin';
 import CountryFlags from 'emoji-flags';
-
-
-const Title = ({record}: any) => {
-  return <span>{record.name}</span>;
-};
-
+import Title from "../../utils/title";
 
 const flagChoices = CountryFlags.data.map(flag => {
   flag.name = `${flag.emoji} - ${flag.name}`;
   return flag;
 } );
-
 
 const TripEdit = (props: any) => (
   <Edit title={<Title />} {...props}>
