@@ -2,6 +2,22 @@ const { Client } = require('pg');
 
 const sql = `
 select 
+  (
+    select array_agg(
+      json_build_object(
+        'id', id,
+        'link_id', link_id,
+        'description', description,
+        'geom', json_build_object(
+          'type', 'Point',
+          'coordinates', json_build_array(
+            ST_x(geom),
+            ST_y(geom)
+          )
+        )
+      ) 
+    )from trip_segment_photos where trip_segment_id = 9
+  ) as photos,
 	ts.id, 
   ts.location_type,
   ts.location_text, 
@@ -22,6 +38,10 @@ where trip_id = $1
 order by arrival_time asc
 `;
 
+const imagesSql = `
+  select * from trip_segment_photos where trip_segment_id = $1
+`;
+
 const client = new Client();
 client.connect();
 const get = async (id) => {
@@ -29,8 +49,7 @@ const get = async (id) => {
     .query(sql, [id])
     .catch(e => console.error(e.stack))
 
-
-  return data.rows.map(row => {
+  const stuff = data.rows.map(row => {
     return {
       id: row.id,
       location_type: row.location_type,
@@ -41,6 +60,7 @@ const get = async (id) => {
       arrival_time: row.arrival_time,
       departure_time: row.departure_time,
       posted_time: row.posted_time,
+      photos: row.photos,
       accomodation: {
         name: row.accomodation_name,
         address: row.accomodation_address,
@@ -49,6 +69,8 @@ const get = async (id) => {
       }
     }
   });
+
+  return stuff
 }
 
 module.exports = get;
