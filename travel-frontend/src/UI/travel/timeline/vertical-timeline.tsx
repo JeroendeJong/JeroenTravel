@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TripDetail } from '../main-screens/trip-details';
 import moment from 'moment';
 import TimelineDay from './day';
 import ActiveTripPromotion from '../active-trip-promotion';
+import { TripDetail } from '../types';
 
-
-const TimelineContainer = styled.div`
-`;
+const TimelineContainer = styled.div``;
 
 interface ComponentProps {
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;

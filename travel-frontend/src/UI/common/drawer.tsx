@@ -110,7 +110,9 @@ class DrawerInstance extends React.Component<any, State>  {
   }
 
   private handleDrawerActiveToggle = (e: React.MouseEvent<any>) => {
-    this.setState(oldState => ({active: !oldState.active}));
+    this.setState(oldState => ({active: !oldState.active}), () => {
+      DrawerStore.notifyActive(this.state.active);
+    });
   }
 
   private handleDrawerActive = (active: boolean) => this.setState({active});

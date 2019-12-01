@@ -1,7 +1,6 @@
 import React from 'react';
-import { TripOverview } from '../trips-item';
-import { getTravelTrip, getImageUrl, getTravelTripGeometry, getTravelTripLastKnowLocation } from '../../../constants';
-import map from '../../../map';
+import { TripOverview, TripDetail } from '../types';
+import { getTravelTrip, getImageUrl} from '../../../constants';
 import styled from 'styled-components';
 import { ScrollableTripContent, TripHeaderImage } from '../misc/common';
 import drawerStore from '../../common/drawer-store';
@@ -14,28 +13,6 @@ import VerticalTLDRTimeline from '../timeline/vertical-tldr-timeline';
 import { withRouter } from 'react-router';
 import withTripsData from '../with-trips-data';
 import { RouterPathChangeRequest } from '../models/router-path-change-request';
-import mapboxgl from 'mapbox-gl';
-
-interface Accommodation {
-  name: string;
-  review: string;
-  address: string;
-  place: string;
-}
-
-export interface TripDetail {
-  id: string;
-  location_type: string;
-  location_text: string;
-  name: string;
-  short_description: string;
-  long_description: string;
-  arrival_time: any;
-  departure_time: any;
-  header_image_url: any;
-  posted_time: string;
-  accomodation: Accommodation
-}
 
 const MaincontentContainer = styled.div`
   height: 100%;

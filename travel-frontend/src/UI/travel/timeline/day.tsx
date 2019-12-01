@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TripDetail } from '../main-screens/trip-details';
 import TimelineBody from './body';
 import { lighten } from 'polished';
 import moment from 'moment';
 import { RedIcon } from '../misc/common';
 
 import Icon from '../../common/evil-icon';
+import { TripDetail } from '../types';
 
 const TimeLineDayBanner = styled.div`
   height: 20px;

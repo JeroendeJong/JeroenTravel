@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import map from '../../map';
-import { getTravelTrip, getTravelTripGeometry } from '../../constants';
+import { getTravelTripGeometry } from '../../constants';
 import withTripsData from './with-trips-data';
 import { withRouter } from 'react-router';
 import {coordinatesToBounds, centreOnBounds} from '../../map/utils';

@@ -1,15 +1,15 @@
 import React from 'react';
 import Drawer from '../common/drawer';
-import { TripOverview } from './trips-item';
 import TripDetailPage from './main-screens/trip-details';
 import TripListScreen from './main-screens/trips-list';
 import { TRAVEL_ROUTE, TRAVEL_TRIP_SEGMENT_ROUTE, TRAVEL_TRIP_ROUTE } from '../../routes';
 import TripSegmentDetailPage from './main-screens/trip-segment';
 import { Route, withRouter } from 'react-router';
 import { RouterPathChangeRequest } from './models/router-path-change-request';
-import UserLocationMarker from './user-location-marker';
+import UserLocationMarker from './trip-location-renderer';
 import TripGeometryRenderer from './trip-geometry-renderer';
 import withTripsData from './with-trips-data';
+import { TripOverview } from './types';
 
 interface ComponentState {
   selected: null | TripOverview;

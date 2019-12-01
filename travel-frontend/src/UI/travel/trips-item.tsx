@@ -5,18 +5,7 @@ import moment from 'moment';
 import { StyledHover } from '../styled-utils';
 import { RedIcon } from './misc/common';
 import { RouterPathChangeRequest } from './models/router-path-change-request';
-
-export interface TripOverview {
-  id: string;
-  name: string;
-  description: string;
-  country_codes: string;
-  header_image_url: string;
-  active: boolean;
-  extent: {coordinates: number[]};
-  start_date: string;
-  end_date: string;
-}
+import { TripOverview } from './types';
 
 interface ComponentProps {
   tripOverview: TripOverview;

@@ -1,9 +1,10 @@
 import React from 'react';
-import TripOverviewItem, { TripOverview } from '../trips-item';
+import TripOverviewItem from '../trips-item';
 import ScrollableView from '../../common/scroll-view';
 import withTripsData from '../with-trips-data';
 import { RouterPathChangeRequest } from '../models/router-path-change-request';
 import { withRouter } from 'react-router';
+import { TripOverview } from '../types';
 
 interface ComponentProps {
   trips: TripOverview[];

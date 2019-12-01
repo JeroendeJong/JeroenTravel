@@ -17,12 +17,18 @@ const LastLocationTextBox = styled.div`
   padding-right: 5px;
 `;
 
-const UserLocationMarker = (props: any) => {
-  let marker: mapboxgl.Marker | null = null;
+const PersistantParent = styled.div`
+  ${LastLocationTextBox} {
+    display: none;
+  }
+`;
 
+const UserLocationMarker = (props: any) => {
   const locationElement = useRef(null);
 
   useEffect(() => {
+    let marker: mapboxgl.Marker | null = null;
+
     const tripID = props.trip.id;
     fetch(getTravelTripLastKnowLocation(tripID))
       .then(resp => resp.json())
@@ -32,15 +38,10 @@ const UserLocationMarker = (props: any) => {
 
         el.classList.add('mapboxgl-user-location-dot');
 
-        // locationElement.current
-        console.log(el);
         marker = new mapboxgl.Marker(el)
           .setLngLat(coords)
           .addTo(map.map!);
-
-        console.log(marker)
-        
-        });
+      });
 
 
     return () => {
@@ -50,13 +51,13 @@ const UserLocationMarker = (props: any) => {
 
 
   return (
-    <span>
+    <PersistantParent>
       <div ref={locationElement}>
         <LastLocationTextBox>
           Last Location
         </LastLocationTextBox>
       </div>
-    </span>
+    </PersistantParent>
   );
 }
 

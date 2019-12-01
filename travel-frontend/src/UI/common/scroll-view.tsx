@@ -3,7 +3,7 @@ import React from "react";
 
 const ScrollableView = styled.div`
   overflow-y: scroll;
-  height: ${window.innerHeight - 60}px;
+  height: calc(100% - 60px);
 
   ${p => {
     if ((p as any)['data-scroll-shadow']) {

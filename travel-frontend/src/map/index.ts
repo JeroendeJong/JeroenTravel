@@ -5,7 +5,6 @@ import {airportLocationLayer, flightPathLayer, airportTextNameLayer, travelPoint
 import Airport from '../models/airport';
 import Flight from '../models/flight';
 
-
 mapboxgl.accessToken = 'pk.eyJ1IjoieTBneiIsImEiOiJjaW9scWxsNzIwMDMxdzVtNm56MHhweGdjIn0.XrmaYtqwrszezXe9y-gBuw';
 
 class Map {

@@ -3,11 +3,10 @@ import { ScrollableTripContent } from "../misc/common";
 import styled from 'styled-components';
 import Markdown from '../misc/travel-markdown';
 import { getTravelTrip, getImageUrl } from '../../../constants';
-import { TripDetail } from './trip-details';
 import drawerStore from '../../common/drawer-store';
-import { TripOverview } from '../trips-item';
 import withTripsData from '../with-trips-data';
 import { withRouter } from 'react-router';
+import { TripOverview, TripDetail } from '../types';
 
 const TEST_TEXT = `
 ![Image 1, what a great image innit mate.!](${getImageUrl('/assets/IMG_0334.jpg')}  "sup browksies")
@@ -60,7 +59,6 @@ interface Props {
 
 const TripSegmentDetailPage = (props: any) => {
   const segmentId = parseInt(props.match.params.segmentID, 10);
-  console.log(segmentId);
   const [data, setData] = useState<TripDetail[] | null>(null);
   const [id] = useState(props.trip.id);
 
@@ -69,7 +67,9 @@ const TripSegmentDetailPage = (props: any) => {
     async function fetchData() {
       const url = getTravelTrip(parseInt(id));
       const json = await fetch(url).then(resp => resp.json())
-      if (!ignore) setData(json)
+      if (!ignore) {
+        setData(json)
+      }
     }
 
     fetchData();
