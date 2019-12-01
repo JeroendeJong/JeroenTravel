@@ -6,10 +6,7 @@ type ResourceType = 'trip' | 'trip_segment'
 class TravelDataProvider {
 
   public GET_LIST(_: ResourceType, options: GetListOptions): DataProviderMultiReturn {
-    console.log(options)
-
     const id = (options.filter as any).id;
-
     return fetch(`http://localhost:8080/travel/trip/${id}`)
       .then(resp => resp.json())
       .then((json: any[]) => {
@@ -22,7 +19,7 @@ class TravelDataProvider {
   }
 
   public GET_ONE(_: ResourceType, options: GetOneOptions): any {
-    return fetch(`http://localhost:8080/travel/trips/${options.id}`)
+    return fetch(`http://localhost:8080/travel/trip/${options.id}`)
       .then(resp => resp.json())
       .then((trip: any) => {
         return {
@@ -56,15 +53,9 @@ class TravelDataProvider {
 
   public CREATE(_: ResourceType, options: CreateOptions) {
     const {data}: any = options;
-    const inputData = {
-      active: data.active || false,
-      name: data.name,
-      description: data.description,
-      country_codes: data.country_codes,
-      header_image_url: data.header_image_url || ''
-    }
+    const inputData = { ...data }
 
-    return fetch('http://localhost:8080/travel/trips/', {
+    return fetch(`http://localhost:8080/travel/trip/${data.trip_id}`, {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json'
@@ -89,7 +80,7 @@ class TravelDataProvider {
   }
 
   public DELETE(_: ResourceType, options: DeleteOptions) {
-    return fetch(`http://localhost:8080/travel/trips/${options.id}`, {
+    return fetch(`http://localhost:8080/travel/trip/${options.id}`, {
       method: 'DELETE'
     })
     .then(resp => resp.json())
@@ -99,7 +90,6 @@ class TravelDataProvider {
   }
 
   public DELETE_MANY(_: ResourceType, options: DeleteManyOptions) {
-    console.log('DELETE_MANY', options);
     return Promise.all(
       options.ids.map(id => this.DELETE(_, {id, previousData: {}}))
     ).then(mergedResponses => {

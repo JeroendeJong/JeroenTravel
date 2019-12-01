@@ -53,7 +53,6 @@ app.get('/travel/trip/geometry/:id', async (req, res) => {
   res.send(JSON.stringify(tripData));
 });
 
-console.log(app)
 // Setup various endpoints
 TravelTripsSetup(app);
 TravelSegmentSetup(app);
