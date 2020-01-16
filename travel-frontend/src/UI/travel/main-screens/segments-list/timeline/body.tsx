@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
-import Icon from '../../common/evil-icon';
-import { StyledHover } from '../../styled-utils';
+import Icon from '../../../../common/evil-icon';
+import { StyledHover } from '../../../../styled-utils';
 
 const Container = styled.div`
   padding-top: 10px;

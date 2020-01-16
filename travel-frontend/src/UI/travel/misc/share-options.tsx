@@ -2,8 +2,6 @@ import React from 'react';
 import { ContextOptionButtons } from './common';
 import Icon from '../../common/evil-icon';
 
-
-
 interface Props {
   url?: string;
   text?: string;

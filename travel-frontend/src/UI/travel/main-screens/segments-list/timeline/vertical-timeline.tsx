@@ -3,9 +3,13 @@ import styled from 'styled-components';
 import moment from 'moment';
 import TimelineDay from './day';
 import ActiveTripPromotion from '../active-trip-promotion';
-import { TripDetail } from '../types';
+import { TripDetail } from '../../../types';
+
+import TimelineEndInActiveTrip from './the-end-inactive';
+import TimelineEndActiveTrip from './the-end-active';
 
 const TimelineContainer = styled.div``;
+
 
 interface ComponentProps {
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -38,6 +42,16 @@ const VerticalTimeline = (props: ComponentProps) => {
           stories={item.segments}
         /> 
       ))}
+
+      {props.active &&
+        <TimelineEndActiveTrip/>
+      }
+
+      {!props.active &&
+        <TimelineEndInActiveTrip/>
+      }
+
+
     </TimelineContainer>
   )
 }

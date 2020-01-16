@@ -2,10 +2,10 @@ import React from 'react';
 import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
 import moment from 'moment';
-import { StyledHover } from '../styled-utils';
-import { RedIcon } from './misc/common';
-import { RouterPathChangeRequest } from './models/router-path-change-request';
-import { TripOverview } from './types';
+import { StyledHover } from '../../../styled-utils';
+import { RedIcon } from '../../misc/common';
+import { RouterPathChangeRequest } from '../../models/router-path-change-request';
+import { TripOverview } from '../../types';
 
 interface ComponentProps {
   tripOverview: TripOverview;

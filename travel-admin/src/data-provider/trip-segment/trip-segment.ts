@@ -98,6 +98,24 @@ class TravelDataProvider {
       }
     })
   }
+
+
+  public CUSTOM_CREATE_PHOTO(_: ResourceType, options: CreateOptions) {
+    const {data}: any = options;
+    const inputData = { ...data }
+
+    const formData = new FormData();
+    formData.append('file', inputData.file)
+
+    return fetch(`http://localhost:8080/travel/trip/${data.trip_id}/photos`, {
+      method: 'POST', 
+      body: formData
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      console.log(json)
+    })
+  }
 }
 
 export default TravelDataProvider;

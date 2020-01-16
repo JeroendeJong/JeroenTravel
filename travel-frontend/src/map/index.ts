@@ -152,6 +152,13 @@ class Map {
     this.map!.addLayer(travelLineSegment);
   }
 
+  public hasTravelLayer(): boolean {
+    return Boolean(
+      this.map?.getLayer(TRAVEL_DATA_ID + '__point') && 
+      this.map?.getLayer(TRAVEL_DATA_ID + '__line')
+    );
+  }
+
   public clearTravelLayer() {
     try {
       this.map!.removeLayer(TRAVEL_DATA_ID + '__point');

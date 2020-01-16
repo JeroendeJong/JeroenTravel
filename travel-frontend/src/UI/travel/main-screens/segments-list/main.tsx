@@ -1,21 +1,21 @@
 import React from 'react';
-import { TripOverview, TripDetail } from '../types';
-import { getTravelTrip, getImageUrl} from '../../../constants';
+import { TripOverview, TripDetail } from '../../types';
+import { getTravelTrip, getImageUrl} from '../../../../constants';
 import styled from 'styled-components';
-import { ScrollableTripContent, TripHeaderImage } from '../misc/common';
-import drawerStore from '../../common/drawer-store';
-import VerticalTimeline from '../timeline/vertical-timeline';
+import { ScrollableTripContent, TripHeaderImage } from '../../misc/common';
+import drawerStore from '../../../common/drawer-store';
+import VerticalTimeline from './timeline/vertical-timeline';
 import { darken } from 'polished';
-import Icon from '../../common/evil-icon';
-import {ContextOptionButtons} from '../misc/common'
-import ShareOptionsComponent from '../misc/share-options';
-import VerticalTLDRTimeline from '../timeline/vertical-tldr-timeline';
+import Icon from '../../../common/evil-icon';
+import {ContextOptionButtons} from '../../misc/common'
+import ShareOptionsComponent from '../../misc/share-options';
+import VerticalTLDRTimeline from './timeline/vertical-tldr-timeline';
 import { withRouter } from 'react-router';
-import withTripsData from '../with-trips-data';
-import { RouterPathChangeRequest } from '../models/router-path-change-request';
+import withTripsData from '../../with-trips-data';
+import { RouterPathChangeRequest } from '../../models/router-path-change-request';
 
 const MaincontentContainer = styled.div`
-  height: 100%;
+  height: calc(100% - 200px);
   padding: 15px;
 `;
 

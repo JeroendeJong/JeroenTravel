@@ -1,6 +1,6 @@
 // in app.js
 import React from 'react';
-import { Admin, Resource, Layout, AppBar } from 'react-admin';
+import { Admin, Resource, Layout } from 'react-admin';
 import {TripList, TripEdit, TripCreate, Tripshow} from './resources/trip';
 import {TripSegmentList, TripSegmentCreate} from './resources/trip-segment';
 import Provider from './data-provider/main';

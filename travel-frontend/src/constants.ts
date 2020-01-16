@@ -23,11 +23,17 @@ export const getTravelTrip = (id: number) => {
   return `/cache/trip/${id}.json`;
 }
 
-export const getTravelTripLastKnowLocation = (id: number) => `${getTravelTrip(id)}/lastlocation`
+export const getTravelTripLastKnowLocation = (id: number) => {
+  if (isDEV) return `${getTravelTrip(id)}/lastlocation`;
+  return `/cache/trip/${id}/lastlocation.json`;
+}
 
-export const getTravelTripGeometry = (id: number) => {
+export const getTravelTripGeometry = (id: number | string) => {
   if (isDEV) return `http://localhost:8080/travel/trip/geometry/${id}`;
   return `/cache/trip-geometry/${id}.json`;
+}
+export const getTravelTripGeometries = () => {
+  return getTravelTripGeometry('all');
 }
 
 export const getTravelTrips = () => {

@@ -9,8 +9,6 @@ const PostActions = (props: any) => (
   </Toolbar>
 );
 
-
-
 const TripList = (props: any) => (
   <List {...props} actions={<PostActions />}>
     <Datagrid>

@@ -25,10 +25,10 @@ const PersistantParent = styled.div`
 
 const UserLocationMarker = (props: any) => {
   const locationElement = useRef(null);
-
   useEffect(() => {
     let marker: mapboxgl.Marker | null = null;
 
+    // if (!props.trip.active) return;
     const tripID = props.trip.id;
     fetch(getTravelTripLastKnowLocation(tripID))
       .then(resp => resp.json())
@@ -47,14 +47,14 @@ const UserLocationMarker = (props: any) => {
     return () => {
       if (marker) marker.remove()
     }
-  }, []);
+  }, [props.trip]);
 
-
+  // if (!props.trip.active) return null;
   return (
     <PersistantParent>
       <div ref={locationElement}>
         <LastLocationTextBox>
-          Last Location
+          Current Location
         </LastLocationTextBox>
       </div>
     </PersistantParent>
