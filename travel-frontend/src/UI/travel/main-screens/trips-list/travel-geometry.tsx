@@ -7,7 +7,6 @@ import { coordinatesToBounds, centreOnBounds } from '../../../../map/utils';
 
 const TravelGeometry = (props: any) => {
   useEffect(() => {
-    console.log(props.trip);
     if (props.trip) {
       const trip = props.trip;
       if (!trip.extent?.coordinates) return;
@@ -18,12 +17,9 @@ const TravelGeometry = (props: any) => {
     }
     if (map.hasTravelLayer()) return;
     map.setTravelLayer(getTravelTripGeometries());
-  }, [props.trip]);
+  }, [props.location.pathname]);
 
   return null;
 }
 
 export default withRouter(withTripsData(TravelGeometry));
-
-
-

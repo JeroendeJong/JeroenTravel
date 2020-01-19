@@ -23,6 +23,11 @@ export const getTravelTrip = (id: number) => {
   return `/cache/trip/${id}.json`;
 }
 
+export const getTravelSegment = (id: number) => {
+  if (isDEV) return `http://localhost:8080/travel/trip-segment/${id}`;
+  return `/cache/trip-segment/${id}.json`;
+}
+
 export const getTravelTripLastKnowLocation = (id: number) => {
   if (isDEV) return `${getTravelTrip(id)}/lastlocation`;
   return `/cache/trip/${id}/lastlocation.json`;

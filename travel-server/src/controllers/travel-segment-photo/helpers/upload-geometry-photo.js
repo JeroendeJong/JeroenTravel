@@ -1,6 +1,5 @@
 const { Client } = require('pg');
 const ExifReader = require('exifreader');
-const {uploadFileStream} = require('./upload-file-photo');
 
 const sql = `
   insert into trip_segment_photos(

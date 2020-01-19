@@ -5,6 +5,7 @@ export interface Accommodation {
   place: string;
 }
 
+// deprecated, should be removed in favor of tripsegment.
 export interface TripDetail {
   id: string;
   location_type: string;
@@ -18,6 +19,19 @@ export interface TripDetail {
   posted_time: string;
   accomodation: Accommodation;
   photos: TripSegmentPhotos[];
+}
+
+export interface TripSegment {
+  id: string;
+  name: string;
+  location_type: string;
+  location_text: string;
+  long_description: string;
+  arrival_time: any;
+  departure_time: any;
+  posted_time: any;
+  accomodation: Accommodation;
+  photos?: TripSegmentPhotos[];
 }
 
 export interface TripSegmentPhotos {

@@ -1,13 +1,20 @@
 
-const GetAllTripSegments = require('./get-all');
+const GetAllTripSegmentsByTripReferenceId = require('./get-all-by-trip-reference');
 const CreateTripSegment = require('./create');
+const GetOneTripSegment = require('./get-one');
 const { check, validationResult } = require('express-validator');
 
 function setup(app) {
 
   app.get('/travel/trip/:id', async (req, res) => {
     const {id} = req.params;
-    const tripData = await GetAllTripSegments(id);
+    const tripData = await GetAllTripSegmentsByTripReferenceId(id);
+    res.send(JSON.stringify(tripData));
+  });
+
+  app.get('/travel/trip-segment/:id', async (req, res) => {
+    const {id} = req.params;
+    const tripData = await GetOneTripSegment(id);
     res.send(JSON.stringify(tripData));
   });
 

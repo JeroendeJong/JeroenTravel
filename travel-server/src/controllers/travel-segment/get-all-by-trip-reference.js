@@ -2,36 +2,15 @@ const { Client } = require('pg');
 
 const sql = `
   select 
-    (
-      select array_agg(
-        json_build_object(
-          'id', id,
-          'link_id', link_id,
-          'description', description,
-          'geom', json_build_object(
-            'type', 'Point',
-            'coordinates', json_build_array(
-              ST_x(geom),
-              ST_y(geom)
-            )
-          )
-        ) 
-      )from trip_segment_photos where trip_segment_id = 9
-    ) as photos,
     ts.id, 
     ts.location_type,
     ts.location_text, 
     ts.name, 
     ts.short_description, 
-    ts.long_description, 
     ts.arrival_time, 
     ts.departure_time, 
-    ts.header_image_url, 
     ts.posted_time, 
-    acco.name as accomodation_name,
-    acco.address as accomodation_address,
-    acco.review as accomodation_review,
-    acco.place as accomodation_place
+    acco.name as accomodation_name
   from trip_segment as ts
   left join accommodation as acco on (ts.accommodation_id = acco.id)
   where trip_id = $1 
@@ -41,7 +20,6 @@ const sql = `
 const client = new Client();
 client.connect();
 const get = async (id) => {
-  console.log(id);
   const data = await client
     .query(sql, [id])
     .catch(e => console.error(e.stack))

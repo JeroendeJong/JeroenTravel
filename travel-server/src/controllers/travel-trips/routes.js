@@ -4,6 +4,7 @@ const GetOneTrip = require('./get-one');
 const CreateTrip = require('./create');
 const DeleteTrip = require('./delete');
 const { check, validationResult } = require('express-validator');
+
 function setup(app) {
 
   app.get('/travel/trips',async (req, res) => {
@@ -23,7 +24,6 @@ function setup(app) {
     res.send(JSON.stringify(data));
   });
 
-
   app.post('/travel/trips', [
     check('name').isString(),
     check('description').isString(),
@@ -39,7 +39,6 @@ function setup(app) {
     const result = await CreateTrip(req.body);
     res.send(JSON.stringify(result));
   });
-
 
 }
 

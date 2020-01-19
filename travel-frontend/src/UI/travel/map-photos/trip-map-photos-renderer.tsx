@@ -1,9 +1,9 @@
 import React from 'react';
 import TripPhotoMapItem from './trip-photo-map-item';
-import { TripDetail } from '../types';
+import { TripSegment } from '../types';
 
 interface Props {
-  data: TripDetail;
+  data: TripSegment;
 }
 
 class TripPhotoHandler extends React.Component<Props> {
@@ -17,8 +17,9 @@ class TripPhotoHandler extends React.Component<Props> {
   }
 
   public render() {
+    if (!this.props.data.photos) return null;
     return this.props.data.photos.map(photo => {
-      return <TripPhotoMapItem photo={photo}/>
+      return <TripPhotoMapItem key={photo.link_id} photo={photo}/>
     }) 
   }
 }
