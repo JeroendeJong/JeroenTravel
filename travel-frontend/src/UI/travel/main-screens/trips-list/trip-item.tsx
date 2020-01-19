@@ -87,6 +87,8 @@ const TripOverviewItem = (props: ComponentProps) => {
   const momentDuration = moment.duration(diff);
   const prettyDuration = Math.ceil(momentDuration.asDays());
 
+
+  // console.
   // is trip in DB but has no content?
   if (isNaN(prettyDuration)) return null;
 

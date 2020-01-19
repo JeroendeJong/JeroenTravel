@@ -6,7 +6,9 @@ import { getTravelTrip, getImageUrl } from '../../../constants';
 import drawerStore from '../../common/drawer-store';
 import withTripsData from '../with-trips-data';
 import { withRouter } from 'react-router';
+import TripPhotoHandler from '../map-photos/trip-map-photos-renderer';
 import { TripOverview, TripDetail } from '../types';
+import { coordinatesToBounds, centreOnBounds } from '../../../map/utils';
 
 const TEST_TEXT = `
 ![Image 1, what a great image innit mate.!](${getImageUrl('/assets/IMG_0334.jpg')}  "sup browksies")
@@ -69,6 +71,14 @@ const TripSegmentDetailPage = (props: any) => {
       const json = await fetch(url).then(resp => resp.json())
       if (!ignore) {
         setData(json)
+        
+        const feature = json.find((f: any) => f.id === segmentId);
+        const photoCoords = feature.photos.map((photo: any) => {
+          return photo.geom.coordinates
+        })
+
+        const bounds = coordinatesToBounds(photoCoords);
+        centreOnBounds(bounds, {activeUserLocation: false});
       }
     }
 
@@ -90,6 +100,7 @@ const TripSegmentDetailPage = (props: any) => {
 
   return (
     <>
+      <TripPhotoHandler data={feature}/>
       <ScrollableTripContent title={feature.name} pixelOffset={100}>
         <SegmentTitle>{feature.name}</SegmentTitle>
         <Markdown source={feature.long_description || TEST_TEXT}/>
