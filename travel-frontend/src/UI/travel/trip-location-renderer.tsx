@@ -28,7 +28,7 @@ const UserLocationMarker = (props: any) => {
   useEffect(() => {
     let marker: mapboxgl.Marker | null = null;
 
-    // if (!props.trip.active) return;
+    if (!props.trip.active) return;
     const tripID = props.trip.id;
     fetch(getTravelTripLastKnowLocation(tripID))
       .then(resp => resp.json())

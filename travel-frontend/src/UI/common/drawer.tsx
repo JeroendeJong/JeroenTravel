@@ -39,11 +39,6 @@ const Drawer = styled.div`
   background-color: ${p => p.theme.color.secondary};
   color: ${p => p.theme.color.text};
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50);
-
-  @supports (backdrop-filter: blur(10px)) {
-    backdrop-filter: blur(8px);
-    background-color: ${p => rgba(p.theme.color.secondary,0.9)};
-  }
 `;
 
 const DrawerResizeIconMobile = styled(MobileOnly)`
@@ -64,7 +59,7 @@ const DrawerContentTop = styled.div`
   align-items: center;
   height: 60px;
   width: 100%;
-  box-shadow: 0px 4px 15px -10px rgba(0,0,0,1);
+  box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.25);
 `;
 
 const LeftButtonGroup = styled.div`

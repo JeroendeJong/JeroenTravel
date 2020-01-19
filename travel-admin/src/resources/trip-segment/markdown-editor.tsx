@@ -4,10 +4,20 @@ import * as Showdown from 'showdown';
 import { addField } from 'ra-core';
 import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core/styles';
-
 import 'react-mde/lib/styles/css/react-mde-all.css';
 
-const styles = {};
+import {createGlobalStyle} from 'styled-components';
+
+
+const AddonStyles = createGlobalStyle`
+  img {
+    width: 100px;
+    height: 100px;
+  }
+`
+const styles = {}
+let mdeAPI: any = null
+const IMAGE_BUCKET_URL = 'https://storage.googleapis.com/jeroen-travel-images/';
 
 interface ComponentState {
   tab: "write" | "preview" | undefined;
@@ -18,29 +28,9 @@ const withUploadImageComand: Command = {
   name: "image",
   buttonProps: { "aria-label": "Add image" },
   execute: async (state0: any, api: any) => {
-    
     const el = document.getElementById('hidden-upload-file-input');
-    console.log(el);
-
     el!.click();
-
-    // Select everything
-    // const newSelectionRange = selectWord({
-    //   text: state0.text,
-    //   selection: state0.selection
-    // });
-    // const state1 = api.setSelectionRange(newSelectionRange);
-    // // Replaces the current selection with the image
-    // const imageTemplate =
-    //   state1.selectedText || "https://example.com/your-image.png";
-    // api.replaceSelection(`![](${imageTemplate})`);
-    // // Adjust the selection to not contain the **
-    // api.setSelectionRange({
-    //   start: 4 + state1.selection.start,
-    //   end: 4 + state1.selection.start + imageTemplate.length
-    // });
-
-    // return commands!.imageCommand!.execute(state0, api);
+    mdeAPI = api;
   },
   keyCommand: "image"
 };
@@ -93,16 +83,26 @@ class MarkdownInput extends Component<any, ComponentState> {
   };
 
   private handleFilesReceived = (e: any) => {
-    console.log(e)
-    const files = (this.fileInput! as any).current.files[0].name;
+    if (!mdeAPI) return;
+    const file = (this.fileInput! as any).current.files[0];
 
-    console.log(files);
-    debugger
+    const mdImageFormat = `![](${IMAGE_BUCKET_URL}${file.name})`;
+    mdeAPI.replaceSelection(mdImageFormat);
+
+    const data = new FormData();
+    data.append('file', file)
+
+    fetch('http://localhost:8080/upload/photo?segment_id=20', {
+      method: 'PUT',
+      body: data
+    })
   }
 
   public render() {
+    console.log(this.props);
     return (
       <FormControl fullWidth={true} className='ra-input-mde'>
+        <AddonStyles/>
         <ReactMde
           commands={inputCommands as any}
           onChange={this.handleValueChange}

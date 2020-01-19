@@ -23,7 +23,6 @@ const TripHeader = styled.div`
   text-align: center;
   font-size: 40px;
   width: 100%;
-
   color: ${(p: any) => darken(0.5, p.theme.color.text)};
 `;
 

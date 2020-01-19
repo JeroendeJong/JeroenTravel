@@ -47,7 +47,7 @@ const TripDescription = styled.div`
   text-overflow: ellipsis;
   display: -webkit-box;
   line-height: 14px;
-  max-height: 28px;   // <--- line-height * 2
+  max-height: 28px;   /*  <--- line-height * 2 */
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;

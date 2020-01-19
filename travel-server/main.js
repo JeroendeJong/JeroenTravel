@@ -10,21 +10,22 @@ const TravelTripLastKnowLocationController = require('./src/controllers/travel-t
 const TravelTripsSetup = require('./src/controllers/travel-trips/routes');
 const TravelSegmentSetup = require('./src/controllers/travel-segment/routes');
 const TravelGeometrySetup = require('./src/controllers/travel-geometry/routes');
-
+const TravelSegmentPhotoSetup = require('./src/controllers/travel-segment-photo/routes');
 const FlightsSetup = require('./src/controllers/flights/routes');
 
 const PORT = 8080;
-
+const fileupload = require("express-fileupload");
 const app = express();
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PATCH, DELETE")
+  res.header("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PATCH, DELETE, PUT")
   res.setHeader('Content-Type', 'application/json');
   next();
 });
 
+app.use( fileupload() );
 app.use( express.json() ); 
 
 app.get('/airports/list/', async (req, res) => {
@@ -48,6 +49,7 @@ FlightsSetup(app);
 // Setup various endpoints
 TravelTripsSetup(app);
 TravelSegmentSetup(app);
+TravelSegmentPhotoSetup(app);
 TravelGeometrySetup(app);
 
 app.listen(PORT);
