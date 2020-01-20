@@ -1,3 +1,4 @@
+const putTravelImage = require('./put');
 
 function setup(app) {
 

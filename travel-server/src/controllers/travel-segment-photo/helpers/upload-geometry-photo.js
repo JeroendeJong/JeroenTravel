@@ -22,10 +22,10 @@ const extractAndUploadPhotoMetadata = async (data) => {
 
   const result = await client
     .query(sql, [
-      `/assets/${file.name}`, 
+      `/${file.name}`, 
       "A photo", 
       segmentAttachId, 
-      lat, long
+      long, lat
     ])
     .catch(e => console.error(e.stack))
 

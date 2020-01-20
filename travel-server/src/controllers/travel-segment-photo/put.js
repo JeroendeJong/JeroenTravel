@@ -2,7 +2,7 @@
 const databaseInsertGeometryForPhoto = require('./helpers/upload-geometry-photo');
 const uploadPhotoToGCPStorage = require('./helpers/upload-file-photo')
 
-const putTravelImage = (data) => {
+const putTravelImage = async (data) => {
   const photoId = await databaseInsertGeometryForPhoto(data);
   const photoUploadSuccess = await uploadPhotoToGCPStorage(data).catch(e => {
     console.log(e);
