@@ -9,11 +9,9 @@ interface Props {
 class TripPhotoHandler extends React.Component<Props> {
 
   public componentDidUpdate() {
-    console.log('d')
   }
 
   public componentDidMount() {
-    console.log(this.props);
   }
 
   public render() {

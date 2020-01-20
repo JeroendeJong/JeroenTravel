@@ -19,9 +19,11 @@ interface ComponentProps {
 
 const VerticalTimeline = (props: ComponentProps) => {
   const dateStringToContentMap = props.tripItems.reduce((agg: any, val: TripDetail) => {
-    const date = moment(val.arrival_time).toISOString()
-    if (!agg[date]) agg[date] = []
-    agg[date].push(val);
+    const noTimeDate = moment(val.arrival_time).format('YYYY/MM/DD');
+    const noTimeISOTime = moment(noTimeDate).toISOString();
+
+    if (!agg[noTimeISOTime]) agg[noTimeISOTime] = []
+    agg[noTimeISOTime].push(val);
     return agg;
   }, []);
 

@@ -47,5 +47,5 @@ export const getTravelTrips = () => {
 }
 
 export const getImageUrl = (path: string) => {
-  return `https://storage.googleapis.com/www.jeroentravel.com${path}`
+  return `https://storage.googleapis.com/jeroen-travel-images${path}`
 }

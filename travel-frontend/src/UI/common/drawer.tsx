@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { MOBILE_BREAKPOINT, MobileOnly } from '../../mobile';
-import { rgba } from 'polished';
 import DrawerStore from './drawer-store';
 import Icon from './evil-icon';
 import { withRouter } from 'react-router';

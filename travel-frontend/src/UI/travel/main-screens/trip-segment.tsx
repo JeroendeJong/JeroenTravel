@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollableTripContent } from "../misc/common";
 import styled from 'styled-components';
 import Markdown from '../misc/travel-markdown';
-import { getTravelTrip, getImageUrl, getTravelSegment } from '../../../constants';
+import { getImageUrl, getTravelSegment } from '../../../constants';
 import drawerStore from '../../common/drawer-store';
 import withTripsData from '../with-trips-data';
 import { withRouter } from 'react-router';
@@ -31,23 +31,6 @@ Aenean venenatis ex in nisi semper, ut ultricies lectus scelerisque. Donec accum
 
 ![Image 1, what a great image innit mate.!](${getImageUrl('/assets/IMG_0511.jpg')})
 `;
-
-// const BottomNavigationBar = styled.div`
-//   position: absolute;
-//   bottom: 0;
-//   height: 100px;
-//   width: 100%;
-
-//   display: flex;
-//   justify-content: space-between;
-
-//   background-color: green;
-// `;
-
-// const SegmentNavigationButton = styled(Icon)`
-//   height: 50px;
-//   width: 50px;
-// `;
 
 const SegmentTitle = styled.div`
   font-size: 30px;
@@ -103,13 +86,6 @@ const TripSegmentDetailPage = (props: any) => {
         <SegmentTitle>{data.name}</SegmentTitle>
         <Markdown source={data.long_description || TEST_TEXT}/>
       </ScrollableTripContent>
-      {/* <BottomNavigationBar>
-        
-        <SegmentNavigationButton id={'ei-chevron-left-icon'}/>
-
-        <SegmentNavigationButton id={'ei-chevron-right-icon'}/>
-
-      </BottomNavigationBar> */}
     </>
   );
 }

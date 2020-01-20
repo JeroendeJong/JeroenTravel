@@ -28,7 +28,7 @@ const FlexContainer = styled.div`
 
 const SegmentContainer = styled.div`
   width: calc(100% - 20px);
-`
+`;
 
 const SegmentTitle = styled.p`
   font-weight: bold;
@@ -121,6 +121,7 @@ interface Props {
 }
 
 const TimelineDay = (props: Props) => {
+  console.log(props);
   return (
     <FlexContainer>
        <TimeLineDayBanner>
