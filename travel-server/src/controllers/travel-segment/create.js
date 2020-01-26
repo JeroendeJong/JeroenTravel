@@ -3,7 +3,7 @@ const { Client } = require('pg');
 const sql = `
   insert into trip_segment(
     trip_id, location_type, name, long_description, short_description,
-    arrival_time, departure_time, header_image_url, accommodation_id, location_text
+    arrival_time, departure_time, accommodation_id, location_text
   ) VALUES(
     $1, $2, $3, $4, $5,
     $6, $7, $8, $9, $10
@@ -26,7 +26,6 @@ const post = async (inputs) => {
   
       inputs.arrival_time,
       inputs.departure_time,
-      inputs.header_image_url || null,
       inputs.accommodation_id || null,
       inputs.location_text,
     ])

@@ -121,7 +121,6 @@ interface Props {
 }
 
 const TimelineDay = (props: Props) => {
-  console.log(props);
   return (
     <FlexContainer>
        <TimeLineDayBanner>
