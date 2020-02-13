@@ -38,9 +38,7 @@ const handleDrawerActiveState = () => {
 function interactionsSetup(map: mapboxgl.Map) {
   map.on('click', handleClick);
   map.on('click', handleDrawerActiveState);
-  map.on('touchstart', handleDrawerActiveState);
   map.on('mousedown', handleDrawerActiveState);
-
 }
 
 export default interactionsSetup;
