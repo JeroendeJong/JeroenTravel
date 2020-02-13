@@ -2,21 +2,10 @@ import React from 'react';
 import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
 import moment from 'moment';
-import { StyledHover } from '../styled-utils';
-import { RedIcon } from './misc/common';
-import { RouterPathChangeRequest } from './models/router-path-change-request';
-
-export interface TripOverview {
-  id: string;
-  name: string;
-  description: string;
-  country_codes: string;
-  header_image_url: string;
-  active: boolean;
-  extent: {coordinates: number[]};
-  start_date: string;
-  end_date: string;
-}
+import { StyledHover } from '../../../styled-utils';
+import { RedIcon } from '../../misc/common';
+import { RouterPathChangeRequest } from '../../models/router-path-change-request';
+import { TripOverview } from '../../types';
 
 interface ComponentProps {
   tripOverview: TripOverview;
@@ -58,7 +47,7 @@ const TripDescription = styled.div`
   text-overflow: ellipsis;
   display: -webkit-box;
   line-height: 14px;
-  max-height: 28px;   // <--- line-height * 2
+  max-height: 28px;   /*  <--- line-height * 2 */
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;

@@ -54,7 +54,6 @@ CREATE TABLE trip_segment (
   long_description text,
   arrival_time timestamp with time zone,
   departure_time timestamp with time zone,
-  header_image_url text,
   short_description text,
   accommodation_id integer REFERENCES accommodation(id),
   posted_time timestamp with time zone DEFAULT CURRENT_TIMESTAMP

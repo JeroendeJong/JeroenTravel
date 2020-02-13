@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import airplaneIcon from '../../img/050-airplane.svg';
-import { ContextOptionButtons } from './misc/common';
+import airplaneIcon from '../../../../img/050-airplane.svg';
+import { ContextOptionButtons } from '../../misc/common';
 
 const ActiveTripNote = styled.div`
   display: flex;

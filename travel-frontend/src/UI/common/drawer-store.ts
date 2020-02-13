@@ -2,6 +2,11 @@ import { EventEmitter } from "events";
 
 
 class DrawerStore extends EventEmitter {
+  public active: boolean = true;
+
+  public notifyActive(active: boolean) : void {
+    this.active = active;
+  }
   
   public emitDrawerActiveState(active: boolean): void {
     this.emit('DRAWER_ACTIVE', active);

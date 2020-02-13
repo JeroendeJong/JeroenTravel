@@ -4,7 +4,6 @@ import TravelImage from './image-view';
 import { darken } from 'polished';
 import Markdown from 'react-markdown';
 
-
 const MarkdownImage = styled(TravelImage)`
   width: 100%;
   height: 300px;

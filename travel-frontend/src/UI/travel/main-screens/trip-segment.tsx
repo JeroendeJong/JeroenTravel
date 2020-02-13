@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { ScrollableTripContent } from "../misc/common";
 import styled from 'styled-components';
 import Markdown from '../misc/travel-markdown';
-import { getTravelTrip, getImageUrl } from '../../../constants';
-import { TripDetail } from './trip-details';
+import { getImageUrl, getTravelSegment } from '../../../constants';
 import drawerStore from '../../common/drawer-store';
-import { TripOverview } from '../trips-item';
-// import Icon from '../../common/evil-icon';
 import withTripsData from '../with-trips-data';
 import { withRouter } from 'react-router';
+import TripPhotoHandler from '../map-photos/trip-map-photos-renderer';
+import { TripOverview, TripDetail, TripSegment } from '../types';
+import { coordinatesToBounds, centreOnBounds } from '../../../map/utils';
 
 const TEST_TEXT = `
 ![Image 1, what a great image innit mate.!](${getImageUrl('/assets/IMG_0334.jpg')}  "sup browksies")
@@ -32,23 +32,6 @@ Aenean venenatis ex in nisi semper, ut ultricies lectus scelerisque. Donec accum
 ![Image 1, what a great image innit mate.!](${getImageUrl('/assets/IMG_0511.jpg')})
 `;
 
-// const BottomNavigationBar = styled.div`
-//   position: absolute;
-//   bottom: 0;
-//   height: 100px;
-//   width: 100%;
-
-//   display: flex;
-//   justify-content: space-between;
-
-//   background-color: green;
-// `;
-
-// const SegmentNavigationButton = styled(Icon)`
-//   height: 50px;
-//   width: 50px;
-// `;
-
 const SegmentTitle = styled.div`
   font-size: 30px;
   text-align: center;
@@ -61,16 +44,26 @@ interface Props {
 
 const TripSegmentDetailPage = (props: any) => {
   const segmentId = parseInt(props.match.params.segmentID, 10);
-  console.log(segmentId);
-  const [data, setData] = useState<TripDetail[] | null>(null);
+  const [data, setData] = useState<TripSegment | null>(null);
   const [id] = useState(props.trip.id);
 
   useEffect(() => {
     let ignore = false;
     async function fetchData() {
-      const url = getTravelTrip(parseInt(id));
+      const url = getTravelSegment(segmentId);
       const json = await fetch(url).then(resp => resp.json())
-      if (!ignore) setData(json)
+      if (!ignore) {
+        setData(json);
+
+        if (!json.photos) return;
+        
+        const photoCoords = json.photos.map((photo: any) => {
+          return photo.geom.coordinates
+        })
+
+        const bounds = coordinatesToBounds(photoCoords);
+        centreOnBounds(bounds, {activeUserLocation: false});
+      }
     }
 
     fetchData();
@@ -86,22 +79,13 @@ const TripSegmentDetailPage = (props: any) => {
 
   if (!data) return null;
 
-  const feature = data.find((f: any) => f.id === segmentId);
-  if (!feature) return null;
-
   return (
     <>
-      <ScrollableTripContent title={feature.name} pixelOffset={100}>
-        <SegmentTitle>{feature.name}</SegmentTitle>
-        <Markdown source={feature.long_description || TEST_TEXT}/>
+      <TripPhotoHandler data={data}/>
+      <ScrollableTripContent title={data.name} pixelOffset={100}>
+        <SegmentTitle>{data.name}</SegmentTitle>
+        <Markdown source={data.long_description || TEST_TEXT}/>
       </ScrollableTripContent>
-      {/* <BottomNavigationBar>
-        
-        <SegmentNavigationButton id={'ei-chevron-left-icon'}/>
-
-        <SegmentNavigationButton id={'ei-chevron-right-icon'}/>
-
-      </BottomNavigationBar> */}
     </>
   );
 }

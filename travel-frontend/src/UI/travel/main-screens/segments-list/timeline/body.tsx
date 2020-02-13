@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
-import Icon from '../../common/evil-icon';
-import { StyledHover } from '../../styled-utils';
+import Icon from '../../../../common/evil-icon';
+import { StyledHover } from '../../../../styled-utils';
 
 const Container = styled.div`
   padding-top: 10px;
@@ -19,7 +19,6 @@ const Container = styled.div`
 
   color: ${p => darken(0.5, p.theme.color.text)};
   background-color: ${p => darken(0.1, p.theme.color.secondary)};
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
 
   :first-child {
     margin-top: 50px;

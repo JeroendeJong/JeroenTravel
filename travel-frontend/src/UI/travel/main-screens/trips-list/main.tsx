@@ -1,9 +1,12 @@
-import React from 'react';
-import TripOverviewItem, { TripOverview } from '../trips-item';
-import ScrollableView from '../../common/scroll-view';
-import withTripsData from '../with-trips-data';
-import { RouterPathChangeRequest } from '../models/router-path-change-request';
+import React, { useEffect } from 'react';
+import TripOverviewItem from './trip-item';
+import ScrollableView from '../../../common/scroll-view';
+import withTripsData from '../../with-trips-data';
+import { RouterPathChangeRequest } from '../../models/router-path-change-request';
 import { withRouter } from 'react-router';
+import { TripOverview } from '../../types';
+import drawerStore from '../../../common/drawer-store';
+import { SmallHeaderTitle } from '../../title-header-scroll';
 
 interface ComponentProps {
   trips: TripOverview[];
@@ -12,6 +15,12 @@ interface ComponentProps {
 
 const TripListScreen = (props: ComponentProps) => {
   const activeTrip = props.trips.find(trip => trip.active);  
+
+  useEffect(() => {
+    drawerStore.setTopContent(
+      <SmallHeaderTitle>Jeroen Travel</SmallHeaderTitle>
+    );
+  }, []);
 
   let activeTopTrip = null;
 

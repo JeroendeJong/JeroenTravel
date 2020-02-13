@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TripDetail } from '../main-screens/trip-details';
 import moment from 'moment';
 import TimelineDay from './day';
 import ActiveTripPromotion from '../active-trip-promotion';
+import { TripDetail } from '../../../types';
 
+import TimelineEndInActiveTrip from './the-end-inactive';
+import TimelineEndActiveTrip from './the-end-active';
 
-const TimelineContainer = styled.div`
-`;
+const TimelineContainer = styled.div``;
+
 
 interface ComponentProps {
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -17,9 +19,11 @@ interface ComponentProps {
 
 const VerticalTimeline = (props: ComponentProps) => {
   const dateStringToContentMap = props.tripItems.reduce((agg: any, val: TripDetail) => {
-    const date = moment(val.arrival_time).toISOString()
-    if (!agg[date]) agg[date] = []
-    agg[date].push(val);
+    const noTimeDate = moment(val.arrival_time).format('YYYY/MM/DD');
+    const noTimeISOTime = moment(noTimeDate).toISOString();
+
+    if (!agg[noTimeISOTime]) agg[noTimeISOTime] = []
+    agg[noTimeISOTime].push(val);
     return agg;
   }, []);
 
@@ -40,6 +44,16 @@ const VerticalTimeline = (props: ComponentProps) => {
           stories={item.segments}
         /> 
       ))}
+
+      {props.active &&
+        <TimelineEndActiveTrip/>
+      }
+
+      {!props.active &&
+        <TimelineEndInActiveTrip/>
+      }
+
+
     </TimelineContainer>
   )
 }

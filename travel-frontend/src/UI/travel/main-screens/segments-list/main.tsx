@@ -1,44 +1,21 @@
 import React from 'react';
-import { TripOverview } from '../trips-item';
-import { getTravelTrip, getImageUrl, getTravelTripGeometry } from '../../../constants';
-import map from '../../../map';
-import {coordinatesToBounds, centreOnBounds} from '../../../map/utils';
+import { TripOverview, TripDetail } from '../../types';
+import { getTravelTrip, getImageUrl} from '../../../../constants';
 import styled from 'styled-components';
-import { ScrollableTripContent, TripHeaderImage } from '../misc/common';
-import drawerStore from '../../common/drawer-store';
-import VerticalTimeline from '../timeline/vertical-timeline';
+import { ScrollableTripContent, TripHeaderImage } from '../../misc/common';
+import drawerStore from '../../../common/drawer-store';
+import VerticalTimeline from './timeline/vertical-timeline';
 import { darken } from 'polished';
-import Icon from '../../common/evil-icon';
-import {ContextOptionButtons} from '../misc/common'
-import ShareOptionsComponent from '../misc/share-options';
-import VerticalTLDRTimeline from '../timeline/vertical-tldr-timeline';
+import Icon from '../../../common/evil-icon';
+import {ContextOptionButtons} from '../../misc/common'
+import ShareOptionsComponent from '../../misc/share-options';
+import VerticalTLDRTimeline from './timeline/vertical-tldr-timeline';
 import { withRouter } from 'react-router';
-import withTripsData from '../with-trips-data';
-import { RouterPathChangeRequest } from '../models/router-path-change-request';
-
-interface Accommodation {
-  name: string;
-  review: string;
-  address: string;
-  place: string;
-}
-
-export interface TripDetail {
-  id: string;
-  location_type: string;
-  location_text: string;
-  name: string;
-  short_description: string;
-  long_description: string;
-  arrival_time: any;
-  departure_time: any;
-  header_image_url: any;
-  posted_time: string;
-  accomodation: Accommodation
-}
+import withTripsData from '../../with-trips-data';
+import { RouterPathChangeRequest } from '../../models/router-path-change-request';
 
 const MaincontentContainer = styled.div`
-  height: 100%;
+  height: calc(100% - 200px);
   padding: 15px;
 `;
 
@@ -46,7 +23,6 @@ const TripHeader = styled.div`
   text-align: center;
   font-size: 40px;
   width: 100%;
-
   color: ${(p: any) => darken(0.5, p.theme.color.text)};
 `;
 
@@ -78,11 +54,10 @@ class TripDetailPage extends React.Component<any, ComponentState> {
     details: [],
     tldrMode: false
   }
+  _dotElement: any;
 
   public componentDidMount(): void {
     const id = parseInt(this.props.trip.id);
-
-    drawerStore.emit('CONTENT_CLOSEABLE', 'TripDetailPage');
 
     fetch(getTravelTrip(id))
       .then(resp => resp.json())
@@ -90,16 +65,7 @@ class TripDetailPage extends React.Component<any, ComponentState> {
         this.setState({details: json})
       });
 
-    const trip = this.props.trip;
-    const coords: any = trip.extent.coordinates[0];
-    const bounds = coordinatesToBounds(coords);
-    centreOnBounds(bounds);
-
-    map.setTravelLayer(getTravelTripGeometry(id));
-  }
-
-  public componentWillUnmount(): void {
-    map.clearTravelLayer();
+    drawerStore.emit('CONTENT_CLOSEABLE', 'TripDetailPage');
   }
 
   private handleSegmentDetailClick = (e: React.MouseEvent<HTMLDivElement>) => {

@@ -1,17 +1,18 @@
 const { Client } = require('pg');
 
 const sql = `
-  select tsg.id, ST_asgeojson(geom) as geom, tsg.type, trip_segment_id from trip_segment_geometry as tsg
+  select 
+    tsg.id, ST_asgeojson(geom) as geom, tsg.type, trip_segment_id 
+  from trip_segment_geometry as tsg
   join trip_segment as ts on (trip_segment_id = ts.id)
-  where ts.trip_id = $1;
 `;
 
 const client = new Client();
 client.connect();
-const get = async (id) => {
 
+const get = async () => {
   const data = await client
-    .query(sql, [id])
+    .query(sql)
     .catch(e => console.error(e.stack))
 
   const formattedAsFeature = data.rows.map(row => {

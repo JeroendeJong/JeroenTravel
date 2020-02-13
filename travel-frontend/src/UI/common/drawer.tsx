@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { MOBILE_BREAKPOINT, MobileOnly } from '../../mobile';
-import { rgba } from 'polished';
 import DrawerStore from './drawer-store';
 import Icon from './evil-icon';
 import { withRouter } from 'react-router';
@@ -39,11 +38,6 @@ const Drawer = styled.div`
   background-color: ${p => p.theme.color.secondary};
   color: ${p => p.theme.color.text};
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50);
-
-  @supports (backdrop-filter: blur(10px)) {
-    backdrop-filter: blur(8px);
-    background-color: ${p => rgba(p.theme.color.secondary,0.9)};
-  }
 `;
 
 const DrawerResizeIconMobile = styled(MobileOnly)`
@@ -64,7 +58,7 @@ const DrawerContentTop = styled.div`
   align-items: center;
   height: 60px;
   width: 100%;
-  box-shadow: 0px 4px 15px -10px rgba(0,0,0,1);
+  border-bottom: 1px solid lightgray;
 `;
 
 const LeftButtonGroup = styled.div`
@@ -110,7 +104,9 @@ class DrawerInstance extends React.Component<any, State>  {
   }
 
   private handleDrawerActiveToggle = (e: React.MouseEvent<any>) => {
-    this.setState(oldState => ({active: !oldState.active}));
+    this.setState(oldState => ({active: !oldState.active}), () => {
+      DrawerStore.notifyActive(this.state.active);
+    });
   }
 
   private handleDrawerActive = (active: boolean) => this.setState({active});
@@ -159,7 +155,7 @@ class DrawerInstance extends React.Component<any, State>  {
 
     return (
       <Drawer data-active={this.state.active}>
-        <DrawerContentTop>
+        <DrawerContentTop id="handle">
           <LeftButtonGroup>
             {this.state.closeable && 
               <CloseBackIcon id="ei-close-o-icon" onClick={this.handleClose}/>

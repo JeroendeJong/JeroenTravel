@@ -5,7 +5,6 @@ import {airportLocationLayer, flightPathLayer, airportTextNameLayer, travelPoint
 import Airport from '../models/airport';
 import Flight from '../models/flight';
 
-
 mapboxgl.accessToken = 'pk.eyJ1IjoieTBneiIsImEiOiJjaW9scWxsNzIwMDMxdzVtNm56MHhweGdjIn0.XrmaYtqwrszezXe9y-gBuw';
 
 class Map {
@@ -151,6 +150,13 @@ class Map {
 
     this.map!.addLayer(travelPointSegment);
     this.map!.addLayer(travelLineSegment);
+  }
+
+  public hasTravelLayer(): boolean {
+    return Boolean(
+      this.map?.getLayer(TRAVEL_DATA_ID + '__point') && 
+      this.map?.getLayer(TRAVEL_DATA_ID + '__line')
+    );
   }
 
   public clearTravelLayer() {

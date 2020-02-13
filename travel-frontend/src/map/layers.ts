@@ -79,15 +79,25 @@ export const travelLineSegment: mapboxgl.Layer = {
     "line-cap": "round"
   },
   paint: {
-    "line-color": [
-      'match',
-      ['get', 'type'],
-      'bus', '#e55e5e',
-      'taxi', 'green',
-      'walk', 'pink',
-      /* other */ '#ccc'
-    ],
-    "line-opacity": 0.9,
-    "line-width": 3
+    "line-color": //[
+      // 'case',
+      // ['boolean', ['==', ['get', 'trip_segment_id'], 27], false],
+      // 'green',
+      '#e55e5e',
+    //],
+    // "line-color": [
+    //   'match',
+    //   ['get', 'type'],
+    //   'bus', '#e55e5e',
+    //   'taxi', 'green',
+    //   'walk', 'pink',
+    //   /* other */ '#ccc'
+    // ],
+    "line-width": //[
+      // 'case',
+      // ['boolean', ['==', ['get', 'trip_segment_id'], 27], false],
+      // 5,
+      3,
+    // ],
   }
 }

@@ -3,7 +3,7 @@ import drawerStore from '../common/drawer-store';
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-const SmallHeaderTitle = styled.div` 
+export const SmallHeaderTitle = styled.div` 
   text-align: center;
   width: 100%;
   color: ${(p: any) => darken(0.5, p.theme.color.text)};
@@ -14,7 +14,6 @@ const SmallHeaderTitle = styled.div`
   white-space: pre;
   overflow: hidden;
 `;
-
 
 interface Props {
   title: String;
