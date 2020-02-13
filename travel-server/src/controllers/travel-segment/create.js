@@ -13,7 +13,6 @@ const sql = `
 const client = new Client();
 client.connect();
 
-
 const post = async (inputs) => {
   if (!inputs) return;
   const data = await client

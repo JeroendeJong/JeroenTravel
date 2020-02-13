@@ -58,7 +58,7 @@ const DrawerContentTop = styled.div`
   align-items: center;
   height: 60px;
   width: 100%;
-  box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.25);
+  border-bottom: 1px solid lightgray;
 `;
 
 const LeftButtonGroup = styled.div`

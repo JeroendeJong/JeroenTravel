@@ -8,13 +8,13 @@ import 'react-mde/lib/styles/css/react-mde-all.css';
 
 import {createGlobalStyle} from 'styled-components';
 
-
 const AddonStyles = createGlobalStyle`
   img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
   }
-`
+`;
+
 const styles = {}
 let mdeAPI: any = null
 const IMAGE_BUCKET_URL = 'https://storage.googleapis.com/jeroen-travel-images/';
@@ -99,7 +99,6 @@ class MarkdownInput extends Component<any, ComponentState> {
   }
 
   public render() {
-    console.log(this.props);
     return (
       <FormControl fullWidth={true} className='ra-input-mde'>
         <AddonStyles/>

@@ -19,8 +19,6 @@ interface ComponentState {
 };
 
 class App extends React.Component<any, ComponentState> {
-  private targetRef: any = React.createRef();
-
   public state: ComponentState = {
     selected: null,
     trips: [],
@@ -59,7 +57,6 @@ class App extends React.Component<any, ComponentState> {
   public render(): any {
     return (
       <Drawer 
-        ref={this.targetRef} 
         onCloseContentId={this.handleContentCloseCall} 
         onBackContentId={this.handleContentBackCall}
       >

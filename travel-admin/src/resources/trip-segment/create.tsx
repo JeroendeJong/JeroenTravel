@@ -5,11 +5,8 @@ import { required } from 'ra-core';
 import { parse } from 'query-string';
 
 const Title = (props: any) => {
-  console.log(props);
   return <span>New Segment for {props.tripId}</span>;
 };
-
-
 
 const TripSegmentCreate = (props: any) => {
   const { trip_id: tripIdString } = parse(props.location.search);
