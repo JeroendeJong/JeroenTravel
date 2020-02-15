@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import hikingIcon from '../../../../../img/trekking.svg';
+import HikingIcon from '../../../icons/hiking';
 
 const TripEndTimeLineLine = styled.div`
   width: 2px !important;
@@ -78,21 +78,13 @@ const MoreToComeStoryText = styled.span`
   color: tomato;
 `;
 
-const HikingIcon = styled.img`
-  width: 48px;
-  height: 48px;
-  margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
 const TimelineEndInActiveTrip = () => (
   <TheEndContainer>
     <TripEndTimeLineLine/>
     <PulsatingIcon/>
 
     <TheEndIconTextcontainer>
-      <HikingIcon src={hikingIcon}/>
+      <HikingIcon/>
       <MoreToComeStoryText>Check back here later today or tomorrow for more stories!</MoreToComeStoryText>
     </TheEndIconTextcontainer>
   </TheEndContainer>

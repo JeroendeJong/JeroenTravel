@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Icon from '../../common/evil-icon';
 
-import notFoundIcon from '../../../img/error-404.svg';
+import Error404Icon from '../icons/error-404';
 
 interface ComponentProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
@@ -33,11 +33,6 @@ const FailureContainer = styled.div`
   flex-direction: column;
 `
 
-const FailureIcon = styled.img`
-  width: 50px;
-  height: 50px;
-` 
-
 class TravelImage extends React.Component<ComponentProps, any> {
 
   public state = {
@@ -57,7 +52,7 @@ class TravelImage extends React.Component<ComponentProps, any> {
     if (this.state.failure) {
       return (
         <FailureContainer className={this.props.className}>
-          <FailureIcon src={notFoundIcon}/>
+          <Error404Icon/>
           <p>No image found</p>
         </FailureContainer>
       )
