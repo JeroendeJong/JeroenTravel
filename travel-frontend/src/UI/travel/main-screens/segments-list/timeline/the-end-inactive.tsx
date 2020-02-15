@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import theEndIcon from '../../../../../img/race.svg';
+import RaceFinishLineIcon from '../../../icons/race-finish-line';
 
 const TheEndCircle = styled.div`
   position: absolute;
@@ -32,16 +32,6 @@ const TheEndIconTextcontainer = styled(TheEndContainer)`
   flex-direction: column;
 `;
 
-const TheEndIcon = styled.img`
-  width: 48px;
-  height: 48px;
-
-  margin: auto;
-
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
 const TheEndText = styled.p`
   margin: auto;
 `;
@@ -52,7 +42,7 @@ const TimelineEndInActiveTrip = () => (
     <TheEndCircle/>
 
     <TheEndIconTextcontainer>
-      <TheEndIcon src={theEndIcon}/>
+      <RaceFinishLineIcon/>
       <TheEndText>
         <span>Thanks for following my trip. </span>
         <br/>
