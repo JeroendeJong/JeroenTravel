@@ -10,18 +10,17 @@ EXECUTE PROCEDURE trigger_extent_update();
 CREATE OR REPLACE FUNCTION trigger_extent_update() RETURNS TRIGGER AS
 $BODY$
 BEGIN
+  -- UPDATE: trip extent 
 	perform update_trip_extent(trip_id) from trip_segment as ts
 	join trip_segment_geometry as tsg on ts.id = tsg.trip_segment_id
 	where tsg.trip_segment_id = NEW.trip_segment_id
 	limit 1;
-	
+
+  -- UPDATE: segment extent 
+	perform update_segment_extent(NEW.trip_segment_id) from trip_segment;
+
 	-- we don't want to alter the geometry coming in.
 	RETURN NEW;
 END;
 $BODY$
 language plpgsql;
-
-
-
-
-
