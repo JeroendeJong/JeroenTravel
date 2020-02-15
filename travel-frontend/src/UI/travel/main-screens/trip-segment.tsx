@@ -9,6 +9,8 @@ import { withRouter } from 'react-router';
 import TripPhotoHandler from '../map-photos/trip-map-photos-renderer';
 import { TripOverview, TripDetail, TripSegment } from '../types';
 import { coordinatesToBounds, centreOnBounds } from '../../../map/utils';
+import { setTravelSegmentHighlight, clearTravelSegmentHighlight } from '../../../map/style';
+import Logger from '../../../Logger';
 
 const TEST_TEXT = `
   Story yet to be written. Sorry.
@@ -37,19 +39,23 @@ const TripSegmentDetailPage = (props: any) => {
       if (!ignore) {
         setData(json);
 
-        if (!json.photos) return;
-        
-        const photoCoords = json.photos.map((photo: any) => {
-          return photo.geom.coordinates
-        })
+        setTravelSegmentHighlight(segmentId);
 
-        const bounds = coordinatesToBounds(photoCoords);
+        if (!json.extent?.coordinates) {
+          Logger.warn('Trip segment does not have any geometry attached!');
+          return;
+        }
+        console.log(json.extent);
+        const bounds = coordinatesToBounds(json.extent.coordinates[0]);
         centreOnBounds(bounds, {activeUserLocation: false});
       }
     }
 
     fetchData();
-    return () => { ignore = true; }
+    return () => { 
+      ignore = true; 
+      clearTravelSegmentHighlight();
+    }
   }, [id]);
 
 

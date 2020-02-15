@@ -32,7 +32,9 @@ const sql = `
       'name', acco.name,
       'review', acco.review,
       'place', acco.place
-    ) as accomodation
+    ) as accomodation,
+
+    st_asgeojson(extent) as extent
 
   from trip_segment as ts
   left join accommodation as acco on (ts.accommodation_id = acco.id)
@@ -47,6 +49,8 @@ const get = async (id) => {
     .catch(e => console.error(e.stack))
 
   const tripSegment = segment.rows[0];
+
+  tripSegment.extent = JSON.parse(tripSegment.extent);
   return tripSegment
 }
 

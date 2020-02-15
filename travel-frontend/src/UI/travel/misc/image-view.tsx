@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import Icon from '../../common/evil-icon';
 
 import Error404Icon from '../icons/error-404';
+import { darken } from 'polished';
 
 interface ComponentProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
@@ -26,12 +27,13 @@ const FallBackStyle = styled.span`
   align-items: center;
 `;
 
-const FailureContainer = styled.div`
+const FailureContainer = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`
+  background-color: ${props => darken(0.1, props.theme.color.secondary)};
+`;
 
 class TravelImage extends React.Component<ComponentProps, any> {
 
@@ -53,7 +55,8 @@ class TravelImage extends React.Component<ComponentProps, any> {
       return (
         <FailureContainer className={this.props.className}>
           <Error404Icon/>
-          <p>No image found</p>
+          <br/>
+          No image found
         </FailureContainer>
       )
     }
