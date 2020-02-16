@@ -20,7 +20,7 @@ export const getStatisticsURL = () => {
 
 export const getTravelTrip = (id: number) => {
   if (isDEV) return `http://localhost:8080/travel/trip/${id}`;
-  return `/cache/trip/${id}.json`;
+  return `/cache/trip/${id}/trip.json`;
 }
 
 export const getTravelSegment = (id: number) => {
