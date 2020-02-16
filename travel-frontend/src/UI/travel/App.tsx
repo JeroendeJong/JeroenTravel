@@ -11,6 +11,7 @@ import withTripsData from './with-trips-data';
 import { TripOverview } from './types';
 
 import TravelGeometry from './main-screens/trips-list/travel-geometry';
+import TabComponent from '../common/drag-drawer';
 
 interface ComponentState {
   selected: null | TripOverview;
@@ -56,36 +57,34 @@ class App extends React.Component<any, ComponentState> {
 
   public render(): any {
     return (
-      <Drawer 
-        onCloseContentId={this.handleContentCloseCall} 
-        onBackContentId={this.handleContentBackCall}
-      >
+      // <Drawer 
+      //   onCloseContentId={this.handleContentCloseCall} 
+      //   onBackContentId={this.handleContentBackCall}
+      // >
+        <TabComponent>
 
-        <Route exact path={TRAVEL_ROUTE}>
-          <TravelGeometry/>
-          <TripListScreen onClick={this.handlePathChange}/>
-        </Route>
-
-
-        <Route path={TRAVEL_TRIP_ROUTE}>
-          <TravelGeometry/>
-          <UserLocationMarker/>
-
-          <Route exact path={TRAVEL_TRIP_ROUTE}>
-            <TripDetailPage onClick={this.handlePathChange}/>
+          <Route exact path={TRAVEL_ROUTE}>
+            <TravelGeometry/>
+            <TripListScreen onClick={this.handlePathChange}/>
           </Route>
 
-          <Route exact path={TRAVEL_TRIP_SEGMENT_ROUTE}>
-            <TripSegmentDetailPage 
-              id={this.state.selectedSegmentId!} 
-              trip={this.state.selected!} 
-            />
+          <Route path={TRAVEL_TRIP_ROUTE}>
+            <TravelGeometry/>
+            <UserLocationMarker/>
+
+            <Route exact path={TRAVEL_TRIP_ROUTE}>
+              <TripDetailPage onClick={this.handlePathChange}/>
+            </Route>
+
+            <Route exact path={TRAVEL_TRIP_SEGMENT_ROUTE}>
+              <TripSegmentDetailPage 
+                id={this.state.selectedSegmentId!} 
+                trip={this.state.selected!} 
+              />
+            </Route>
+
           </Route>
-
-        </Route>
-
-
-      </Drawer>
+        </TabComponent>
     );
   }
 }

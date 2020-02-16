@@ -5,48 +5,6 @@ import DrawerStore from './drawer-store';
 import Icon from './evil-icon';
 import { withRouter } from 'react-router';
 
-const FloatingBottomDrawer = css`
-  position: fixed;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-
-  @media only screen and (min-width: ${MOBILE_BREAKPOINT}px) {
-    min-width: 400px;
-    max-width: 700px;
-    width: 50%;
-    top: 0px;
-    border-radius: 0px;
-  }
-
-  @media only screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    transition: height 0.2s;
-    ${(p: any): any => { 
-      const isActive = p['data-active'];
-      if (isActive) return  `height: 66%;`
-      else return 'height: 33%;'
-    }}
-    max-height: 66%;
-    min-height: 33%;
-  }
-`;
-
-const Drawer = styled.div`
-  ${FloatingBottomDrawer}
-
-  z-index: 2;
-  background-color: ${p => p.theme.color.secondary};
-  color: ${p => p.theme.color.text};
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50);
-`;
-
-const DrawerResizeIconMobile = styled(MobileOnly)`
-  svg {
-    width: 40px;
-    height: 30px;
-  }
-`;
-
 const CloseBackIcon = styled(Icon)`
   float: left;
   width: 40px !important;
@@ -65,11 +23,6 @@ const LeftButtonGroup = styled.div`
   float: left;
   display: flex;
   justify-content: space-evenly;
-`;
-
-const RightButtonGroup = styled.div`
-  float: right;
-  display: flex;
 `;
 
 const FillerTopContent = styled.div`width: 100%;`;
@@ -101,12 +54,6 @@ class DrawerInstance extends React.Component<any, State>  {
   
   private handleTopContentRequest = (el: JSX.Element) => {
     this.setState({topContent: el});
-  }
-
-  private handleDrawerActiveToggle = (e: React.MouseEvent<any>) => {
-    this.setState(oldState => ({active: !oldState.active}), () => {
-      DrawerStore.notifyActive(this.state.active);
-    });
   }
 
   private handleDrawerActive = (active: boolean) => this.setState({active});
@@ -149,12 +96,8 @@ class DrawerInstance extends React.Component<any, State>  {
   }
 
   public render() {
-    const drawerActiveIconID = this.state.active
-      ? "ei-arrow-down-icon"
-      : "ei-arrow-up-icon";
-
     return (
-      <Drawer data-active={this.state.active}>
+      <>
         <DrawerContentTop id="handle">
           <LeftButtonGroup>
             {this.state.closeable && 
@@ -168,14 +111,9 @@ class DrawerInstance extends React.Component<any, State>  {
           {
             this.state.topContent || <FillerTopContent/>
           }
-          <RightButtonGroup>
-            <DrawerResizeIconMobile>
-              <Icon id={drawerActiveIconID} onClick={this.handleDrawerActiveToggle}/>
-            </DrawerResizeIconMobile>
-          </RightButtonGroup>
         </DrawerContentTop>
         {this.props.children}
-      </Drawer>
+      </>
     );
   }
 }
