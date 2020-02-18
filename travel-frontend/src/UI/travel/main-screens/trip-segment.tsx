@@ -42,11 +42,14 @@ const TripSegmentDetailPage = (props: any) => {
 
         setTravelSegmentHighlight(segmentId);
 
-        if (!json.extent?.coordinates) {
+        if (!json.extent?.coordinates || !json.extent?.coordinates[0]) {
           Logger.warn('Trip segment does not have any geometry attached!');
           return;
         }
-        console.log(json.extent);
+
+        const isMultiCoord = typeof json.extent.coordinates[0] !== 'number'
+        if (!isMultiCoord) return;
+
         const bounds = coordinatesToBounds(json.extent.coordinates[0]);
         centreOnBounds(bounds, {activeUserLocation: false});
       }

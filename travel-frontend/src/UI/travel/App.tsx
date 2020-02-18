@@ -25,22 +25,6 @@ class App extends React.Component<any, ComponentState> {
     selectedSegmentId: null
   }
 
-  private handleContentCloseCall = (callId: any) => {
-    console.log(callId, 'close');
-    if (callId === 'TripDetailPage') {
-      this.setState({ selected: null });
-    } else if (callId === 'TripSegmentDetailPage') {
-      this.setState({selected: null, selectedSegmentId: null});
-    }
-  }
-
-  private handleContentBackCall = (callId: any) => {
-    console.log(callId, 'back');
-    if (callId === 'TripSegmentDetailPage') {
-      this.setState({selectedSegmentId: null});
-    }
-  }
-
   private handlePathChange = (payload: RouterPathChangeRequest) => {
     let path = ''
     if (payload.tripId) {
@@ -56,12 +40,7 @@ class App extends React.Component<any, ComponentState> {
 
   public render(): any {
     return (
-      // <Drawer 
-      //   onCloseContentId={this.handleContentCloseCall} 
-      //   onBackContentId={this.handleContentBackCall}
-      // >
         <TabComponent>
-
           <Route exact path={TRAVEL_ROUTE}>
             <TravelGeometry/>
             <TripListScreen onClick={this.handlePathChange}/>
