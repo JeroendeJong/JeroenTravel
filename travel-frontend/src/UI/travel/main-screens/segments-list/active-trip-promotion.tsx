@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ContextOptionButtons } from '../../misc/common';
+import { ContextOptionButtons, readableTravelColor } from '../../misc/common';
 import WorldAirplaneIcon from '../../icons/world-airplane';
 
 const ActiveTripNote = styled.div`
@@ -10,7 +10,7 @@ const ActiveTripNote = styled.div`
   margin-top: 40px;
   margin-bottom: 40px;
 
-  color: ${p => p.theme.color.text};
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
 `;
 
 const ActiveTripAskNotification = styled(ContextOptionButtons)`

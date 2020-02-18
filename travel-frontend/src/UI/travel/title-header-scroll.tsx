@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import drawerStore from '../common/drawer-store';
 import styled from 'styled-components';
-import { darken } from 'polished';
 import { readableTravelColor } from './misc/common';
 
 export const SmallHeaderTitle = styled.div` 

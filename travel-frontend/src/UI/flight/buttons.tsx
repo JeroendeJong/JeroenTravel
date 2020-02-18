@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 const PrimaryButtonText = styled.p`
   font-size: 16px;
   color: ${p => p.theme.color.text};
   margin: 0px;
   padding: 5px;
 `;
-
 
 const PrimaryButtonStyle = styled.button`
   background-color: ${p => p.theme.color.primary};

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import Icon from '../../../../common/evil-icon';
 import { StyledHover } from '../../../../styled-utils';
+import { readableTravelColor } from '../../../misc/common';
 
 const Container = styled.div`
   padding-top: 10px;
@@ -17,7 +18,7 @@ const Container = styled.div`
   width: 99%;
   border-radius: 8px;
 
-  color: ${p => darken(0.5, p.theme.color.text)};
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
   background-color: ${p => darken(0.1, p.theme.color.secondary)};
 
   :first-child {

@@ -3,7 +3,7 @@ import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
 import moment from 'moment';
 import { StyledHover } from '../../../styled-utils';
-import { RedIcon } from '../../misc/common';
+import { RedIcon, readableTravelColor } from '../../misc/common';
 import { RouterPathChangeRequest } from '../../models/router-path-change-request';
 import { TripOverview } from '../../types';
 import { darken } from 'polished';
@@ -39,8 +39,8 @@ const TripName = styled.div`
 `;
 
 const TripDuration = styled.div`
-  color: ${p => darken(0.2, p.theme.color.text)};
-`
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
+`;
 
 const TripDescription = styled.div`
   color: ${p => p.theme.color.text};

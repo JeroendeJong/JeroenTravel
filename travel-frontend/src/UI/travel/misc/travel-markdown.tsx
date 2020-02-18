@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import TravelImage from './image-view';
-import { darken } from 'polished';
 import Markdown from 'react-markdown';
+import { readableTravelColor } from './common';
 
 const MarkdownImage = styled(TravelImage)`
   width: 100%;
@@ -22,7 +22,7 @@ const MarkdownParagraph = styled.span`
   margin-right: 10px;
   font-size: 14px;
   line-height: 1.4;
-  color: ${p => darken(0.2, p.theme.color.text)};
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
 `;
 
 const renderers = {
