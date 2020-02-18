@@ -1,12 +1,13 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import { MOBILE_BREAKPOINT, MobileOnly } from '../../mobile';
+import styled from 'styled-components';
 import DrawerStore from './drawer-store';
 import Icon from './evil-icon';
 import { withRouter } from 'react-router';
+import { darken } from 'polished';
 
 const CloseBackIcon = styled(Icon)`
   float: left;
+  color: ${p => p.theme.color.text};
   width: 40px !important;
   height: 30px !important;
 `;
@@ -16,7 +17,7 @@ const DrawerContentTop = styled.div`
   align-items: center;
   height: 60px;
   width: 100%;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid ${props => darken(0.2, props.theme.color.secondary)};
 `;
 
 const LeftButtonGroup = styled.div`

@@ -15,9 +15,10 @@ import useWindowSize from '../../animation/useWindowSize';
 import DrawerInstance from './drawer';
 import styled from "styled-components"
 import { MOBILE_BREAKPOINT } from "../../mobile"
+import { darken } from "polished"
 
 export const Drawer: any = styled.div<{height: number, windowHeight: number}>`
-  background-color: white;
+  background-color: ${props => props.theme.color.secondary};
   z-index: 2;
 
   @media only screen and (min-width: ${MOBILE_BREAKPOINT}px) {
@@ -38,9 +39,9 @@ export const Drawer: any = styled.div<{height: number, windowHeight: number}>`
     will-change: transform;
     position: fixed;
     height: ${props => props.height}px;
-    border-top: 1px solid gray;
+    border-top: 1px solid ${props => darken(0.2, props.theme.color.secondary)};
     top: ${props => props.windowHeight - 150}px;
-    min-height: calc(100vh - 200px);
+    min-height: 100vh;
     width: 100%;
     box-shadow: 0 -3px 10px hsla(0, 0%, 0%, 0.07);
   }

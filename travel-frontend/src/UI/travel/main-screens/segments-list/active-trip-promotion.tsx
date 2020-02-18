@@ -9,6 +9,8 @@ const ActiveTripNote = styled.div`
   text-align: center;
   margin-top: 40px;
   margin-bottom: 40px;
+
+  color: ${p => p.theme.color.text};
 `;
 
 const ActiveTripAskNotification = styled(ContextOptionButtons)`

@@ -1,5 +1,4 @@
 import React from 'react';
-import Drawer from '../common/drawer';
 import TripDetailPage from './main-screens/segments-list/main';
 import TripListScreen from './main-screens/trips-list/main';
 import { TRAVEL_ROUTE, TRAVEL_TRIP_SEGMENT_ROUTE, TRAVEL_TRIP_ROUTE } from '../../routes';

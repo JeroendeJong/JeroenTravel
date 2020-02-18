@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ScrollableView from '../../common/scroll-view';
 import TravelImage from "./image-view";
-import { lighten } from "polished";
+import { lighten, readableColor, darken } from "polished";
 import { StyledHover } from "../../styled-utils";
 import withHeaderTitleScrollContext from "../title-header-scroll";
 import Icon from "../../common/evil-icon";
@@ -37,7 +37,7 @@ export const ContextOptionButtons = styled.a`
   align-items: center;
   border-radius: 5px;
   background-color: ${p => p.theme.color.primary};
-  color: ${p => lighten(1, p.theme.color.text)};
+  color: ${p => readableTravelColor(p.theme.color.primary)};
   font-size: 12px;
   float: right;
 
@@ -57,3 +57,10 @@ export const ContextOptionButtons = styled.a`
 export const RedIcon = styled(Icon)`
   color: red;
 `;
+
+export const readableTravelColor = (color: string) => {
+  return readableColor(color, 
+    lighten(0.1, 'black'),
+    darken(0.05, 'white')
+  );
+}

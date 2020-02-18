@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { ScrollableTripContent } from "../misc/common";
 import styled from 'styled-components';
 import Markdown from '../misc/travel-markdown';
-import { getImageUrl, getTravelSegment } from '../../../constants';
+import { getTravelSegment } from '../../../constants';
 import drawerStore from '../../common/drawer-store';
 import withTripsData from '../with-trips-data';
 import { withRouter } from 'react-router';
 import TripPhotoHandler from '../map-photos/trip-map-photos-renderer';
-import { TripOverview, TripDetail, TripSegment } from '../types';
+import { TripOverview, TripSegment } from '../types';
 import { coordinatesToBounds, centreOnBounds } from '../../../map/utils';
 import { setTravelSegmentHighlight, clearTravelSegmentHighlight } from '../../../map/style';
 import Logger from '../../../Logger';
@@ -18,6 +18,7 @@ const TEST_TEXT = `
 
 const SegmentTitle = styled.div`
   font-size: 30px;
+  color: ${p => p.theme.color.text};
   text-align: center;
 `;
 
