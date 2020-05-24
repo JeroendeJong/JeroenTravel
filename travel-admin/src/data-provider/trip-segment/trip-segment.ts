@@ -1,5 +1,4 @@
 import { GetListOptions, GetOneOptions, GetManyOptions, GetManyReferenceOptions, CreateOptions, UpdateOptions, UpdateManyOptions, DeleteOptions, DeleteManyOptions, DataProviderMultiReturn, DataProviderSingleReturn } from "../data-provider-types";
-import CountryFlags from 'emoji-flags';
 
 type ResourceType = 'trip' | 'trip_segment'
 
@@ -21,16 +20,10 @@ class TravelDataProvider {
   public GET_ONE(_: ResourceType, options: GetOneOptions): any {
     return fetch(`http://localhost:8080/travel/trip/${options.id}`)
       .then(resp => resp.json())
-      .then((trip: any) => {
+      .then((json: any) => {
         return {
           data: {
-            ...trip,
-            country_codes: trip.country_codes.split(',').map((code: any) => {
-              code = code.trim();
-              const emojiObject = CountryFlags.countryCode(code);
-              if (emojiObject) return emojiObject.emoji
-              else return code;
-            })
+            ...json,
           },
         }
       })
@@ -72,7 +65,23 @@ class TravelDataProvider {
   }
 
   public UPDATE(_: ResourceType, options: UpdateOptions) {
-    console.log('UPDATE', options);
+    const {data}: any = options;
+    const inputData = { ...data }
+    console.log(data);
+    return fetch(`http://localhost:8080/travel/trip/${data.trip_id}`, {
+      method: 'PATCH', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(inputData)
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      return {
+        id: json.id,
+        data: inputData
+      }
+    })
   }
 
   public UPDATE_MANY(_: ResourceType, options: UpdateManyOptions) {

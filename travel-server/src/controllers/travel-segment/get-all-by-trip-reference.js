@@ -10,6 +10,7 @@ const sql = `
     ts.arrival_time, 
     ts.departure_time, 
     ts.posted_time, 
+    ts.long_description,
     acco.name as accomodation_name
   from trip_segment as ts
   left join accommodation as acco on (ts.accommodation_id = acco.id)

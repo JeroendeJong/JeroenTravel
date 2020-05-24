@@ -1,40 +1,48 @@
 const { Client } = require('pg');
 
 const sql = `
-  insert into trip_segment(
-    trip_id, location_type, name, long_description, short_description,
-    arrival_time, departure_time, accommodation_id, location_text
-  ) VALUES(
-    $1, $2, $3, $4, $5,
-    $6, $7, $8, $9
-  ) returning id
+  UPDATE trip_segment
+  SET 
+    location_type = $1, 
+    name = $2,
+    long_description = $3,
+    short_description = $4,
+    arrival_time = $5,
+    departure_time = $6,
+    accommodation_id = $7,
+    location_text = $8
+  WHERE id = $9;
 `;
 
 const client = new Client();
 client.connect();
 
-const post = async (inputs) => {
+const edit = async (inputs) => {
+  console.log(inputs);
   if (!inputs) return;
+
   const data = await client
     .query(sql, [
-      inputs.trip_id,
       inputs.location_type,
       inputs.name,
       inputs.long_description,
       inputs.short_description,
-  
       inputs.arrival_time,
       inputs.departure_time,
       inputs.accommodation_id || null,
       inputs.location_text,
+
+      //where
+      inputs.id,
     ])
     .catch(e => console.error(e.stack))
 
-  if (data.rows[0].id) {
+  console.log(data);
+  if (data.rows[0]) {
     return { success: true, ...data.rows[0] };
   } else {
     return { success: false, id: null };
   }
 }
 
-module.exports = post;
+module.exports = edit;

@@ -2,6 +2,7 @@
 const GetAllTripSegmentsByTripReferenceId = require('./get-all-by-trip-reference');
 const CreateTripSegment = require('./create');
 const GetOneTripSegment = require('./get-one');
+const EditTripSegment = require('./edit');
 const { check, validationResult } = require('express-validator');
 
 function setup(app) {
@@ -35,6 +36,24 @@ function setup(app) {
     }
 
     const result = await CreateTripSegment(req.body, req.id);
+    res.send(JSON.stringify(result));
+  });
+
+  app.patch('/travel/trip/:id', [
+    check('name').isString(),
+    check('location_type').isString(),
+    check('location_text').isString(),
+    check('short_description').isString(),
+    check('long_description').isString(),
+    check('arrival_time').isISO8601(),
+    check('departure_time').isISO8601(),
+    check('accommodation_id')
+  ], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    const result = await EditTripSegment(req.body, req.id);
     res.send(JSON.stringify(result));
   });
 

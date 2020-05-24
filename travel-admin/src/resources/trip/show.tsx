@@ -5,6 +5,7 @@ import Title from '../../utils/title';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles({
   button: {
@@ -27,9 +28,25 @@ const CreateSegmentButton = ({ record }: any) => {
   )
 };
 
+const EditSegmentButton = (stuff: any) => {
+  const {record, trip_id} = stuff;
+  return (
+    <Button
+      variant="text"
+      component={Link}
+      to={`/trip-segment/${record.id}?trip_id=${trip_id}`}
+      label="Edit"
+      title="Edit"
+    >
+      <EditIcon/>
+    </Button>
+  )
+}
+
 const TripShow = (props: any) => {
   const classes = useStyles(props.classes);
 
+  console.log(props);
   return (
     <Show {...props} classes={classes} title={<Title />}>
       <TabbedShowLayout>
@@ -50,7 +67,7 @@ const TripShow = (props: any) => {
               <TextField source="location_text" />
 
               <TextField label="Accomodation" source="accomodation.name"/>
-              <EditButton />
+              <EditSegmentButton trip_id={props.id}/>
             </Datagrid>
           </ReferenceManyField>
         </Tab>

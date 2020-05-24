@@ -2,7 +2,7 @@
 import React from 'react';
 import { Admin, Resource, Layout } from 'react-admin';
 import {TripList, TripEdit, TripCreate, Tripshow} from './resources/trip';
-import {TripSegmentList, TripSegmentCreate} from './resources/trip-segment';
+import {TripSegmentList, TripSegmentCreate, TripSegmentEdit} from './resources/trip-segment';
 import Provider from './data-provider/main';
 
 import AppTopBar from './app-top-bar';
@@ -23,7 +23,7 @@ const AdminPortal = () => {
   return (
     <Admin dataProvider={Provider} layout={Layout2}>
       <Resource name="trip" list={TripList} edit={TripEdit} create={TripCreate} show={Tripshow} icon={null}/>
-      <Resource name="trip-segment" list={TripSegmentList} edit={null} create={TripSegmentCreate} icon={null}/>
+      <Resource name="trip-segment" list={TripSegmentList} edit={TripSegmentEdit} create={TripSegmentCreate} icon={null}/>
     </Admin>
   )
 }
