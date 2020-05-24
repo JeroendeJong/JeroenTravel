@@ -36,7 +36,7 @@ const extractAndUploadPhotoMetadata = async (data) => {
 
   const result = await client
     .query(sql, [
-      `/${file.name}`, 
+      `/${data.filename}`, 
       "A photo", 
       segmentAttachId, 
       longitude, latitude

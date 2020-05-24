@@ -8,6 +8,10 @@ import 'react-mde/lib/styles/css/react-mde-all.css';
 
 import {createGlobalStyle} from 'styled-components';
 
+import Crypto from 'crypto';
+
+
+
 const AddonStyles = createGlobalStyle`
   img {
     width: 150px;
@@ -58,6 +62,8 @@ class MarkdownInput extends Component<any, ComponentState> {
   constructor(props: any) {
     super(props);
 
+    console.log(props);
+
     this.fileInput = React.createRef();
   }
 
@@ -86,11 +92,15 @@ class MarkdownInput extends Component<any, ComponentState> {
     if (!mdeAPI) return;
     const file = (this.fileInput! as any).current.files[0];
 
-    const mdImageFormat = `![](${IMAGE_BUCKET_URL}${file.name})`;
+    const hashedName = Crypto.randomBytes(24).toString('hex');
+
+    const fullFileNameWithHash = `${hashedName}-${file.name}`;
+    const mdImageFormat = `![](${IMAGE_BUCKET_URL}${fullFileNameWithHash})`;
     mdeAPI.replaceSelection(mdImageFormat);
 
     const data = new FormData();
     data.append('file', file)
+    data.append('filename', `${hashedName}-${file.name}`);
 
     fetch('http://localhost:8080/upload/photo?segment_id=20', {
       method: 'PUT',

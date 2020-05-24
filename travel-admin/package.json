@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/styled-components": "^4.4.2",
+    "crypto": "^1.0.1",
     "emoji-flags": "^1.2.0",
     "react": "^16.12.0",
     "react-admin": "^3.0.2",

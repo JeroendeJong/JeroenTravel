@@ -14,7 +14,7 @@ const uploadFileStream = (dataToUpload) => {
 
   const fileToUpload = dataToUpload.file
 
-  const gcsFileName = fileToUpload.name;
+  const gcsFileName = dataToUpload.filename;
   const bucketfile = bucket.file(`${gcsFileName}`);
 
   const streamOptions = {
