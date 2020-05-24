@@ -1,9 +1,19 @@
 import styled from "styled-components";
 import React from "react";
+import { MOBILE_BREAKPOINT } from "../../mobile";
 
 const ScrollableView = styled.div`
   overflow-y: scroll;
-  height: calc(100% - 60px);
+  
+  @media only screen and (min-width: ${MOBILE_BREAKPOINT}px) {
+    height: calc(100% - 61px);
+  }
+
+  @media only screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    /* height:  ${p => `calc(100% - ${window.innerHeight}px + 100px)`} ; */
+    height: calc(100vh - 150px);
+    /* height: -webkit-fill-available; */
+  }
 
   ${p => {
     if ((p as any)['data-scroll-shadow']) {

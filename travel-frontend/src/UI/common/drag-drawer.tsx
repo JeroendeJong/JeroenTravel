@@ -41,7 +41,7 @@ export const Drawer: any = styled.div<{height: number, windowHeight: number}>`
     height: ${props => props.height}px;
     border-top: 1px solid ${props => darken(0.2, props.theme.color.secondary)};
     top: ${props => props.windowHeight - 150}px;
-    min-height: 100vh;
+    min-height: calc(100vh + 500px);
     width: 100%;
     box-shadow: 0 -3px 10px hsla(0, 0%, 0%, 0.07);
   }
@@ -72,7 +72,7 @@ const TabComponent = (props: any) => {
       vxvy: [, velocityY],
       movement: [movementX, movementY],
       last,
-      memo,
+      memo, // the already done movement before we've realised its a movement.
       event
     }) => {
       if (width! >= MOBILE_BREAKPOINT) return;
@@ -135,13 +135,12 @@ const TabComponent = (props: any) => {
   );
 
   React.useEffect(bind, [bind])
-
   return (
     <>
       <Drawer
         ref={nowPlayingDrawerRef}
         height={drawerHeight}
-        windowHeight={window.innerHeight}
+        windowHeight={height}
         as={animated.div}
         style={{
           transform: y.interpolate((y: number) => `translate3D(0, ${y}px, 0)`)
