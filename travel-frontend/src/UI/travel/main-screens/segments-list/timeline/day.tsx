@@ -62,6 +62,11 @@ const CenterAlignContainer = styled.span`
   align-items: center;
 `;  
 
+const getDurationSincePostedText = (duration: number): string => {
+  if (duration === 0) return 'Posted: less than an hour ago';
+  else return `Posted: ${duration} hour(s) ago`;
+}
+
 const SecondarySegmentData = ({data}: {data: TripDetail}) => {
   const postedTime = moment(moment.now()).diff(data.posted_time);
   const durationSincePosted = Math.round(moment.duration(postedTime).asHours());
@@ -90,7 +95,7 @@ const SecondarySegmentData = ({data}: {data: TripDetail}) => {
         {durationSincePosted < 24 &&
           <NewPostDurationContainer>
             <RedIcon id={'ei-exclamation-icon'}/>
-            <strong>Posted: {durationSincePosted} hour(s) ago</strong>
+            <strong>{getDurationSincePostedText(durationSincePosted)}</strong>
           </NewPostDurationContainer>
         }
       </div>
