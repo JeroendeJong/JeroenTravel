@@ -2,10 +2,9 @@ import React from 'react';
 import { TripOverview, TripDetail } from '../../types';
 import { getTravelTrip, getImageUrl} from '../../../../constants';
 import styled from 'styled-components';
-import { ScrollableTripContent, TripHeaderImage } from '../../misc/common';
+import { ScrollableTripContent, TripHeaderImage, readableTravelColor } from '../../misc/common';
 import drawerStore from '../../../common/drawer-store';
 import VerticalTimeline from './timeline/vertical-timeline';
-import { darken } from 'polished';
 import Icon from '../../../common/evil-icon';
 import {ContextOptionButtons} from '../../misc/common'
 import ShareOptionsComponent from '../../misc/share-options';
@@ -23,13 +22,14 @@ const TripHeader = styled.div`
   text-align: center;
   font-size: 40px;
   width: 100%;
-  color: ${(p: any) => darken(0.5, p.theme.color.text)};
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
 `;
-
 
 const TripBody = styled.div`
   font-size: 14px;
   text-align: center;
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
+
 `;
 
 const ContextButtons = styled.div`

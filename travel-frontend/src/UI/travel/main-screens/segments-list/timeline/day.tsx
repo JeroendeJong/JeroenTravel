@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import TimelineBody from './body';
-import { lighten } from 'polished';
 import moment from 'moment';
-import { RedIcon } from '../../../misc/common';
+import { RedIcon, readableTravelColor } from '../../../misc/common';
 
 import Icon from '../../../../common/evil-icon';
 import { TripDetail } from '../../../types';
@@ -13,7 +12,7 @@ const TimeLineDayBanner = styled.div`
   position: absolute;
   padding: 10px;
   background-color: ${p => p.theme.color.primary};
-  color: ${p => lighten(1, p.theme.color.text)};
+  color: ${p => readableTravelColor(p.theme.color.primary)};
   border-bottom-right-radius: 20px;
   border-top-right-radius: 20px;
 
@@ -42,14 +41,14 @@ const TimeLineLeftTime = styled.div`
 
 const TimelineShortDescription = styled.p`
   font-size: 14px;
-  color: ${p => lighten(0, p.theme.color.text)};
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
 `;
 
 const SecondarySegmentContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: ${p => p.theme.color.text};
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
 `;
 
 const NewPostDurationContainer = styled.span`

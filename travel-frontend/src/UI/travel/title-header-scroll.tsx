@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import drawerStore from '../common/drawer-store';
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { readableTravelColor } from './misc/common';
 
 export const SmallHeaderTitle = styled.div` 
   text-align: center;
   width: 100%;
-  color: ${(p: any) => darken(0.5, p.theme.color.text)};
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
   font-size: 20px; 
 
   /* ensure text never exceeds container */

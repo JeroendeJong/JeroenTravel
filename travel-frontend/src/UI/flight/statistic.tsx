@@ -20,7 +20,7 @@ const Card = styled.div`
   align-items: center;
   margin: 15px;
 
-  border-bottom: 1px solid ${p => rgba(p.theme.color.primary, 0.2)}
+  border-bottom: 1px solid ${p => rgba(p.theme.color.primary, 0.2)};
 `;
 
 const CardMainInfo = styled.p`

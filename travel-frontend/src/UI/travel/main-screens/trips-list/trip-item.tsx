@@ -3,9 +3,10 @@ import CountryFlags from 'emoji-flags';
 import styled, { keyframes } from 'styled-components';
 import moment from 'moment';
 import { StyledHover } from '../../../styled-utils';
-import { RedIcon } from '../../misc/common';
+import { RedIcon, readableTravelColor } from '../../misc/common';
 import { RouterPathChangeRequest } from '../../models/router-path-change-request';
 import { TripOverview } from '../../types';
+import { darken } from 'polished';
 
 interface ComponentProps {
   tripOverview: TripOverview;
@@ -35,6 +36,10 @@ const TripContainer = styled.div`
 const TripName = styled.div`
   color: ${p => p.theme.color.primary};
   font-size: 20px;
+`;
+
+const TripDuration = styled.div`
+  color: ${p => readableTravelColor(p.theme.color.secondary)};
 `;
 
 const TripDescription = styled.div`
@@ -102,7 +107,7 @@ const TripOverviewItem = (props: ComponentProps) => {
           </BlinkActiveTrip>
         }
         {!props.active &&
-          <div>{prettyDuration} day trip</div>
+          <TripDuration>{prettyDuration} day trip</TripDuration>
         }
 
         <span>{CountryCodesToEmoji(trip.country_codes)}</span>
