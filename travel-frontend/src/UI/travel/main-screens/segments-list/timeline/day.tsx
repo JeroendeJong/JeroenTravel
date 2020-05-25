@@ -7,7 +7,7 @@ import { RedIcon, readableTravelColor } from '../../../misc/common';
 import Icon from '../../../../common/evil-icon';
 import { TripDetail } from '../../../types';
 
-const TimeLineDayBanner = styled.div`
+export const TimeLineDayBanner = styled.div`
   height: 20px;
   position: absolute;
   padding: 10px;
@@ -32,11 +32,6 @@ const SegmentContainer = styled.div`
 const SegmentTitle = styled.p`
   font-weight: bold;
   font-size: 18px;
-`;
-
-const TimeLineLeftTime = styled.div`
-  width: 2px !important;
-  background-color: ${p => p.theme.color.primary};
 `;
 
 const TimelineShortDescription = styled.p`
@@ -116,7 +111,6 @@ const TimelineDay = (props: Props) => {
        <TimeLineDayBanner>
         {props.dateText}
       </TimeLineDayBanner>
-      <TimeLineLeftTime/>
 
       <SegmentContainer>
         {props.stories.map(segment => (

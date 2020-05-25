@@ -5,3 +5,8 @@ export const appIsInStandaloneMode = () => {
 
   return false;
 }
+
+
+export const resolveDevelopmentURL = () => {
+  return `http://${window.location.hostname}:8080`;
+}

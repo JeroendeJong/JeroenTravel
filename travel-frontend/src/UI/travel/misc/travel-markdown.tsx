@@ -5,15 +5,21 @@ import Markdown from 'react-markdown';
 import { readableTravelColor } from './common';
 
 const MarkdownImage = styled(TravelImage)`
-  width: 100%;
+  width: calc(100% - 10px - 10px);
   height: 300px;
   object-fit: cover;
+
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const MarkdownImageDescription = styled.span`
   margin: 0;
   display: block;
   font-size: 12px;
+
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const MarkdownParagraph = styled.span`
@@ -23,6 +29,9 @@ const MarkdownParagraph = styled.span`
   font-size: 14px;
   line-height: 1.4;
   color: ${p => readableTravelColor(p.theme.color.secondary)};
+
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 const renderers = {

@@ -1,30 +1,30 @@
-
+import { resolveDevelopmentURL } from "./UI/utils";
 
 const nodeEnv = process.env.NODE_ENV;
 const isDEV = nodeEnv === 'development';
 
 export const getFlightListURL = () => {
-  if (isDEV) return 'http://localhost:8080/flights/list';
+  if (isDEV) return `${resolveDevelopmentURL()}/flights/list`;
   return '/cache/flight-list.json';
 }
 
 export const getAirportListURL = () => {
-  if (isDEV) return 'http://localhost:8080/airports/list';
+  if (isDEV) return `${resolveDevelopmentURL()}/airports/list`;
   return '/cache/airport-list.json';
 }
 
 export const getStatisticsURL = () => {
-  if (isDEV) return 'http://localhost:8080/flights/stats';
+  if (isDEV) return '${resolveDevelopmentURL()}/flights/stats';
   return '/cache/stats.json';
 }
 
 export const getTravelTrip = (id: number) => {
-  if (isDEV) return `http://localhost:8080/travel/trip/${id}`;
+  if (isDEV) return `${resolveDevelopmentURL()}/travel/trip/${id}`;
   return `/cache/trip/${id}/trip.json`;
 }
 
 export const getTravelSegment = (id: number) => {
-  if (isDEV) return `http://localhost:8080/travel/trip-segment/${id}`;
+  if (isDEV) return `${resolveDevelopmentURL()}/travel/trip-segment/${id}`;
   return `/cache/trip-segment/${id}.json`;
 }
 
@@ -34,7 +34,7 @@ export const getTravelTripLastKnowLocation = (id: number) => {
 }
 
 export const getTravelTripGeometry = (id: number | string) => {
-  if (isDEV) return `http://localhost:8080/travel/trip/geometry/${id}`;
+  if (isDEV) return `${resolveDevelopmentURL()}/travel/trip/geometry/${id}`;
   return `/cache/trip-geometry/${id}.json`;
 }
 export const getTravelTripGeometries = () => {
@@ -42,7 +42,7 @@ export const getTravelTripGeometries = () => {
 }
 
 export const getTravelTrips = () => {
-  if (isDEV) return `http://localhost:8080/travel/trips`;
+  if (isDEV) return `${resolveDevelopmentURL()}/travel/trips`;
   return `/cache/trips.json`;
 }
 

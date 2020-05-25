@@ -1,7 +1,8 @@
 import React from 'react';
 import Flight from '../../../models/flight';
 import styled from 'styled-components';
-import { BottomAnchor, HorizontalSeperationLine, OtherDetails, OtherDetailItem } from './common';
+import { BottomAnchor, OtherDetails, OtherDetailItem } from './common';
+import { HorizontalSeperationLine } from '../../common/horizontal-seperation-line';
 
 
 interface ComponentProps {

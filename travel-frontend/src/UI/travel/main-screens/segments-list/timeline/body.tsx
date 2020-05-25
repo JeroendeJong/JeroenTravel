@@ -16,10 +16,9 @@ const Container = styled.div`
   font-weight: lighter;
 
   width: 99%;
-  border-radius: 8px;
+  border-left: 2px solid lightgray;
 
   color: ${p => readableTravelColor(p.theme.color.secondary)};
-  background-color: ${p => darken(0.1, p.theme.color.secondary)};
 
   :first-child {
     margin-top: 50px;

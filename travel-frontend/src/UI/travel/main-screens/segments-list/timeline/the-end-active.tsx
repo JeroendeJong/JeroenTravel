@@ -46,8 +46,8 @@ const IconContainerItem = styled.div`
 
 const PulsatingIcon = styled(IconContainerItem)`
   position: absolute;
-  left: 8px;
-  margin-top: 10px;
+  left: 18px;
+  margin-top: -5px;
 
   width: 16px;
   height: 16px;
@@ -80,7 +80,6 @@ const MoreToComeStoryText = styled.span`
 
 const TimelineEndInActiveTrip = () => (
   <TheEndContainer>
-    <TripEndTimeLineLine/>
     <PulsatingIcon/>
 
     <TheEndIconTextcontainer>

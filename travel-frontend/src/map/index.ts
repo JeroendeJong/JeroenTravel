@@ -17,9 +17,9 @@ class Map {
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/dark-v10',
-      center: [1.44, 45.77],
-      zoom: 3.5,
-      hash: false
+      center: [18.4, 51.5],
+      zoom: 1,
+      hash: true
     });
 
     map.on('styledata', () => {

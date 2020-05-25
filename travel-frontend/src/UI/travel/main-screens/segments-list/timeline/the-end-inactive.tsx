@@ -2,27 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import RaceFinishLineIcon from '../../../icons/race-finish-line';
 
-const TheEndCircle = styled.div`
-  position: absolute;
-  left: 8px;
-  margin-top: 10px;
-
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: ${p => p.theme.color.primary};
-`;
-
-const TripEndTimeLineLine = styled.div`
-  width: 2px !important;
-  min-width: 2px;
-  height: 20px;
-  background-color: ${p => p.theme.color.primary};
-`;
-
 const TheEndContainer = styled.div`
   display: flex;
-
+  margin-top: 20px;
   margin-bottom: 25px;
 `;
 
@@ -38,9 +20,6 @@ const TheEndText = styled.p`
 
 const TimelineEndInActiveTrip = () => (
   <TheEndContainer>
-    <TripEndTimeLineLine/>
-    <TheEndCircle/>
-
     <TheEndIconTextcontainer>
       <RaceFinishLineIcon/>
       <TheEndText>

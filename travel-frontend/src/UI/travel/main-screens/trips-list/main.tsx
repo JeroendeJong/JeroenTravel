@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 import { TripOverview } from '../../types';
 import drawerStore from '../../../common/drawer-store';
 import { SmallHeaderTitle } from '../../title-header-scroll';
+import { HorizontalSeperationLine } from '../../../common/horizontal-seperation-line';
 
 interface ComponentProps {
   trips: TripOverview[];
@@ -32,7 +33,13 @@ const TripListScreen = (props: ComponentProps) => {
 
   const triplist = props.trips.map(trip => {
     if (trip.active) return null;
-    return <TripOverviewItem tripOverview={trip} onClick={props.onClick} key={trip.id}/>
+    if (!trip.extent || !trip.start_date) return null;
+    return (
+      <>
+        <HorizontalSeperationLine styleType={'Faint'}/>
+        <TripOverviewItem tripOverview={trip} onClick={props.onClick} key={trip.id}/>
+      </>
+    )
   });
 
   return (

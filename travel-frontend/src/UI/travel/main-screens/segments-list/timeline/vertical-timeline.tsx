@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import moment from 'moment';
-import TimelineDay from './day';
+import TimelineDay, { TimeLineDayBanner } from './day';
 import ActiveTripPromotion from '../active-trip-promotion';
 import { TripDetail } from '../../../types';
 
@@ -10,6 +10,9 @@ import TimelineEndActiveTrip from './the-end-active';
 
 const TimelineContainer = styled.div``;
 
+const FinalDayBanner = styled(TimeLineDayBanner)`
+  width: 40px;
+`;
 
 interface ComponentProps {
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -50,9 +53,13 @@ const VerticalTimeline = (props: ComponentProps) => {
       }
 
       {!props.active &&
-        <TimelineEndInActiveTrip/>
+        <>
+          <FinalDayBanner>
+            {'Fin'}
+          </FinalDayBanner>
+          <TimelineEndInActiveTrip/>
+        </>
       }
-
 
     </TimelineContainer>
   )
