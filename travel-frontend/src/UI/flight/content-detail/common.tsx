@@ -18,9 +18,3 @@ export const BottomAnchor = styled.div`
 export const OtherDetailItem = styled.span`
   color: ${p => p.theme.color.text};
 `;
-
-export const HorizontalSeperationLine = styled.p`
-  width: 100%;
-  height: 1px;
-  background-color: gray;
-`;

@@ -10,8 +10,8 @@ const ScrollableView = styled.div`
   }
 
   @media only screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    /* height:  ${p => `calc(100% - ${window.innerHeight}px + 100px)`} ; */
-    height: calc(100vh - 150px);
+    height:  ${() => window.innerHeight - 150}px;
+    /* height: calc(100vh - 150px); */
     /* height: -webkit-fill-available; */
   }
 

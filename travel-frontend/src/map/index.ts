@@ -13,6 +13,10 @@ class Map {
   private dataQueue: {flights?: any, airports?: any, travel?: any} = {};
   private loaded: boolean = false;
 
+  constructor() {
+    this.resizeMapHandler = this.resizeMapHandler.bind(this);
+  }
+
   public create() {
     const map = new mapboxgl.Map({
       container: 'map',
@@ -39,6 +43,12 @@ class Map {
     (window as any).map = map;
 
     interactionsSetup(map);
+
+    window.addEventListener("orientationchange", this.resizeMapHandler);
+  }
+
+  public destroy() {
+    window.removeEventListener("orientationchange", this.resizeMapHandler)
   }
 
   public setGeometryExclusivityFilter(flightOrAirport: Flight | Airport | null): void {
@@ -181,6 +191,10 @@ class Map {
     } else {
       return new Error('Nothing to clear');
     }
+  }
+
+  private resizeMapHandler() {
+    this.map?.resize()
   }
 }
 

@@ -21,6 +21,8 @@ export const Drawer: any = styled.div<{height: number, windowHeight: number}>`
   background-color: ${props => props.theme.color.secondary};
   z-index: 2;
 
+  padding-left: env(safe-area-inset-left);
+
   @media only screen and (min-width: ${MOBILE_BREAKPOINT}px) {
     position: fixed;
     left: 0px;

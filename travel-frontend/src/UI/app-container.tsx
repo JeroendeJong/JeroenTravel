@@ -60,18 +60,16 @@ class AppContainer extends React.Component<any, any> {
 
   public render(): JSX.Element {
     return (
-      <div>
+      <>
         {appIsInStandaloneMode() &&
           <GlobalStandaloneStyle/>
         }
 
         <StyledToastContainer/>
         {this.props.children}
-      </div>
+      </>
     )
   }
-
-  
 }
 
 export default withRouter(AppContainer);
