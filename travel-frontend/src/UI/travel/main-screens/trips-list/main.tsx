@@ -35,10 +35,10 @@ const TripListScreen = (props: ComponentProps) => {
     if (trip.active) return null;
     if (!trip.extent || !trip.start_date) return null;
     return (
-      <>
+      <React.Fragment key={trip.id}>
         <HorizontalSeperationLine styleType={'Faint'}/>
         <TripOverviewItem tripOverview={trip} onClick={props.onClick} key={trip.id}/>
-      </>
+      </React.Fragment>
     )
   });
 

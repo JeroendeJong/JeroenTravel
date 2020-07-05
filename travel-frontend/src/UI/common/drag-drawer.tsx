@@ -17,7 +17,9 @@ import styled from "styled-components"
 import { MOBILE_BREAKPOINT } from "../../mobile"
 import { darken } from "polished"
 
-export const Drawer: any = styled.div<{height: number, windowHeight: number}>`
+export const Drawer: any = styled('div').withConfig({
+  shouldForwardProp: (prop) => !['windowHeight'].includes(prop),
+})<{height: number, windowHeight: number}>`
   background-color: ${props => props.theme.color.secondary};
   z-index: 2;
 
