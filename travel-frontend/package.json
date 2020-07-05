@@ -4,23 +4,23 @@
   "private": true,
   "dependencies": {
     "@types/body-scroll-lock": "^2.6.1",
-    "body-scroll-lock": "^2.6.4",
-    "emoji-flags": "^1.2.0",
+    "body-scroll-lock": "^3.0.3",
+    "emoji-flags": "^1.3.0",
     "evil-icons": "^1.10.1",
-    "mapbox-gl": "^1.0.0",
-    "moment": "^2.24.0",
-    "polished": "^3.4.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-markdown": "^4.2.2",
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0",
+    "mapbox-gl": "^1.11.0",
+    "moment": "^2.27.0",
+    "polished": "^3.6.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-markdown": "^4.3.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1",
     "react-spring": "^8.0.27",
-    "react-toastify": "^5.4.0",
-    "react-use-gesture": "^7.0.4",
-    "styled-components": "^4.3.1",
-    "typescript": "^3.7.3"
+    "react-toastify": "^6.0.8",
+    "react-use-gesture": "^7.0.15",
+    "styled-components": "^5.1.1",
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,12 +45,12 @@
   },
   "devDependencies": {
     "@types/emoji-flags": "^1.2.0",
-    "@types/jest": "^24.0.15",
-    "@types/mapbox-gl": "^0.51.7",
-    "@types/node": "^12.0.8",
-    "@types/react": "^16.8.20",
-    "@types/react-dom": "^16.8.4",
-    "@types/react-router-dom": "^5.1.0",
-    "@types/styled-components": "^4.1.16"
+    "@types/jest": "^26.0.3",
+    "@types/mapbox-gl": "^1.11.0",
+    "@types/node": "^14.0.14",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.0"
   }
 }
