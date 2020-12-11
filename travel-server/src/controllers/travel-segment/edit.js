@@ -18,7 +18,6 @@ const client = new Client();
 client.connect();
 
 const edit = async (inputs) => {
-  console.log(inputs);
   if (!inputs) return;
 
   const data = await client
@@ -37,7 +36,6 @@ const edit = async (inputs) => {
     ])
     .catch(e => console.error(e.stack))
 
-  console.log(data);
   if (data.rows[0]) {
     return { success: true, ...data.rows[0] };
   } else {

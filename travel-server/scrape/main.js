@@ -9,6 +9,7 @@ const BASE_URL = 'http://localhost:8080'
 
 function writePromiseToFile(promise, name) {
   promise.then(res => {
+    console.log(name);
     const dest = fs.createWriteStream(name);
     res.body.pipe(dest);
   }).catch(e => console.log(e))

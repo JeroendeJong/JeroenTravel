@@ -30,7 +30,11 @@ const get = async (id) => {
     .catch(e => console.error(e.stack))
 
 
-  return JSON.parse(data.rows[0].lllocation)
+  if (data.rows[0]) {
+    return JSON.parse(data.rows[0].lllocation);
+  } else {
+    return {}
+  }
 }
 
 module.exports = get;

@@ -17,9 +17,7 @@ import styled from "styled-components"
 import { MOBILE_BREAKPOINT } from "../../mobile"
 import { darken } from "polished"
 
-export const Drawer: any = styled('div').withConfig({
-  shouldForwardProp: (prop) => !['windowHeight'].includes(prop),
-})<{height: number, windowHeight: number}>`
+export const Drawer: any = styled.div<{height: number, $windowHeight: number}>`
   background-color: ${props => props.theme.color.secondary};
   z-index: 2;
 
@@ -44,7 +42,7 @@ export const Drawer: any = styled('div').withConfig({
     position: fixed;
     height: ${props => props.height}px;
     border-top: 1px solid ${props => darken(0.2, props.theme.color.secondary)};
-    top: ${props => props.windowHeight - 150}px;
+    top: ${props => props.$windowHeight - 150}px;
     min-height: calc(100vh + 500px);
     width: 100%;
     box-shadow: 0 -3px 10px hsla(0, 0%, 0%, 0.07);
@@ -144,7 +142,7 @@ const TabComponent = (props: any) => {
       <Drawer
         ref={nowPlayingDrawerRef}
         height={drawerHeight}
-        windowHeight={height}
+        $windowHeight={height}
         as={animated.div}
         style={{
           transform: y.interpolate((y: number) => `translate3D(0, ${y}px, 0)`)
